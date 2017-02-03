@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGDAGame", "Assembly-CSharp-firstpass.csproj", "{2ACD38E8-18A1-70EA-C3B9-16DE184E1B4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGDAGame", "Assembly-CSharp.csproj", "{1D1D0262-A66E-9566-B0B2-8C03B888A2BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGDAGame", "Assembly-CSharp-Editor-firstpass.csproj", "{E8D810EC-9AF2-7A33-E59E-1D786AA0CD71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2ACD38E8-18A1-70EA-C3B9-16DE184E1B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ACD38E8-18A1-70EA-C3B9-16DE184E1B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ACD38E8-18A1-70EA-C3B9-16DE184E1B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ACD38E8-18A1-70EA-C3B9-16DE184E1B4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D1D0262-A66E-9566-B0B2-8C03B888A2BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D1D0262-A66E-9566-B0B2-8C03B888A2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D1D0262-A66E-9566-B0B2-8C03B888A2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D1D0262-A66E-9566-B0B2-8C03B888A2BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8D810EC-9AF2-7A33-E59E-1D786AA0CD71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8D810EC-9AF2-7A33-E59E-1D786AA0CD71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8D810EC-9AF2-7A33-E59E-1D786AA0CD71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8D810EC-9AF2-7A33-E59E-1D786AA0CD71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
