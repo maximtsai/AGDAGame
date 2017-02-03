@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGDA.Plugins", "AGDA.Plugins.csproj", "{7BED6598-E1B9-F54E-49E3-BA0918F98001}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGDA", "AGDA.csproj", "{49F58A05-EE99-0E43-BA97-353D1599FAC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGDA.Editor.Plugins", "AGDA.Editor.Plugins.csproj", "{DFEBD9FA-17ED-D343-48AA-A190E2589220}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BED6598-E1B9-F54E-49E3-BA0918F98001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BED6598-E1B9-F54E-49E3-BA0918F98001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BED6598-E1B9-F54E-49E3-BA0918F98001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BED6598-E1B9-F54E-49E3-BA0918F98001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F58A05-EE99-0E43-BA97-353D1599FAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F58A05-EE99-0E43-BA97-353D1599FAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F58A05-EE99-0E43-BA97-353D1599FAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F58A05-EE99-0E43-BA97-353D1599FAC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFEBD9FA-17ED-D343-48AA-A190E2589220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFEBD9FA-17ED-D343-48AA-A190E2589220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFEBD9FA-17ED-D343-48AA-A190E2589220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFEBD9FA-17ED-D343-48AA-A190E2589220}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
