@@ -8,7 +8,8 @@ public class PlayerMover : MonoBehaviour {
     public KeyCode down;
     public KeyCode left;
     public KeyCode right;
-    public float speed;
+    public float acceleration;
+    public float maxSpeed;
     public float turnSpeed;
     // Use this for initialization
 	private const float DEG_TO_RAD = Mathf.PI / 180.0f;
@@ -22,12 +23,21 @@ public class PlayerMover : MonoBehaviour {
 		//this.transform.rotation.eulerAngles
         if (Input.GetKey(up))
         {
-            Vector2 forward = speed * forwardVec;
+            Vector2 forward = acceleration * forwardVec;
+            if (playerBody.velocity.sqrMagnitude > maxSpeed)
+            {
+                forward = forward * (maxSpeed+15 - playerBody.velocity.sqrMagnitude)/ 15;
+            }
+            Debug.Log(playerBody.velocity.sqrMagnitude);
             playerBody.AddForce(forward);
         }
         else if (Input.GetKey(down))
         {
-            Vector2 backward = -1 * speed * forwardVec;
+            Vector2 backward = -1 * acceleration * forwardVec;
+            if (playerBody.velocity.sqrMagnitude > maxSpeed)
+            {
+                backward = backward * (maxSpeed+10 - playerBody.velocity.sqrMagnitude) / 10;
+            }
             playerBody.AddForce(backward);
         }
 
