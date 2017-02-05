@@ -20,7 +20,6 @@ public class PlayerMover : MonoBehaviour {
     }
     void FixedUpdate()
     {
-		//this.transform.rotation.eulerAngles
         if (Input.GetKey(up))
         {
             Vector2 forward = acceleration * forwardVec;
