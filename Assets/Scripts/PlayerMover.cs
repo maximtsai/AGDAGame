@@ -11,15 +11,17 @@ public class PlayerMover : MonoBehaviour {
     public float acceleration;
     public float maxSpeed;
     public float turnSpeed;
-    // Use this for initialization
 	private const float DEG_TO_RAD = Mathf.PI / 180.0f;
-    private Vector2 forwardVec = new Vector3(1, 0);
+    private Vector2 forwardVec = new Vector2(1, 0);
     private bool forwardPressed = false;
+
     void Start () {
         playerBody = GetComponent<Rigidbody2D>();
     }
+
     void FixedUpdate()
     {
+        forwardVec.Set(Mathf.Cos(playerBody.rotation * DEG_TO_RAD), Mathf.Sin(playerBody.rotation * DEG_TO_RAD));
         if (Input.GetKey(up))
         {
             forwardPressed = true;
@@ -27,7 +29,7 @@ public class PlayerMover : MonoBehaviour {
             if (playerBody.velocity.sqrMagnitude > maxSpeed)
             {
                 // soft cap for max speed
-                forward = forward * (maxSpeed+15 - playerBody.velocity.sqrMagnitude)/ 15;
+                forward = forward * Mathf.Max((maxSpeed+15 - playerBody.velocity.sqrMagnitude)/ 15, 0);
             }
             playerBody.AddForce(forward);
         }
@@ -55,26 +57,24 @@ public class PlayerMover : MonoBehaviour {
             if (forwardPressed)
             {
                 // turn slower while moving
-                playerBody.AddTorque(-turnSpeed * 0.5f, ForceMode2D.Force);
+                playerBody.MoveRotation(playerBody.rotation - turnSpeed * 0.5f);
             } else
             {
-                playerBody.AddTorque(-turnSpeed, ForceMode2D.Force);
+                playerBody.MoveRotation(playerBody.rotation - turnSpeed);
             }
             //playerBody.Rotate(0.0f, 0.0f, -turnSpeed);
-            forwardVec.Set(Mathf.Cos (playerBody.rotation * DEG_TO_RAD), Mathf.Sin (playerBody.rotation * DEG_TO_RAD));
         }
         else if (Input.GetKey(left))
         {
             if (forwardPressed)
             {
                 // turn slower while moving
-                playerBody.AddTorque(turnSpeed * 0.5f, ForceMode2D.Force);
+                playerBody.MoveRotation(playerBody.rotation + turnSpeed * 0.5f);
             }
             else
             {
-                playerBody.AddTorque(turnSpeed, ForceMode2D.Force);
+                playerBody.MoveRotation(playerBody.rotation + turnSpeed);
             }
-			forwardVec.Set(Mathf.Cos (playerBody.rotation * DEG_TO_RAD), Mathf.Sin (playerBody.rotation * DEG_TO_RAD));
         }
     }
     // Update is called once per frame
