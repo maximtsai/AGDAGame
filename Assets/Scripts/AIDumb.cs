@@ -13,7 +13,6 @@ public class AIDumb : MonoBehaviour {
     private bool goingForward = false;
     private float angleToPlayer = 0;
     private float angleChange = 0;
-    bool turningRight = false;
     // Use this for initialization
     void Start () {
         selfBody = GetComponent<Rigidbody2D>();
@@ -24,30 +23,18 @@ public class AIDumb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        angleToPlayer = Mathf.Atan2((playerBody.position.y - selfBody.position.y), (playerBody.position.x - selfBody.position.x))/ DEG_TO_RAD;
+        bool turningRight = goalAtRight(selfBody.position, playerBody.position, selfBody.rotation);
         forwardVec = new Vector2(Mathf.Cos(selfBody.rotation * DEG_TO_RAD), Mathf.Sin(selfBody.rotation * DEG_TO_RAD));
         Vector2 forward = acceleration * forwardVec;
 
-        // normalize rotation for easier angle comparison calculations
-        if (selfBody.rotation < -180)
+        if (turningRight)
         {
-            selfBody.rotation = selfBody.rotation + 360;
-        } else if (selfBody.rotation > 180)
-        {
-            selfBody.rotation = selfBody.rotation - 360;
-        }
-        bool normalLeft = angleToPlayer > selfBody.rotation && angleToPlayer < selfBody.rotation + 180;
-        bool selfBodyNegAnglePosLeft = angleToPlayer < selfBody.rotation + 360 && angleToPlayer > selfBody.rotation + 180;
-        bool angleNegSelfBodyPosLeft = angleToPlayer < selfBody.rotation - 180 && angleToPlayer > selfBody.rotation - 360;
-        if (normalLeft || selfBodyNegAnglePosLeft || angleNegSelfBodyPosLeft)
-        {
-            // rotated left of player, so want to try and rotate right
-            turningRight = false;
-            angleChange = Mathf.Max(Mathf.Min(angleChange + 0.5f, 2f), -2);
-        } else
-        {
-            turningRight = true;
+            // rotated right of player, so want to try and rotate right
             angleChange = Mathf.Max(Mathf.Min(angleChange - 0.5f, 2f), -2);
+        }
+        else
+        {
+            angleChange = Mathf.Max(Mathf.Min(angleChange + 0.5f, 2f), -2);
         }
 
         if (selfBody.velocity.sqrMagnitude > maxSpeed)
@@ -58,5 +45,32 @@ public class AIDumb : MonoBehaviour {
         selfBody.AddTorque(angleChange);
         selfBody.AddForce(-selfBody.velocity);
         selfBody.AddForce(forward);
+    }
+
+    bool goalAtRight(Vector2 srcPos, Vector2 goalPos, float rot)
+    {
+        angleToPlayer = Mathf.Atan2((goalPos.y - srcPos.y), (goalPos.x - srcPos.x)) / DEG_TO_RAD;
+        float rotation = rot;
+        // normalize rotation for easier angle comparison calculations
+        if (rotation < -180)
+        {
+            rotation = rotation + 360;
+        }
+        else if (rotation > 180)
+        {
+            rotation = rotation - 360;
+        }
+        bool normalLeft = angleToPlayer > rotation && angleToPlayer < rotation + 180;
+        bool selfBodyNegAnglePosLeft = angleToPlayer < rotation + 360 && angleToPlayer > rotation + 180;
+        bool angleNegSelfBodyPosLeft = angleToPlayer < rotation - 180 && angleToPlayer > rotation - 360;
+        if (normalLeft || selfBodyNegAnglePosLeft || angleNegSelfBodyPosLeft)
+        {
+            // rotated left of player, so want to try and rotate right
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

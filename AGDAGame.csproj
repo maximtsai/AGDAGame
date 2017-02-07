@@ -81,7 +81,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AIDumb.cs" />
+    <Compile Include="Assets\Scripts\AIDuelist.cs" />
+    <Compile Include="Assets\Scripts\AIDumb.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\Scripts\PlayerMover.cs" />
   </ItemGroup>
