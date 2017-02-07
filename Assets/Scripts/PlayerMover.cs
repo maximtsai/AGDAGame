@@ -31,6 +31,8 @@ public class PlayerMover : MonoBehaviour {
                 // soft cap for max speed
                 forward = forward * Mathf.Max((maxSpeed+15 - playerBody.velocity.sqrMagnitude)/ 15, 0);
             }
+            // increases control of player
+            playerBody.AddForce(-3*playerBody.velocity);
             playerBody.AddForce(forward);
         }
         else

@@ -8,7 +8,7 @@ public class AIDumb : MonoBehaviour {
     private Rigidbody2D selfBody;
     private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     private float acceleration = 10;
-    private float maxSpeed = 40;
+    private float maxSpeed = 50;
     private Vector2 forwardVec;
     private bool goingForward = false;
     private float angleToPlayer = 0;
@@ -56,6 +56,7 @@ public class AIDumb : MonoBehaviour {
             forward = forward * Mathf.Max((maxSpeed + 15 - selfBody.velocity.sqrMagnitude) / 15, 0);
         }
         selfBody.AddTorque(angleChange);
+        selfBody.AddForce(-selfBody.velocity);
         selfBody.AddForce(forward);
     }
 }
