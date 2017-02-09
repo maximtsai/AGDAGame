@@ -81,12 +81,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PlayerBodyToPlayerLink.cs" />
     <Compile Include="Assets\Scripts\AIDuelist.cs" />
     <Compile Include="Assets\Scripts\AIDumb.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\Scripts\PlayerMover.cs" />
-    <Compile Include="Assets\WeaponBehavior.cs" />
+    <Compile Include="Assets\Scripts\WeaponData.cs" />
+    <Compile Include="Assets\WeaponFinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

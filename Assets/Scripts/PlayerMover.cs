@@ -39,20 +39,6 @@ public class PlayerMover : MonoBehaviour {
         {
             forwardPressed = false;
         }
-        /*
-        else if (Input.GetKey(down))
-        {
-            forwardPressed = true;
-            Vector2 backward = -1 * acceleration * forwardVec;
-            if (playerBody.velocity.sqrMagnitude > maxSpeed)
-            {
-                // soft cap for max speed
-                backward = backward * (maxSpeed+10 - playerBody.velocity.sqrMagnitude) / 10;
-            }
-            playerBody.AddForce(backward);
-        }
-        */
-
 
         if (Input.GetKey(right))
         {
@@ -77,6 +63,12 @@ public class PlayerMover : MonoBehaviour {
             {
                 playerBody.MoveRotation(playerBody.rotation + turnSpeed);
             }
+        }
+        // implementation for tighter feeling
+        float speed = playerBody.velocity.magnitude;
+        if (speed > 0.00001f)
+        {
+            playerBody.AddForce(playerBody.velocity * -0.5f * speed);
         }
     }
     // Update is called once per frame
