@@ -68,7 +68,7 @@ public class PlayerMover : MonoBehaviour {
         float speed = playerBody.velocity.magnitude;
         if (speed > 0.00001f)
         {
-            playerBody.AddForce(playerBody.velocity * -0.5f * speed);
+            playerBody.AddForce(playerBody.velocity / (-0.14f*speed));
         }
     }
     // Update is called once per frame
