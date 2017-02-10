@@ -101,21 +101,21 @@ public class WeaponFinder : MonoBehaviour {
                         childRB.gravityScale = 0;
                         childRB.drag = 0.75f;
                         childRB.angularDrag = 1;
-                        Vector2 throwVelocity = playerRB.GetPointVelocity(child.position) * 1.4f;
+                        Vector2 throwVelocity = playerRB.GetPointVelocity(child.position) * 1.8f;
                         // also need to take into account player rotation velocity
                         float velX = 0;
                         float velY = 0;
                         if (rotationDiff > 0)
                         {
                             // counterclockwise fling
-                            velX = Mathf.Cos((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 1.5f;
-                            velY = Mathf.Sin((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 1.5f;
+                            velX = Mathf.Cos((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 2f;
+                            velY = Mathf.Sin((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 2f;
                         }
                         else
                         {
                             // clockwise fling
-                            velX = Mathf.Cos((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 1.5f;
-                            velY = Mathf.Sin((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 1.5f;
+                            velX = Mathf.Cos((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 2f;
+                            velY = Mathf.Sin((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 2f;
                         }
                         throwVelocity.x += velX;
                         throwVelocity.y += velY;

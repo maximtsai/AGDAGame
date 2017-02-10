@@ -83,10 +83,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AIDuelist.cs" />
     <Compile Include="Assets\Scripts\AIDumb.cs" />
+    <Compile Include="Assets\Scripts\EngineData.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
+    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\PlayerMover.cs" />
     <Compile Include="Assets\Scripts\WeaponData.cs" />
-    <Compile Include="Assets\WeaponFinder.cs" />
+    <Compile Include="Assets\Scripts\WeaponFinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

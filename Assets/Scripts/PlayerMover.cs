@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMover : MonoBehaviour {
     Rigidbody2D playerBody;
@@ -14,11 +15,22 @@ public class PlayerMover : MonoBehaviour {
 	private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     private Vector2 forwardVec = new Vector2(1, 0);
     private bool forwardPressed = false;
+    private GameObject engine;
+    private EngineData engineScript;
 
-    void Start () {
+    void Start() {
         playerBody = GetComponent<Rigidbody2D>();
+        // set the engine
+        foreach (Transform child in this.transform)
+        {
+            if (child.gameObject.tag == "Engine")
+            {
+                engine = child.gameObject;
+                engineScript = engine.GetComponent<EngineData>();
+                break;
+            }
+        }
     }
-
     void FixedUpdate()
     {
         forwardVec.Set(Mathf.Cos(playerBody.rotation * DEG_TO_RAD), Mathf.Sin(playerBody.rotation * DEG_TO_RAD));
