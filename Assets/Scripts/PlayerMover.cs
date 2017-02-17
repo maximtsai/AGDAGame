@@ -31,6 +31,7 @@ public class PlayerMover : MonoBehaviour {
             }
         }
     }
+
     void FixedUpdate()
     {
         forwardVec.Set(Mathf.Cos(playerBody.rotation * DEG_TO_RAD), Mathf.Sin(playerBody.rotation * DEG_TO_RAD));
