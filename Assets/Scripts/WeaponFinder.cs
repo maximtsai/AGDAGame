@@ -26,7 +26,6 @@ public class WeaponFinder : MonoBehaviour {
         prevPrevRotation = playerRB.rotation;
     }
 
-    // Update is called once per frame
     void Update () {
         float currRotation = playerRB.rotation;
         rotationDiff = currRotation - prevPrevRotation;
