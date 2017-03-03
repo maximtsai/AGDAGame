@@ -16,14 +16,18 @@ public class PlayerHealth : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter2D(Collision2D collision) {
-		
-		if(collision.relativeVelocity.magnitude >= dmgVelocity) {
-			playerHealth -= (int)(collision.relativeVelocity.magnitude - dmgVelocity + 1) * minimumDmg;
-			Debug.Log ("Remaining health: " + playerHealth);
-		}
-		if(playerHealth <= 0) {
-			gameObject.SetActive (false);
-		}
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.relativeVelocity.magnitude >= dmgVelocity)
+            {
+                playerHealth -= (int)(collision.relativeVelocity.magnitude - dmgVelocity + 1) * minimumDmg;
+                Debug.Log("Remaining health: " + playerHealth);
+            }
+            if (playerHealth <= 0)
+            {
+                gameObject.SetActive(false);
+            }
+        }
 	}
 
 }

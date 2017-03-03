@@ -10,7 +10,7 @@ public class AIDumb : MonoBehaviour {
     private float acceleration = 10;
     private float maxSpeed = 50;
     private Vector2 forwardVec;
-    private bool goingForward = false;
+    // private bool goingForward = false;
     private float angleToPlayer = 0;
     private float angleChange = 0;
     // Use this for initialization

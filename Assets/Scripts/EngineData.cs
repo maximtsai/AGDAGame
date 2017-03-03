@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EngineData : MonoBehaviour {
-    public string name = "ENGINENAME";
+    // public string name = "ENGINENAME";
     public float acceleration = 100;
     public float maxSpeed = 200;
     public float turning = 10;
     public int engineType = 0; // 0 is default engine, 1-99999 reserved for any special engine behavior 
-    private Vector2 forwardVec = new Vector2(1, 0);
+    // private Vector2 forwardVec = new Vector2(1, 0);
     Rigidbody2D playerBody;
     // Use this for initialization
     void Start () {

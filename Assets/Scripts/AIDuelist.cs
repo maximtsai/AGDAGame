@@ -11,7 +11,7 @@ public class AIDuelist : MonoBehaviour {
     private Rigidbody2D selfBody;
     private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     private Vector2 forwardVec;
-    private bool goingForward = false;
+    // private bool goingForward = false;
     private float angleToPlayer = 0;
     private float angleChange = 0;
     private string combatState = "Alert"; // Alert, Charging, turning, evading
