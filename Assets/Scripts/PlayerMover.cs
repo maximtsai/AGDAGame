@@ -90,4 +90,9 @@ public class PlayerMover : MonoBehaviour {
     void Update () {
 		
 	}
+
+    public bool isForwardPressed()
+    {
+        return forwardPressed;
+    }
 }

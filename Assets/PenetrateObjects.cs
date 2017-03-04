@@ -51,11 +51,14 @@ public class PenetrateObjects : MonoBehaviour {
             {
                 this.transform.SetParent(listOfWeapons.transform);
                 Rigidbody2D childRB = this.gameObject.AddComponent<Rigidbody2D>();
-                childRB.gravityScale = 0;
-                childRB.drag = 0.75f;
-                childRB.angularDrag = 1;
-                penetratedObject = false;
-                penetratedObjectCounter = 0;
+                if (childRB)
+                {
+                    childRB.gravityScale = 0;
+                    childRB.drag = 0.75f;
+                    childRB.angularDrag = 1;
+                    penetratedObject = false;
+                    penetratedObjectCounter = 0;
+                }
             }
         }
     }
