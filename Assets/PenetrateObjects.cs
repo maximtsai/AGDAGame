@@ -21,6 +21,11 @@ public class PenetrateObjects : MonoBehaviour {
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (this.gameObject.CompareTag("Weapon") && collision.collider.CompareTag("Weapon"))
+        {
+            // weapons don't get stuck in other weapons
+            return;
+        }
         thisRB = this.GetComponent<Rigidbody2D>();
         if (thisRB && this.transform.parent.tag != "Player" && collision.relativeVelocity.magnitude > 7)
         {
@@ -34,7 +39,7 @@ public class PenetrateObjects : MonoBehaviour {
             this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, prevRotation);
             Destroy(thisRB);
             // this.transform.parent = collision.gameObject.transform;
-            penetratedObjectCounter = 80 + ((int)collision.relativeVelocity.magnitude*4);
+            penetratedObjectCounter = 50 + ((int)collision.relativeVelocity.magnitude*4);
         }
     }
     void FixedUpdate()
@@ -49,8 +54,14 @@ public class PenetrateObjects : MonoBehaviour {
             penetratedObjectCounter--;
             if (penetratedObjectCounter <= 0)
             {
+                // fall off
                 this.transform.SetParent(listOfWeapons.transform);
-                Rigidbody2D childRB = this.gameObject.AddComponent<Rigidbody2D>();
+                // Add rigidbody component
+                Rigidbody2D childRB = this.gameObject.GetComponent<Rigidbody2D>();
+                if (!childRB)
+                {
+                    childRB = this.gameObject.AddComponent<Rigidbody2D>();
+                }
                 if (childRB)
                 {
                     childRB.gravityScale = 0;
@@ -62,8 +73,4 @@ public class PenetrateObjects : MonoBehaviour {
             }
         }
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

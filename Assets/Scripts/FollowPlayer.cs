@@ -57,8 +57,8 @@ public class FollowPlayer : MonoBehaviour {
         randCamOffsetY += randCamVelY;// (Random.value - 0.5f) * player1Vel.magnitude;
         randCamVelX *= 0.982f;
         randCamVelY *= 0.978f;
-        randCamOffsetX *= 0.00096f;
-        randCamOffsetY *= 0.00095f;
+        randCamOffsetX *= 0.96f;
+        randCamOffsetY *= 0.95f;
         // camera wanted position influenced by player velocity and player acceleration
         player1Vel = player1.transform.position - player1PrevPos;
         player1Acc = player1Vel - player1PrevVel;
@@ -75,7 +75,8 @@ public class FollowPlayer : MonoBehaviour {
             player2PrevPos = player2.transform.position;
             // adjust camera zoom based on player distance
             playerDist = player1.transform.position - player2.transform.position;
-            float goalSize = Mathf.Max(defaultCameraSize, playerDist.magnitude * 0.55f + 2);
+            playerDist.x /= Camera.main.aspect;
+            float goalSize = Mathf.Max(defaultCameraSize, playerDist.magnitude * 0.52f + 2);
             Camera.main.orthographicSize = goalSize;
         } else
         {
@@ -83,12 +84,12 @@ public class FollowPlayer : MonoBehaviour {
             movementBasedDistance += player1Vel.magnitude*2 - Mathf.Sqrt(Mathf.Max(0,player1Acc.magnitude - 0.01f)*3);
             wantedPos = player1.transform.TransformPoint(distance + movementBasedDistance + randCamOffsetX, randCamOffsetY, height);
             // adjust camera zoom based on player velocity
-            Camera.main.orthographicSize += (player1Vel.sqrMagnitude);
-            Camera.main.orthographicSize -= (Camera.main.orthographicSize - defaultCameraSize) * 0.035f;
+            Camera.main.orthographicSize += player1Vel.magnitude * 0.25f;
+            Camera.main.orthographicSize -= (Camera.main.orthographicSize - defaultCameraSize) * 0.024f;
         }
         // determine camera movement via acceleration+velocity
         float p1AccelMag = player1Acc.magnitude;
-        Vector3 camAccel = (wantedPos - this.transform.position - camVel * 15);
+        camAccel = (wantedPos - this.transform.position - camVel * 15);
         if (camAccel.sqrMagnitude > 1)
         {
             camAccel = camAccel.normalized;
