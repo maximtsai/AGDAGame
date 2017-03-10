@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class SparkSystem : MonoBehaviour {
+public class SparkSystem1 : MonoBehaviour
+{
     public GameObject flares;
     public GameObject listOfFlares;
     public float sparkVel = 11;
@@ -15,7 +16,7 @@ public class SparkSystem : MonoBehaviour {
 
     }
 
-    void OnCollisionEnter2D (Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log(collision.contacts);
         foreach (ContactPoint2D contact in collision.contacts)
@@ -26,8 +27,8 @@ public class SparkSystem : MonoBehaviour {
             //Instantiate(flares, listOfFlares.transform, true);
             Vector3 flarePos = new Vector3(contact.point.x, contact.point.y);
             flares.transform.position = flarePos;
-            
-            if(collision.relativeVelocity.magnitude <= sparkVel)
+
+            if (collision.relativeVelocity.magnitude <= sparkVel)
             {
                 Debug.Log("Low Speed Collision");
                 flares = new GameObject();
