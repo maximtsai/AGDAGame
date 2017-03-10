@@ -6,7 +6,6 @@ public class PlayerHealth : MonoBehaviour {
 
 	public int dmgVelocity;
 	public int playerHealth;
-	public int minimumDmg;
 
 
 
@@ -16,11 +15,14 @@ public class PlayerHealth : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter2D(Collision2D collision) {
+		Debug.Log();
+		Debug.Log(this.gameObject.tag);
+		Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.CompareTag("Player"))
         {
             if (collision.relativeVelocity.magnitude >= dmgVelocity)
             {
-                playerHealth -= (int)(collision.relativeVelocity.magnitude - dmgVelocity + 1) * minimumDmg;
+				playerHealth -= (int)Mathf.Abs(Vector2.Dot (collision.contacts [0].normal, collision.relativeVelocity));
                 Debug.Log("Remaining health: " + playerHealth);
             }
             if (playerHealth <= 0)
