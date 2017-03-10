@@ -40,7 +40,7 @@ public class AIDuelist : MonoBehaviour {
             case "ALERT":
                 break;
             case "CHARGING":
-                float dist = Vector2.Distance(selfBody.position, playerBody.position);
+                // float dist = Vector2.Distance(selfBody.position, playerBody.position);
                 if (turningRight)
                 {
                     angleChange = Mathf.Max(Mathf.Min(angleChange - turnSpeed*0.5f, 2f), -2);
