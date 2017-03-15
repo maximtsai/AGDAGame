@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter2D(Collision2D collision) {
-		Debug.Log();
+		//Debug.Log();
 		Debug.Log(this.gameObject.tag);
 		Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.CompareTag("Player"))
