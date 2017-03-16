@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerMover : MonoBehaviour {
     Rigidbody2D playerBody;
+    Animator animator;
     public KeyCode up;
     public KeyCode down;
     public KeyCode left;
@@ -20,6 +21,8 @@ public class PlayerMover : MonoBehaviour {
 
     void Start() {
         playerBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        Debug.Log(animator);
         // set the engine
         foreach (Transform child in this.transform)
         {
@@ -53,6 +56,10 @@ public class PlayerMover : MonoBehaviour {
         else
         {
             forwardPressed = false;
+        }
+        if (forwardPressed)
+        {
+            // animator.SetBool("jet", true);
         }
 
         if (Input.GetKey(right))
