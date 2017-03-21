@@ -4,11 +4,10 @@ using UnityEngine;
 
 
 public class SparkSystem : MonoBehaviour {
-    public GameObject flares;
-    public GameObject listOfFlares;
+    public GameObject spark;
+    public GameObject listOfSparks;
     public float sparkVel = 11;
-    public GameObject flareX;
-
+    bool sparkHandled = false;
 
     void Start()
     {
@@ -17,23 +16,55 @@ public class SparkSystem : MonoBehaviour {
 
     void OnCollisionEnter2D (Collision2D collision)
     {
-        Debug.Log(collision.contacts);
-        foreach (ContactPoint2D contact in collision.contacts)
+        ContactPoint2D contact = collision.contacts[0];
+        float impactSpd = collision.relativeVelocity.magnitude;
+        if (impactSpd > sparkVel)
         {
-            flares = flareX;
-            Debug.Log("sparking");
-            Debug.Log(collision.relativeVelocity.magnitude);
-            //Instantiate(flares, listOfFlares.transform, true);
-            Vector3 flarePos = new Vector3(contact.point.x, contact.point.y);
-            flares.transform.position = flarePos;
-            
-            if(collision.relativeVelocity.magnitude <= sparkVel)
+            Vector3 sparkPos = new Vector3(contact.point.x, contact.point.y);
+            foreach (Transform childSpark in listOfSparks.transform)
+            {
+                ParticleSystem sparkObj = childSpark.GetComponent<ParticleSystem>();
+                if (!sparkObj.isPlaying)
+                {
+                    sparkHandled = true;
+                    sparkObj.transform.position = sparkPos;
+                    sparkObj.startLifetime = Mathf.Min(1, 0.15f+0.06f*(impactSpd - sparkVel));
+                    sparkObj.startSpeed = Mathf.Min(100, 5+9*(impactSpd - sparkVel));
+                    sparkObj.Emit((int)(1+0.3f*(impactSpd - sparkVel)));
+                    break;
+                }
+            }
+            if (!sparkHandled)
+            {
+                // create new spark object
+                spark.transform.position = sparkPos;
+                Instantiate(spark, listOfSparks.transform, true);
+                foreach (Transform childSpark in listOfSparks.transform)
+                {
+                    ParticleSystem sparkObj = childSpark.GetComponent<ParticleSystem>();
+                    if (!sparkObj.isPlaying)
+                    {
+                        sparkObj.transform.position = sparkPos;
+                        sparkObj.startLifetime = Mathf.Min(1, 0.1f + 0.05f * (impactSpd - sparkVel));
+                        sparkObj.startSpeed = Mathf.Min(100, 5 + 7 * (impactSpd - sparkVel));
+                        sparkObj.Emit((int)(1 + 0.3f * (impactSpd - sparkVel)));
+                        break;
+                    }
+                }
+            }
+            sparkHandled = false;
+        }
+            //spark.transform.position = flarePos;
+            /*
+            if(Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity)) <= sparkVel)
             {
                 Debug.Log("Low Speed Collision");
-                flares = new GameObject();
+                spark = new GameObject();
+                Instantiate(spark, this.transform, true);
             }
-            Instantiate(flares, listOfFlares.transform, true);
-        }
-        //if (collision.relativeVelocity.magnitude > 2)
+            */
+        //foreach (ContactPoint2D contact in collision.contacts)
+        //{
+        //}
     }
 }

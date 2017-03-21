@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerMover : MonoBehaviour {
     Rigidbody2D playerBody;
-    Animator animator;
     public KeyCode up;
     public KeyCode down;
     public KeyCode left;
@@ -16,13 +15,13 @@ public class PlayerMover : MonoBehaviour {
 	private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     private Vector2 forwardVec = new Vector2(1, 0);
     private bool forwardPressed = false;
+    private float forwardPressedDuration = 0;
     private GameObject engine;
     private EngineData engineScript;
+    private ParticleSystem exhaust;
 
     void Start() {
         playerBody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        Debug.Log(animator);
         // set the engine
         foreach (Transform child in this.transform)
         {
@@ -30,6 +29,14 @@ public class PlayerMover : MonoBehaviour {
             {
                 engine = child.gameObject;
                 engineScript = engine.GetComponent<EngineData>();
+                foreach (Transform engineChild in engine.transform)
+                {
+                    if (engineChild.gameObject.CompareTag("ParticleSystem") || engineChild.gameObject.name == "Particle System")
+                    {
+                        exhaust = engineChild.gameObject.GetComponent<ParticleSystem>(); ;
+                        break;
+                    }
+                }
                 break;
             }
         }
@@ -57,10 +64,27 @@ public class PlayerMover : MonoBehaviour {
         {
             forwardPressed = false;
         }
+        // determining exhaust animations
+
         if (forwardPressed)
         {
+            // make a small initial spurt when you press down forward
+            forwardPressedDuration += Time.deltaTime;
+            exhaust.Play();
+            if (forwardPressedDuration < 0.1f)
+            {
+                exhaust.startSize = 2.5f;
+            } else if (exhaust.startSize != 1.5f)
+            {
+                exhaust.startSize = 1.5f;
+            }
             // animator.SetBool("jet", true);
+        } else if (forwardPressedDuration > 0)
+        {
+            forwardPressedDuration = 0;
+            exhaust.startSize = 2;
         }
+
 
         if (Input.GetKey(right))
         {
