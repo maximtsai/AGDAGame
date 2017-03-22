@@ -15,12 +15,14 @@ public class PlayerMover : MonoBehaviour {
 	private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     private Vector2 forwardVec = new Vector2(1, 0);
     private bool forwardPressed = false;
+    private bool backwardPressed = false;
     private float forwardPressedDuration = 0;
     private GameObject engine;
     private EngineData engineScript;
     private ParticleSystem exhaust;
-
+    float initialDeltaTime = 0;
     void Start() {
+        initialDeltaTime = Time.fixedDeltaTime;
         playerBody = GetComponent<Rigidbody2D>();
         // set the engine
         foreach (Transform child in this.transform)
@@ -48,6 +50,7 @@ public class PlayerMover : MonoBehaviour {
         if (Input.GetKey(up))
         {
             forwardPressed = true;
+            backwardPressed = false;
             Vector2 forward = acceleration * forwardVec;
             if (playerBody.velocity.sqrMagnitude > maxSpeed)
             {
@@ -59,9 +62,25 @@ public class PlayerMover : MonoBehaviour {
             // increases control of player
             playerBody.AddForce(-3*playerBody.velocity);
             playerBody.AddForce(forward);
+        } else if (Input.GetKey(down))
+        {
+            Vector2 backward = -acceleration * forwardVec;
+            if (playerBody.velocity.sqrMagnitude > maxSpeed)
+            {
+                // soft cap for max speed
+                Vector2 baseSpd = backward * maxSpeed / playerBody.velocity.sqrMagnitude;
+                Vector2 additionalSpd = (backward - baseSpd);
+                backward = baseSpd + additionalSpd * Mathf.Max((maxSpeed + 5 - playerBody.velocity.sqrMagnitude) / 5, 0);
+            }
+            // increases control of player
+            playerBody.AddForce(-playerBody.velocity);
+            playerBody.AddForce(backward* 0.15f);
+            backwardPressed = true;
+            forwardPressed = false;
         }
         else
         {
+            backwardPressed = false;
             forwardPressed = false;
         }
         // determining exhaust animations
@@ -74,15 +93,19 @@ public class PlayerMover : MonoBehaviour {
             if (forwardPressedDuration < 0.1f)
             {
                 exhaust.startSize = 2.5f;
-            } else if (exhaust.startSize != 1.5f)
+                exhaust.startSpeed = 8f;
+            }
+            else if (exhaust.startSize != 1.5f)
             {
                 exhaust.startSize = 1.5f;
+                exhaust.startSpeed = 4f;
             }
             // animator.SetBool("jet", true);
         } else if (forwardPressedDuration > 0)
         {
             forwardPressedDuration = 0;
             exhaust.startSize = 2;
+            exhaust.startSpeed = 6f;
         }
 
 
@@ -91,10 +114,13 @@ public class PlayerMover : MonoBehaviour {
             if (forwardPressed)
             {
                 // turn slower while moving
-                playerBody.MoveRotation(playerBody.rotation - turnSpeed * 0.5f);
+                playerBody.MoveRotation(playerBody.rotation - turnSpeed * 0.5f * Time.fixedDeltaTime / initialDeltaTime);
+            } else if (backwardPressed)
+            {
+                playerBody.MoveRotation(playerBody.rotation - turnSpeed * 0.75f * Time.fixedDeltaTime / initialDeltaTime);
             } else
             {
-                playerBody.MoveRotation(playerBody.rotation - turnSpeed);
+                playerBody.MoveRotation(playerBody.rotation - turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
             }
             //playerBody.Rotate(0.0f, 0.0f, -turnSpeed);
         }
@@ -103,11 +129,13 @@ public class PlayerMover : MonoBehaviour {
             if (forwardPressed)
             {
                 // turn slower while moving
-                playerBody.MoveRotation(playerBody.rotation + turnSpeed * 0.5f);
-            }
-            else
+                playerBody.MoveRotation(playerBody.rotation + turnSpeed * 0.5f * Time.fixedDeltaTime / initialDeltaTime);
+            } else if (backwardPressed)
             {
-                playerBody.MoveRotation(playerBody.rotation + turnSpeed);
+                playerBody.MoveRotation(playerBody.rotation + turnSpeed * 0.75f * Time.fixedDeltaTime / initialDeltaTime);
+            } else
+            {
+                playerBody.MoveRotation(playerBody.rotation + turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
             }
         }
         // implementation for tighter feeling
