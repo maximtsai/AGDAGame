@@ -138,7 +138,6 @@ public class WeaponFinder : MonoBehaviour {
                     Destroy(weaponTransform.GetComponent<Rigidbody2D>());
                     weaponTransform.SetParent(this.transform);
                     Rigidbody2D parentRB = this.GetComponent<Rigidbody2D>();
-                    Debug.Log(Mathf.Sin(parentRB.rotation / Mathf.Rad2Deg));
                     // Due to physics engine behavior, grabbing a weapon while at high speeds will result in weapon not
                     // going to right position in front of player. This should offset some of the stuff
                     float equipOffsetX = Mathf.Cos(parentRB.rotation / Mathf.Rad2Deg) * parentRB.velocity.x*Time.deltaTime;

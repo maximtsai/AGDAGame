@@ -76,7 +76,7 @@ public class FollowPlayer : MonoBehaviour {
             // adjust camera zoom based on player distance
             playerDist = player1.transform.position - player2.transform.position;
             playerDist.x /= Camera.main.aspect;
-            float goalSize = Mathf.Max(defaultCameraSize, playerDist.magnitude * 0.52f + 2);
+            float goalSize = Mathf.Max(defaultCameraSize, (playerDist.magnitude) * 0.57f + 2);
             Camera.main.orthographicSize = goalSize;
         } else
         {
