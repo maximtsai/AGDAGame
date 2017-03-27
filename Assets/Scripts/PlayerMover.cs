@@ -12,6 +12,8 @@ public class PlayerMover : MonoBehaviour {
     public float acceleration;
     public float maxSpeed;
     public float turnSpeed;
+    private float origTurnSpeed;
+    private bool prevFrameTurned = false;
 	private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     private Vector2 forwardVec = new Vector2(1, 0);
     private bool forwardPressed = false;
@@ -22,6 +24,7 @@ public class PlayerMover : MonoBehaviour {
     private ParticleSystem exhaust;
     float initialDeltaTime = 0;
     void Start() {
+        origTurnSpeed = turnSpeed;
         initialDeltaTime = Time.fixedDeltaTime;
         playerBody = GetComponent<Rigidbody2D>();
         // set the engine
@@ -111,6 +114,15 @@ public class PlayerMover : MonoBehaviour {
 
         if (Input.GetKey(right))
         {
+            if (!prevFrameTurned)
+            {
+                prevFrameTurned = true;
+                turnSpeed = origTurnSpeed * 0.5f;
+            }
+            else
+            {
+                turnSpeed = origTurnSpeed;
+            }
             if (forwardPressed)
             {
                 // turn slower while moving
@@ -126,6 +138,14 @@ public class PlayerMover : MonoBehaviour {
         }
         else if (Input.GetKey(left))
         {
+            if (!prevFrameTurned)
+            {
+                prevFrameTurned = true;
+                turnSpeed = origTurnSpeed * 0.5f;
+            } else
+            {
+                turnSpeed = origTurnSpeed;
+            }
             if (forwardPressed)
             {
                 // turn slower while moving
@@ -137,6 +157,9 @@ public class PlayerMover : MonoBehaviour {
             {
                 playerBody.MoveRotation(playerBody.rotation + turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
             }
+        } else
+        {
+            prevFrameTurned = false;
         }
         // implementation for tighter feeling
         float speed = playerBody.velocity.magnitude;
