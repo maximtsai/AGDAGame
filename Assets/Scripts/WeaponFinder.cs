@@ -9,7 +9,6 @@ public class WeaponFinder : MonoBehaviour {
     public Text indicatorTextDisplay;
     public KeyCode equipWeapButton = KeyCode.F;
     public float weaponGrabDist = 3;
-    public float weaponOffsetDist = 1.9f;
     float closestWeaponDist = 99;
     Vector3 indicatorPos = new Vector3(0,0,-5);
     float prevRotation = 0;
@@ -18,7 +17,10 @@ public class WeaponFinder : MonoBehaviour {
     private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     bool hasWeapon = false;
     bool keyDown = false; // indicates if equip key is down, allows grabbing weapons on the fly
+    bool prevKeyDown = false;
     bool justPickedUpWeapon = false; // prevents you from dropping weapon right after you pick it up
+    bool needToRealignWeapon = false;
+    Transform weaponTransform; // thing used to control position of weapon that you pick up
     Rigidbody2D playerRB;
 	// Use this for initialization
 	void Start () {
@@ -28,7 +30,6 @@ public class WeaponFinder : MonoBehaviour {
         prevRotation = playerRB.rotation;
         prevPrevRotation = playerRB.rotation;
     }
-
     void FixedUpdate() {
         if (Input.GetKeyDown(equipWeapButton))
         {
@@ -45,13 +46,15 @@ public class WeaponFinder : MonoBehaviour {
         if (hasWeapon)
         {
             // if you already have a weapon, throw it away
-            if (Input.GetKeyUp(equipWeapButton))
+            if (Input.GetKeyUp(equipWeapButton) || (!keyDown && prevKeyDown))
             {
                 if (justPickedUpWeapon)
                 {
                     // don't want to throw away weapon first time we pick it up.
+                    //    Debug.Log(keyDown);
                     justPickedUpWeapon = false;
-                } else
+                }
+                else
                 {
                     hasWeapon = false;
                     foreach (Transform child in this.transform)
@@ -123,7 +126,7 @@ public class WeaponFinder : MonoBehaviour {
             if (closestWeaponIndex > -1)
             {
                 // Got weapon, ready to make grab indicator show up
-                Transform weaponTransform = listOfWeapons.transform.GetChild(closestWeaponIndex);
+                weaponTransform = listOfWeapons.transform.GetChild(closestWeaponIndex);
                 // have weapon indicator show up and set it to active
                 indicatorPos.x = weaponTransform.position.x;
                 indicatorPos.y = weaponTransform.position.y;
@@ -142,9 +145,9 @@ public class WeaponFinder : MonoBehaviour {
                     // going to right position in front of player. This should offset some of the stuff
                     float equipOffsetX = Mathf.Cos(parentRB.rotation / Mathf.Rad2Deg) * parentRB.velocity.x*Time.deltaTime;
                     float equipOffsetY = -Mathf.Sin(parentRB.rotation / Mathf.Rad2Deg) * parentRB.velocity.y*Time.deltaTime;
-
-                    weaponTransform.localPosition = new Vector3(weaponOffsetDist + equipOffsetX, equipOffsetY, 0);
-                    weaponTransform.localEulerAngles = new Vector3(0, 0, -90f);
+                    needToRealignWeapon = true;
+                    //weaponTransform.localPosition = new Vector3(weaponOffsetDist + equipOffsetX, equipOffsetY, 0);
+                    //weaponTransform.localEulerAngles = new Vector3(0, 0, -90f);
                     if (pickUpIndicator.activeSelf)
                     {
                         pickUpIndicator.SetActive(false);
@@ -161,5 +164,19 @@ public class WeaponFinder : MonoBehaviour {
         }
         prevPrevRotation = prevRotation;
         prevRotation = currRotation;
+        prevKeyDown = keyDown;
+    }
+    private void LateUpdate()
+    {
+        if (needToRealignWeapon)
+        {
+            //Debug.Log("realign");
+            needToRealignWeapon = false;
+            WeaponData wd = weaponTransform.gameObject.GetComponent<WeaponData>();
+            //SpriteRenderer sprite = weaponTransform.gameObject.GetComponent<SpriteRenderer>();
+            //Debug.Log(sprite.bounds.size.x);
+            weaponTransform.localPosition = new Vector3(wd.weaponOffset * weaponTransform.gameObject.transform.localScale.y + this.transform.localScale.y*0.5f, 0, 0);
+            weaponTransform.localEulerAngles = new Vector3(0, 0, -90f);
+        }
     }
 }
