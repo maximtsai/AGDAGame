@@ -170,11 +170,10 @@ public class WeaponFinder : MonoBehaviour {
     {
         if (needToRealignWeapon)
         {
-            //Debug.Log("realign");
+            // center weapon in front of player
             needToRealignWeapon = false;
             WeaponData wd = weaponTransform.gameObject.GetComponent<WeaponData>();
             //SpriteRenderer sprite = weaponTransform.gameObject.GetComponent<SpriteRenderer>();
-            //Debug.Log(sprite.bounds.size.x);
             weaponTransform.localPosition = new Vector3(wd.weaponOffset * weaponTransform.gameObject.transform.localScale.y + this.transform.localScale.y*0.5f, 0, 0);
             weaponTransform.localEulerAngles = new Vector3(0, 0, -90f);
         }

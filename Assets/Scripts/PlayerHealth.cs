@@ -34,22 +34,23 @@ public class PlayerHealth : MonoBehaviour {
         if (!collision.contacts[0].otherCollider.gameObject.CompareTag("Weapon"))
         {
             float dotImpact = Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity);
-            if (collision.collider.gameObject.CompareTag("Weapon"))
-            {
-                dotImpact = dotImpact * 2 + 3;
-            } else if (collision.collider.gameObject.CompareTag("Player"))
-            {
-                dotImpact = dotImpact * 1.7f + 1;
-            }
-            float playerMass = this.GetComponent<Rigidbody2D>().mass;
             Rigidbody2D colliderRB = collision.contacts[0].collider.GetComponent<Rigidbody2D>();
             float colliderMass = 9999;
             if (colliderRB)
             {
                 colliderMass = colliderRB.mass;
             }
+            if (collision.collider.gameObject.CompareTag("Weapon"))
+            {
+                dotImpact = dotImpact * 2 + 3;
+                colliderMass *= 2;
+            } else if (collision.collider.gameObject.CompareTag("Player"))
+            {
+                dotImpact = dotImpact * 1.7f + 1;
+            }
+            float playerMass = this.GetComponent<Rigidbody2D>().mass;
             // more massive objects you hit hurt you more. More massive players receive slightly less damage, slightly.
-            float massRatio = colliderMass / (colliderMass + Mathf.Max(1, playerMass * 0.1f));
+            float massRatio = colliderMass / (colliderMass + Mathf.Max(1, playerMass * 0.2f));
             dotImpact *= massRatio;
             if (Mathf.Abs(dotImpact) >= dmgVelocity + tempArmor)
             {
