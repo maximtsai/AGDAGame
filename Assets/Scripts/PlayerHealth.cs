@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour {
 	public int numpcs = 50;
 	public GameObject[] lop;
 	public GameObject piece;
+
     // Use this for initialization
     void Start () {
         initialDeltaTime = Time.fixedDeltaTime;
@@ -79,6 +80,7 @@ public class PlayerHealth : MonoBehaviour {
 					Instantiate (piece, this.transform.position, this.transform.rotation);
 					lop [i] = piece;
 				}
+			
             }
         }
         
