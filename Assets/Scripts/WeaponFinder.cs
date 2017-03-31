@@ -9,19 +9,20 @@ public class WeaponFinder : MonoBehaviour {
     public Text indicatorTextDisplay;
     public KeyCode equipWeapButton = KeyCode.F;
     public float weaponGrabDist = 3;
-    float closestWeaponDist = 99;
-    Vector3 indicatorPos = new Vector3(0,0,-5);
-    float prevRotation = 0;
-    float prevPrevRotation = 0;
-    float rotationDiff = 0;
+
+    private float closestWeaponDist = 99;
+    private Vector3 indicatorPos = new Vector3(0,0,-5);
+    private float prevRotation = 0;
+    private float prevPrevRotation = 0;
+    private float rotationDiff = 0;
     private const float DEG_TO_RAD = Mathf.PI / 180.0f;
-    bool hasWeapon = false;
-    bool keyDown = false; // indicates if equip key is down, allows grabbing weapons on the fly
-    bool prevKeyDown = false;
-    bool justPickedUpWeapon = false; // prevents you from dropping weapon right after you pick it up
-    bool needToRealignWeapon = false;
-    Transform weaponTransform; // thing used to control position of weapon that you pick up
-    Rigidbody2D playerRB;
+    private bool hasWeapon = false;
+    private bool keyDown = false; // indicates if equip key is down, allows grabbing weapons on the fly
+    private bool prevKeyDown = false;
+    private bool justPickedUpWeapon = false; // prevents you from dropping weapon right after you pick it up
+    private bool needToRealignWeapon = false;
+    private Transform weaponTransform; // thing used to control position of weapon that you pick up
+    private Rigidbody2D playerRB;
 	// Use this for initialization
 	void Start () {
         closestWeaponDist = weaponGrabDist;

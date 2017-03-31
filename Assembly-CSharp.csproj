@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\AIDumb.cs" />
      <Compile Include="Assets\Scripts\AudioScript.cs" />
      <Compile Include="Assets\Scripts\EngineData.cs" />
+     <Compile Include="Assets\Scripts\ExplosionScript.cs" />
      <Compile Include="Assets\Scripts\FlareOnCollision.cs" />
      <Compile Include="Assets\Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\PenetrateObjects.cs" />
