@@ -6,13 +6,17 @@ public class PlayerHealth : MonoBehaviour {
 
 	public int dmgVelocity;
 	public int playerHealth = 100;
+    int initialPlayerHealth;
     private float tempArmor = 0;
     float initialDeltaTime = 0;
     ParticleSystem blood;
     ParticleSystem smoke;
-
+	public int numpcs = 30;
+	public GameObject[] lop;
+	public GameObject piece;
     // Use this for initialization
     void Start () {
+        initialPlayerHealth = playerHealth;
         initialDeltaTime = Time.fixedDeltaTime;
         foreach (Transform childObj in this.transform)
         {
@@ -43,6 +47,7 @@ public class PlayerHealth : MonoBehaviour {
             {
                 colliderMass = colliderRB.mass;
             }
+            Debug.Log(collision.collider.gameObject.tag);
             if (collision.collider.gameObject.CompareTag("Weapon"))
             {
                 dotImpact = (dotImpact) * 1.7f + 5;
@@ -50,6 +55,15 @@ public class PlayerHealth : MonoBehaviour {
             } else if (collision.collider.gameObject.CompareTag("Player"))
             {
                 dotImpact = dotImpact * 1.6f + 1;
+            } else if (playerHealth < 4)
+            {
+                // low health players less likely to kill self by hitting terrain
+                dotImpact = dotImpact - 5;
+            }
+            if (playerHealth < 5)
+            {
+                // critical health players just a tad more resilient to keep up tension
+                dotImpact = dotImpact - 1;
             }
             float playerMass = this.GetComponent<Rigidbody2D>().mass;
             // more massive objects you hit hurt you more. More massive players receive slightly less damage, slightly.
@@ -59,8 +73,11 @@ public class PlayerHealth : MonoBehaviour {
             {
                 int damageDealt = (int)Mathf.Max(1, (Time.fixedDeltaTime / initialDeltaTime * (Mathf.Abs(dotImpact) - dmgVelocity - tempArmor)));
                 float outputval = dmgVelocity + tempArmor;
-                Debug.Log("damageDealt: " + damageDealt + " tempArmor: " + tempArmor + " dotimpact:" + Mathf.Abs(dotImpact));
-
+                if (playerHealth >= 10 && playerHealth - damageDealt <= 0)
+                {
+                    // to prevent the impression of instagibbing, a "last lifeline"
+                    damageDealt = playerHealth - 1;
+                }
                 playerHealth -= damageDealt;
                 Time.timeScale = Mathf.Max((13 - (float)damageDealt) / 14, 0.03f);
                 Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
@@ -68,10 +85,24 @@ public class PlayerHealth : MonoBehaviour {
                 int bloodEmitted = (int)Mathf.Max(1, damageDealt * 0.35f);
                 blood.Emit(bloodEmitted);
                 blood.transform.position = collision.contacts[0].point;
+                float playerHealthPercentage = (float)playerHealth / (float)initialPlayerHealth;
+                if (playerHealthPercentage < 0.65f && playerHealthPercentage > 0.25f)
+                {
+                    smoke.emissionRate = 4 * (0.65f - ((float)playerHealth / (float)initialPlayerHealth));
+                } else if (playerHealthPercentage <= 0.25f)
+                {
+                    smoke.emissionRate = 10 * (0.65f - ((float)playerHealth / (float)initialPlayerHealth));
+
+                }
             }
             if (playerHealth <= 0)
             {
                 gameObject.SetActive(false);
+				lop = new GameObject[numpcs];
+				for (int i = 0; i < numpcs; i++) {
+					Instantiate (piece, this.transform.position, this.transform.rotation);
+					lop [i] = piece;
+				}
             }
         }
         

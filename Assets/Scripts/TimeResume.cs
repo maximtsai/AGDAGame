@@ -15,7 +15,7 @@ public class TimeResume : MonoBehaviour {
 	void Update () {
         if (Time.timeScale < 1)
         {
-            if (slowMoCharge > 0)
+            if (slowMoCharge > 0 && slowMoReady)
             {
                 // default slow down time
                 slowMoCharge -= 1;
