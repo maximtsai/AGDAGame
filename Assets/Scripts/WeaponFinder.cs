@@ -68,27 +68,27 @@ public class WeaponFinder : MonoBehaviour {
                             childRB.gravityScale = 0;
                             childRB.drag = 0.75f;
                             childRB.angularDrag = 1;
-                            Vector2 throwVelocity = playerRB.GetPointVelocity(child.position) * 1.6f;
+                            Vector2 throwVelocity = playerRB.GetPointVelocity(child.position) * 2f;
                             // also need to take into account player rotation velocity
                             float velX = 0;
                             float velY = 0;
                             if (rotationDiff > 0)
                             {
                                 // counterclockwise fling
-                                velX = Mathf.Cos((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.55f;
-                                velY = Mathf.Sin((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.55f;
+                                velX = Mathf.Cos((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
+                                velY = Mathf.Sin((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
                             }
                             else
                             {
                                 // clockwise fling
-                                velX = Mathf.Cos((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.55f;
-                                velY = Mathf.Sin((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.55f;
+                                velX = Mathf.Cos((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
+                                velY = Mathf.Sin((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
                             }
                             throwVelocity.x += velX;
                             throwVelocity.y += velY;
 
                             child.gameObject.GetComponent<Rigidbody2D>().velocity = throwVelocity;
-                            child.gameObject.GetComponent<Rigidbody2D>().AddTorque(rotationDiff * 3);
+                            child.gameObject.GetComponent<Rigidbody2D>().AddTorque(rotationDiff * 4);
                             break;
                         }
                     }
@@ -117,12 +117,13 @@ public class WeaponFinder : MonoBehaviour {
                 // if there are multiple weapons nearby, always grab the closest weapon
                 if (distToWeapon < closestWeaponDist)
                 {
+                    Debug.Log(closestWeaponDist);
                     // found weapon that's close enough, is potential thing to pick up
                     closestWeaponIndex = tempIndex;
                     closestWeaponDist = distToWeapon;
                 }
-                closestWeaponDist = weaponGrabDist;
             }
+            closestWeaponDist = weaponGrabDist;
 
             if (closestWeaponIndex > -1)
             {
