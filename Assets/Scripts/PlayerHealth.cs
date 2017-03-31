@@ -10,7 +10,9 @@ public class PlayerHealth : MonoBehaviour {
     float initialDeltaTime = 0;
     ParticleSystem blood;
     ParticleSystem smoke;
-
+	public int numpcs = 50;
+	public GameObject[] lop;
+	public GameObject piece;
     // Use this for initialization
     void Start () {
         initialDeltaTime = Time.fixedDeltaTime;
@@ -72,6 +74,11 @@ public class PlayerHealth : MonoBehaviour {
             if (playerHealth <= 0)
             {
                 gameObject.SetActive(false);
+				lop = new GameObject[numpcs];
+				for (int i = 0; i < numpcs; i++) {
+					Instantiate (piece, this.transform.position, this.transform.rotation);
+					lop [i] = piece;
+				}
             }
         }
         
