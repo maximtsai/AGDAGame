@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
 
 	public int dmgVelocity;
-	public int playerHealth;
+	public int playerHealth = 100;
     private float tempArmor = 0;
     float initialDeltaTime = 0;
     ParticleSystem blood;
+    ParticleSystem smoke;
 
     // Use this for initialization
     void Start () {
@@ -18,7 +19,9 @@ public class PlayerHealth : MonoBehaviour {
             if (childObj.CompareTag("BloodSystem"))
             {
                 blood = childObj.GetComponent<ParticleSystem>();
-                break;
+            } else if (childObj.CompareTag("SmokeSystem"))
+            {
+                smoke = childObj.GetComponent<ParticleSystem>();
             }
         }
     }
@@ -33,7 +36,7 @@ public class PlayerHealth : MonoBehaviour {
         // playear Debug.Log(this.gameObject.tag);
         if (!collision.contacts[0].otherCollider.gameObject.CompareTag("Weapon"))
         {
-            float dotImpact = Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity);
+            float dotImpact = Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity));
             Rigidbody2D colliderRB = collision.contacts[0].collider.GetComponent<Rigidbody2D>();
             float colliderMass = 9999;
             if (colliderRB)
@@ -42,11 +45,11 @@ public class PlayerHealth : MonoBehaviour {
             }
             if (collision.collider.gameObject.CompareTag("Weapon"))
             {
-                dotImpact = dotImpact * 2 + 3;
+                dotImpact = (dotImpact) * 1.7f + 5;
                 colliderMass *= 2;
             } else if (collision.collider.gameObject.CompareTag("Player"))
             {
-                dotImpact = dotImpact * 1.7f + 1;
+                dotImpact = dotImpact * 1.6f + 1;
             }
             float playerMass = this.GetComponent<Rigidbody2D>().mass;
             // more massive objects you hit hurt you more. More massive players receive slightly less damage, slightly.
@@ -59,10 +62,10 @@ public class PlayerHealth : MonoBehaviour {
                 Debug.Log("damageDealt: " + damageDealt + " tempArmor: " + tempArmor + " dotimpact:" + Mathf.Abs(dotImpact));
 
                 playerHealth -= damageDealt;
-                Time.timeScale = Mathf.Max((10 - (float)damageDealt) / 11, 0.03f);
+                Time.timeScale = Mathf.Max((13 - (float)damageDealt) / 14, 0.03f);
                 Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 tempArmor = damageDealt + 10;
-                int bloodEmitted = (int)Mathf.Max(1, damageDealt * 0.25f);
+                int bloodEmitted = (int)Mathf.Max(1, damageDealt * 0.35f);
                 blood.Emit(bloodEmitted);
                 blood.transform.position = collision.contacts[0].point;
             }

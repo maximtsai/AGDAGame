@@ -27,6 +27,7 @@ public class WeaponFinder : MonoBehaviour {
         closestWeaponDist = weaponGrabDist;
         indicatorTextDisplay.text = equipWeapButton.ToString();
         playerRB = this.GetComponent<Rigidbody2D>();
+        Debug.Log(playerRB);
         prevRotation = playerRB.rotation;
         prevPrevRotation = playerRB.rotation;
     }
