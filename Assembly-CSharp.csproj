@@ -46,17 +46,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PenetrateObjects.cs" />
      <Compile Include="Assets\Scripts\AIDuelist.cs" />
      <Compile Include="Assets\Scripts\AIDumb.cs" />
+     <Compile Include="Assets\Scripts\AudioScript.cs" />
      <Compile Include="Assets\Scripts\EngineData.cs" />
      <Compile Include="Assets\Scripts\FlareOnCollision.cs" />
      <Compile Include="Assets\Scripts\FollowPlayer.cs" />
+     <Compile Include="Assets\Scripts\PenetrateObjects.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\PlayerMover.cs" />
      <Compile Include="Assets\Scripts\RocketController.cs" />
      <Compile Include="Assets\Scripts\RocketLauncherController.cs" />
      <Compile Include="Assets\Scripts\SparkSystem.cs" />
+     <Compile Include="Assets\Scripts\TimeResume.cs" />
      <Compile Include="Assets\Scripts\WeaponData.cs" />
      <Compile Include="Assets\Scripts\WeaponFinder.cs" />
      <Compile Include="Assets\SimpleParticlePack\Scripts\ParticleTester.cs" />
