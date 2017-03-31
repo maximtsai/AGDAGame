@@ -31,7 +31,7 @@ public class FollowPlayer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         player1Script = player1.GetComponent<PlayerMover>();
-        if (player2)
+        if (player2 && player2.active)
         {
             hasPlayerTwo = true;
             player2PrevPos = player2.transform.position;
@@ -76,12 +76,12 @@ public class FollowPlayer : MonoBehaviour {
             // adjust camera zoom based on player distance
             playerDist = player1.transform.position - player2.transform.position;
             playerDist.x /= Camera.main.aspect;
-            float goalSize = Mathf.Max(defaultCameraSize, playerDist.magnitude * 0.52f + 2);
+            float goalSize = Mathf.Max(defaultCameraSize - 1 + Time.timeScale, (playerDist.magnitude) * 0.57f + 1 + Time.timeScale);
             Camera.main.orthographicSize = goalSize;
         } else
         {
             // additional amount to go forward, increased by velocity and decreased by turning or sudden stops
-            movementBasedDistance += player1Vel.magnitude*2 - Mathf.Sqrt(Mathf.Max(0,player1Acc.magnitude - 0.01f)*3);
+            movementBasedDistance += player1Vel.magnitude*1.8f - Mathf.Sqrt(Mathf.Max(0,player1Acc.magnitude - 0.01f)*2.5f);
             wantedPos = player1.transform.TransformPoint(distance + movementBasedDistance + randCamOffsetX, randCamOffsetY, height);
             // adjust camera zoom based on player velocity
             Camera.main.orthographicSize += player1Vel.magnitude * 0.25f;

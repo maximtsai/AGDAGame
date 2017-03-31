@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponData : MonoBehaviour {
-
+    public float weaponOffset = 1;
 	// Use this for initialization
 	void Start () {
 		
