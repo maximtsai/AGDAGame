@@ -117,22 +117,26 @@ public class PlayerMover : MonoBehaviour {
             if (!prevFrameTurned)
             {
                 prevFrameTurned = true;
-                turnSpeed = origTurnSpeed * 0.5f;
+                turnSpeed = origTurnSpeed * 0.25f;
             }
             else
             {
-                turnSpeed = origTurnSpeed;
+                turnSpeed += (origTurnSpeed - turnSpeed)*0.25f;
             }
             if (forwardPressed)
             {
                 // turn slower while moving
                 playerBody.MoveRotation(playerBody.rotation - turnSpeed * 0.5f * Time.fixedDeltaTime / initialDeltaTime);
+                playerBody.AddTorque(-turnSpeed * 0.5f);
             } else if (backwardPressed)
             {
                 playerBody.MoveRotation(playerBody.rotation - turnSpeed * 0.75f * Time.fixedDeltaTime / initialDeltaTime);
-            } else
+                playerBody.AddTorque(-turnSpeed * 0.75f);
+            }
+            else
             {
                 playerBody.MoveRotation(playerBody.rotation - turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
+                playerBody.AddTorque(-turnSpeed);
             }
             //playerBody.Rotate(0.0f, 0.0f, -turnSpeed);
         }
@@ -141,21 +145,28 @@ public class PlayerMover : MonoBehaviour {
             if (!prevFrameTurned)
             {
                 prevFrameTurned = true;
-                turnSpeed = origTurnSpeed * 0.5f;
+                turnSpeed = origTurnSpeed * 0.25f;
             } else
             {
-                turnSpeed = origTurnSpeed;
+                turnSpeed += (origTurnSpeed - turnSpeed) * 0.25f;
             }
             if (forwardPressed)
             {
                 // turn slower while moving
                 playerBody.MoveRotation(playerBody.rotation + turnSpeed * 0.5f * Time.fixedDeltaTime / initialDeltaTime);
+                playerBody.AddTorque(turnSpeed * 0.5f);
+
             } else if (backwardPressed)
             {
                 playerBody.MoveRotation(playerBody.rotation + turnSpeed * 0.75f * Time.fixedDeltaTime / initialDeltaTime);
-            } else
+                playerBody.AddTorque(turnSpeed * 0.75f);
+            }
+            else
             {
+                //playerBody.MoveRotation(playerBody.rotation + turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
                 playerBody.MoveRotation(playerBody.rotation + turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
+                playerBody.AddTorque(turnSpeed);
+
             }
         } else
         {
