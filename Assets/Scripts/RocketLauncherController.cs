@@ -19,21 +19,21 @@ public class RocketLauncherController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Awake () {
-		position = GetComponent<Transform>().localPosition;
+		position = GetComponent<Transform>().position;
 		rotation = GetComponent<Transform>().eulerAngles;
 		isRecharging = false;
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		position = GetComponent<Transform>().localPosition;
+		position = GetComponent<Transform>().position;
 		rotation = GetComponent<Transform>().eulerAngles;
 		if(isRecharging && Time.time - lastShotTime >= rechargeTime) {
 			isRecharging = false;
 		}
 		if(Input.GetButtonDown("Fire1") && !isRecharging) {
 			// When the fire key is pressed, create new rocket
-			GameObject newRocket = Instantiate(rocket, position, GetComponent<Transform>().localRotation) as GameObject;
+			GameObject newRocket = Instantiate(rocket, position, GetComponent<Transform>().rotation) as GameObject;
 			Vector3 velocity = getDirectionVector() * initialSpeed;
 			Vector3 force = getDirectionVector() * acceleration;
 			newRocket.GetComponent<Rigidbody2D>().velocity = velocity;

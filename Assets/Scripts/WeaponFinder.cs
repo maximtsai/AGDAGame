@@ -118,7 +118,7 @@ public class WeaponFinder : MonoBehaviour {
                 // if there are multiple weapons nearby, always grab the closest weapon
                 if (distToWeapon < closestWeaponDist)
                 {
-                    Debug.Log(closestWeaponDist);
+                    //Debug.Log(closestWeaponDist);
                     // found weapon that's close enough, is potential thing to pick up
                     closestWeaponIndex = tempIndex;
                     closestWeaponDist = distToWeapon;

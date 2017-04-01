@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DisintegrateSlowly.cs" />
      <Compile Include="Assets\Scripts\AIDuelist.cs" />
      <Compile Include="Assets\Scripts\AIDumb.cs" />
      <Compile Include="Assets\Scripts\AudioScript.cs" />
@@ -68,6 +69,7 @@
      <Compile Include="Assets\SimpleParticlePack\Scripts\ParticleTester.cs" />
      <Compile Include="Assets\SparkSystem1.cs" />
      <Compile Include="Assets\animation.cs" />
+     <Compile Include="Assets\thruster.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
