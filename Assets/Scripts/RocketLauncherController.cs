@@ -5,35 +5,47 @@ using UnityEngine;
 public class RocketLauncherController : MonoBehaviour {
 
 	// Minimum time between shots
-	public float rechargeTime;
-	public float initialSpeed;
-	public float acceleration;
+	public float rechargeTime = 0.5f;
 	public GameObject rocket;
+	public float initialSpeed = 2f;
+	public float acceleration = 1f;
 
+	private const float DEG_TO_RAD = Mathf.PI / 180f;
 	private Vector3 position;
-	private Quaternion rotation;
+	// Rotation in euler angles
+	private Vector3 rotation;
 	private bool isRecharging;
 	private float lastShotTime;
 	
 	// Use this for initialization
 	void Awake () {
-		position = GetComponent<Transform>().localPosition;
-		rotation = GetComponent<Transform>().localRotation;
+		position = GetComponent<Transform>().position;
+		rotation = GetComponent<Transform>().eulerAngles;
+		isRecharging = false;
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
+		position = GetComponent<Transform>().position;
+		rotation = GetComponent<Transform>().eulerAngles;
 		if(isRecharging && Time.time - lastShotTime >= rechargeTime) {
 			isRecharging = false;
 		}
 		if(Input.GetButtonDown("Fire1") && !isRecharging) {
 			// When the fire key is pressed, create new rocket
-			Rigidbody2D newRocket = Instantiate(rocket, position, rotation).GetComponent<Rigidbody2D>();
-			newRocket.velocity = transform.forward * initialSpeed;
-			float forceMagnitude = acceleration * newRocket.mass;
-			newRocket.AddForce(transform.forward * forceMagnitude, ForceMode2D.Force);
+			GameObject newRocket = Instantiate(rocket, position, GetComponent<Transform>().rotation) as GameObject;
+			Vector3 velocity = getDirectionVector() * initialSpeed;
+			Vector3 force = getDirectionVector() * acceleration;
+			newRocket.GetComponent<Rigidbody2D>().velocity = velocity;
+			newRocket.GetComponent<RocketController>().force = force;
 			lastShotTime = Time.time;
 			isRecharging = true;
 		}
+	}
+
+	private Vector3 getDirectionVector() {
+		float x = Mathf.Cos(rotation.z * DEG_TO_RAD);
+		float y = Mathf.Sin(rotation.z * DEG_TO_RAD);
+		return new Vector3(x, y, 0f);
 	}
 }

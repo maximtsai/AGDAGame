@@ -6,14 +6,17 @@ public class PlayerHealth : MonoBehaviour {
 
 	public int dmgVelocity;
 	public int playerHealth = 100;
-    int initialPlayerHealth;
-    private float tempArmor = 0;
-    float initialDeltaTime = 0;
-    ParticleSystem blood;
-    ParticleSystem smoke;
 	public int numpcs = 30;
+    public float explosionDamage = 20;
 	public GameObject[] lop;
 	public GameObject piece;
+
+    private int initialPlayerHealth;
+    private float tempArmor = 0;
+    private float initialDeltaTime = 0;
+    private ParticleSystem blood;
+    private ParticleSystem smoke;
+    
     // Use this for initialization
     void Start () {
         initialPlayerHealth = playerHealth;
@@ -32,6 +35,15 @@ public class PlayerHealth : MonoBehaviour {
     private void FixedUpdate()
     {
         tempArmor = Mathf.Max(0, tempArmor * 0.5f - 1);
+        if (playerHealth <= 0)
+        {
+                gameObject.SetActive(false);
+				lop = new GameObject[numpcs];
+				for (int i = 0; i < numpcs; i++) {
+					Instantiate (piece, this.transform.position, this.transform.rotation);
+					lop [i] = piece;
+				}
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
@@ -95,21 +107,20 @@ public class PlayerHealth : MonoBehaviour {
 
                 }
             }
-            if (playerHealth <= 0)
-            {
-                gameObject.SetActive(false);
-				lop = new GameObject[numpcs];
-				for (int i = 0; i < numpcs; i++) {
-					Instantiate (piece, this.transform.position, this.transform.rotation);
-					lop [i] = piece;
-				}
-            }
+            
         }
         
 		// what you collided with Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("Player"))
         {
 
+        }
+
+        // Deal explosion damage and display burnt effect
+        if (collision.gameObject.CompareTag("Explosion"))
+        {
+            playerHealth -= (int)explosionDamage;
+            Debug.Log("Explosion damage taken!!!");
         }
 	}
 }
