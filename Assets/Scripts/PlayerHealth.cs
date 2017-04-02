@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour {
         //Debug.Log();
         // what u collided with Debug.Log(collision.collider.gameObject.name);
         // playear Debug.Log(this.gameObject.tag);
-        if (!collision.contacts[0].otherCollider.gameObject.CompareTag("Weapon"))
+        if (!collision.contacts[0].otherCollider.gameObject.CompareTag("Weapon") && !collision.contacts[0].otherCollider.gameObject.CompareTag("SoftWeapon"))
         {
             float dotImpact = Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity));
             Rigidbody2D colliderRB = collision.contacts[0].collider.GetComponent<Rigidbody2D>();
@@ -59,14 +59,16 @@ public class PlayerHealth : MonoBehaviour {
             {
                 colliderMass = colliderRB.mass;
             }
-            Debug.Log(collision.collider.gameObject.tag);
             if (collision.collider.gameObject.CompareTag("Weapon"))
             {
                 dotImpact = (dotImpact) * 1.7f + 5;
                 colliderMass *= 2;
+            } else if (collision.collider.gameObject.CompareTag("SoftWeapon")) {
+                dotImpact = (dotImpact) * 1.6f + 1;
+                colliderMass *= 2;
             } else if (collision.collider.gameObject.CompareTag("Player"))
             {
-                dotImpact = dotImpact * 1.6f + 1;
+                dotImpact = dotImpact * 1.5f + 1;
             } else if (playerHealth < 4)
             {
                 // low health players less likely to kill self by hitting terrain

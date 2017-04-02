@@ -12,7 +12,7 @@ public class FollowPlayer : MonoBehaviour {
     public float velInfluence = 20;
     public float accInfluence = 50;
     bool hasPlayerTwo = false;
-    float defaultCameraSize = 8;
+    public float defaultCameraSize = 8;
     Vector3 player1PrevPos;
     Vector3 player2PrevPos;
     Vector3 player1Vel, player2Vel;

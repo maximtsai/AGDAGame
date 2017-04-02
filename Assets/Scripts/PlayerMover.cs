@@ -127,16 +127,16 @@ public class PlayerMover : MonoBehaviour {
             {
                 // turn slower while moving
                 playerBody.MoveRotation(playerBody.rotation - turnSpeed * 0.5f * Time.fixedDeltaTime / initialDeltaTime);
-                playerBody.AddTorque(-turnSpeed * 0.5f);
+                playerBody.AddTorque(-turnSpeed * 2f);
             } else if (backwardPressed)
             {
                 playerBody.MoveRotation(playerBody.rotation - turnSpeed * 0.75f * Time.fixedDeltaTime / initialDeltaTime);
-                playerBody.AddTorque(-turnSpeed * 0.75f);
+                playerBody.AddTorque(-turnSpeed * 3f);
             }
             else
             {
                 playerBody.MoveRotation(playerBody.rotation - turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
-                playerBody.AddTorque(-turnSpeed);
+                playerBody.AddTorque(-turnSpeed * 4f);
             }
             //playerBody.Rotate(0.0f, 0.0f, -turnSpeed);
         }
@@ -154,18 +154,18 @@ public class PlayerMover : MonoBehaviour {
             {
                 // turn slower while moving
                 playerBody.MoveRotation(playerBody.rotation + turnSpeed * 0.5f * Time.fixedDeltaTime / initialDeltaTime);
-                playerBody.AddTorque(turnSpeed * 0.5f);
+                playerBody.AddTorque(turnSpeed * 2f);
 
             } else if (backwardPressed)
             {
                 playerBody.MoveRotation(playerBody.rotation + turnSpeed * 0.75f * Time.fixedDeltaTime / initialDeltaTime);
-                playerBody.AddTorque(turnSpeed * 0.75f);
+                playerBody.AddTorque(turnSpeed * 3f);
             }
             else
             {
                 //playerBody.MoveRotation(playerBody.rotation + turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
                 playerBody.MoveRotation(playerBody.rotation + turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
-                playerBody.AddTorque(turnSpeed);
+                playerBody.AddTorque(turnSpeed * 4f);
 
             }
         } else

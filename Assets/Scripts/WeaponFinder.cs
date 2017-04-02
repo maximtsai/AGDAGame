@@ -61,7 +61,7 @@ public class WeaponFinder : MonoBehaviour {
                     hasWeapon = false;
                     foreach (Transform child in this.transform)
                     {
-                        if (child.CompareTag("Weapon"))
+                        if (child.CompareTag("Weapon") || child.CompareTag("SoftWeapon"))
                         {
                             // throw weapon away
                             child.SetParent(listOfWeapons.transform);
