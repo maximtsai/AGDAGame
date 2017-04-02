@@ -34,7 +34,7 @@ public class PlayerHealth : MonoBehaviour {
     }
     private void FixedUpdate()
     {
-        tempArmor = Mathf.Max(0, tempArmor * 0.5f - 1);
+        tempArmor = Mathf.Max(0, tempArmor * 0.2f - 1);
         if (playerHealth <= 0)
         {
                 gameObject.SetActive(false);
@@ -50,7 +50,18 @@ public class PlayerHealth : MonoBehaviour {
         //Debug.Log();
         // what u collided with Debug.Log(collision.collider.gameObject.name);
         // playear Debug.Log(this.gameObject.tag);
-        if (!collision.contacts[0].otherCollider.gameObject.CompareTag("Weapon") && !collision.contacts[0].otherCollider.gameObject.CompareTag("SoftWeapon"))
+        GameObject impactedPiece = collision.contacts[0].otherCollider.gameObject;
+        float armorVal = 0;
+        if (impactedPiece.CompareTag("LightArmor"))
+        {
+            //Debug.Log("impacted light armor");
+            armorVal = 8;
+        } else if (impactedPiece.CompareTag("HeavyArmor"))
+        {
+            //Debug.Log("impacted heavy armor");
+            armorVal = 20;
+        }
+        if (!impactedPiece.CompareTag("Weapon") && !impactedPiece.CompareTag("SoftWeapon"))
         {
             float dotImpact = Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity));
             Rigidbody2D colliderRB = collision.contacts[0].collider.GetComponent<Rigidbody2D>();
@@ -83,7 +94,10 @@ public class PlayerHealth : MonoBehaviour {
             // more massive objects you hit hurt you more. More massive players receive slightly less damage, slightly.
             float massRatio = colliderMass / (colliderMass + Mathf.Max(1, playerMass * 0.2f));
             dotImpact *= massRatio;
-            if (Mathf.Abs(dotImpact) >= dmgVelocity + tempArmor)
+            //Debug.Log("origImpact: "+dotImpact);
+            dotImpact -= armorVal;
+            Debug.Log("newImpact: " + dotImpact);
+            if (dotImpact >= dmgVelocity + tempArmor)
             {
                 int damageDealt = (int)Mathf.Max(1, (Time.fixedDeltaTime / initialDeltaTime * (Mathf.Abs(dotImpact) - dmgVelocity - tempArmor)));
                 float outputval = dmgVelocity + tempArmor;
@@ -95,7 +109,7 @@ public class PlayerHealth : MonoBehaviour {
                 playerHealth -= damageDealt;
                 Time.timeScale = Mathf.Max((13 - (float)damageDealt) / 14, 0.03f);
                 Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
-                tempArmor = damageDealt + 10;
+                tempArmor = damageDealt*2 + 2;
                 int bloodEmitted = (int)Mathf.Max(1, damageDealt * 0.35f);
                 blood.Emit(bloodEmitted);
                 blood.transform.position = collision.contacts[0].point;
