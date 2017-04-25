@@ -34,4 +34,4 @@ sysinfo.txt
 *.unitypackage
 
 # Custom
-# /Assets/Scenes/game.unity
+/Assets/Scenes/game.unity
