@@ -23,7 +23,6 @@ ExportedObj/
 *.svd
 *.pdb
 
-
 # Unity3D generated meta files
 *.pidb.meta
 
@@ -35,4 +34,4 @@ sysinfo.txt
 *.unitypackage
 
 # Custom
-/Assets/Scenes/game.unity
+\Assets\Scenes\game.unity
