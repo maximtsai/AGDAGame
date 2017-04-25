@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class SparkSystem : MonoBehaviour {
     public GameObject spark;
-    public GameObject listOfSparks;
+    GameObject listOfSparks;
     public float sparkVel = 11;
     bool sparkHandled = false;
 
     void Start()
     {
-
+        listOfSparks = GameObject.Find("ListOfSparks");
     }
 
     void OnCollisionEnter2D (Collision2D collision)

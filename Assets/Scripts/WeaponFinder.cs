@@ -3,32 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// WeaponFinder class enables the player to pick up weapons and drop/throw weapons
+/// with whatever equipWeapButton is mapped to
+/// </summary>
 public class WeaponFinder : MonoBehaviour {
-    public GameObject listOfWeapons;
-    public GameObject pickUpIndicator;
-    public Text indicatorTextDisplay;
+    GameObject listOfWeapons;
+    GameObject pickUpIndicator;
+    Text indicatorTextDisplay;
     public KeyCode equipWeapButton = KeyCode.F;
-    public float weaponGrabDist = 3;
+    public float weaponGrabDist = 4;
 
-    private float closestWeaponDist = 99;
-    private Vector3 indicatorPos = new Vector3(0,0,-5);
-    private float prevRotation = 0;
-    private float prevPrevRotation = 0;
-    private float rotationDiff = 0;
-    private const float DEG_TO_RAD = Mathf.PI / 180.0f;
-    private bool hasWeapon = false;
-    private bool keyDown = false; // indicates if equip key is down, allows grabbing weapons on the fly
-    private bool prevKeyDown = false;
-    private bool justPickedUpWeapon = false; // prevents you from dropping weapon right after you pick it up
-    private bool needToRealignWeapon = false;
-    private Transform weaponTransform; // thing used to control position of weapon that you pick up
-    private Rigidbody2D playerRB;
+    float closestWeaponDist;
+    Vector3 indicatorPos = new Vector3(0,0,-5); // where the indicator will show up at
+    Vector3 indicatorRot = new Vector3(0, 0, -90); // where the indicator will show up at
+    float prevRotation = 0;
+    float prevPrevRotation = 0;
+    float rotationDiff = 0;
+    const float DEG_TO_RAD = Mathf.PI / 180.0f;
+    bool hasWeapon = false;
+    bool keyDown = false; // indicates if equip key is down, allows grabbing weapons on the fly
+    bool prevKeyDown = false;
+    bool justPickedUpWeapon = false; // prevents you from dropping weapon right after you pick it up
+    bool needToRealignWeapon = false;
+    Transform weaponTransform; // thing used to control position of weapon that you pick up
+    WeaponScript currentWeaponScript; // script of currently held weapon, we call functions from this
+    Rigidbody2D playerRB;
 	// Use this for initialization
 	void Start () {
+        // first search for some required world objects
+        listOfWeapons = GameObject.Find("ListOfWeapons");
+        foreach (Transform child in this.transform)
+        {
+            if (child.CompareTag("WeaponPickupIndicator"))
+            {
+                pickUpIndicator = child.gameObject;
+                break;
+            }
+        }
+        Transform indicatorCanvasTrans = pickUpIndicator.transform.FindChild("Canvas");
+        indicatorTextDisplay = indicatorCanvasTrans.FindChild("Text").GetComponent<Text>();
+
         closestWeaponDist = weaponGrabDist;
         indicatorTextDisplay.text = equipWeapButton.ToString();
         playerRB = this.GetComponent<Rigidbody2D>();
-        Debug.Log(playerRB);
         prevRotation = playerRB.rotation;
         prevPrevRotation = playerRB.rotation;
     }
@@ -58,6 +76,7 @@ public class WeaponFinder : MonoBehaviour {
                 }
                 else
                 {
+                    // throw weapon away
                     hasWeapon = false;
                     foreach (Transform child in this.transform)
                     {
@@ -133,7 +152,6 @@ public class WeaponFinder : MonoBehaviour {
                 // have weapon indicator show up and set it to active
                 indicatorPos.x = weaponTransform.position.x;
                 indicatorPos.y = weaponTransform.position.y;
-                pickUpIndicator.transform.position = indicatorPos;
                 pickUpIndicator.SetActive(true);
                 // picking up weapon
                 if (keyDown)
@@ -145,9 +163,8 @@ public class WeaponFinder : MonoBehaviour {
                     weaponTransform.SetParent(this.transform);
                     Rigidbody2D parentRB = this.GetComponent<Rigidbody2D>();
                     // Due to physics engine behavior, grabbing a weapon while at high speeds will result in weapon not
-                    // going to right position in front of player. This should offset some of the stuff
-                    float equipOffsetX = Mathf.Cos(parentRB.rotation / Mathf.Rad2Deg) * parentRB.velocity.x*Time.deltaTime;
-                    float equipOffsetY = -Mathf.Sin(parentRB.rotation / Mathf.Rad2Deg) * parentRB.velocity.y*Time.deltaTime;
+                    // going to right position in front of player.
+
                     needToRealignWeapon = true;
                     //weaponTransform.localPosition = new Vector3(weaponOffsetDist + equipOffsetX, equipOffsetY, 0);
                     //weaponTransform.localEulerAngles = new Vector3(0, 0, -90f);
@@ -169,16 +186,21 @@ public class WeaponFinder : MonoBehaviour {
         prevRotation = currRotation;
         prevKeyDown = keyDown;
     }
-    private void LateUpdate()
+    void LateUpdate()
     {
+        if (pickUpIndicator.activeSelf)
+        {
+            pickUpIndicator.transform.position = indicatorPos;
+            pickUpIndicator.transform.eulerAngles = indicatorRot;
+        }
         if (needToRealignWeapon)
         {
             // center weapon in front of player
             needToRealignWeapon = false;
-            WeaponData wd = weaponTransform.gameObject.GetComponent<WeaponData>();
+            WeaponScript ws = weaponTransform.gameObject.GetComponent<WeaponScript>();
             //SpriteRenderer sprite = weaponTransform.gameObject.GetComponent<SpriteRenderer>();
-            weaponTransform.localPosition = new Vector3(wd.weaponOffset * weaponTransform.gameObject.transform.localScale.y + this.transform.localScale.y*0.5f, 0, 0);
-            weaponTransform.localEulerAngles = new Vector3(0, 0, -90f);
+            weaponTransform.localPosition = new Vector3(0, ws.weaponOffset * weaponTransform.gameObject.transform.localScale.y + this.transform.localScale.y * 0.5f, 0);
+            weaponTransform.localEulerAngles = new Vector3(0, 0, 0);
         }
     }
 }

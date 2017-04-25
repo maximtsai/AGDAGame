@@ -96,7 +96,6 @@ public class PlayerHealth : MonoBehaviour {
             dotImpact *= massRatio;
             //Debug.Log("origImpact: "+dotImpact);
             dotImpact -= armorVal;
-            Debug.Log("newImpact: " + dotImpact);
             if (dotImpact >= dmgVelocity + tempArmor)
             {
                 int damageDealt = (int)Mathf.Max(1, (Time.fixedDeltaTime / initialDeltaTime * (Mathf.Abs(dotImpact) - dmgVelocity - tempArmor)));
