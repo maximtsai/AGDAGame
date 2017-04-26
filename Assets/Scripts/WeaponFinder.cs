@@ -161,7 +161,6 @@ public class WeaponFinder : MonoBehaviour {
                     // grab weapon, put it in front of player
                     Destroy(weaponTransform.GetComponent<Rigidbody2D>());
                     weaponTransform.SetParent(this.transform);
-                    Rigidbody2D parentRB = this.GetComponent<Rigidbody2D>();
                     // Due to physics engine behavior, grabbing a weapon while at high speeds will result in weapon not
                     // going to right position in front of player.
 
