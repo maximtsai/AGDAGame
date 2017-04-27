@@ -5,14 +5,12 @@ using UnityEngine;
 // this script is used to keep the core from rotating too much
 // to create the illusion that it's magnetic/magical
 public class CoreScript : MonoBehaviour {
-    GameObject parentObj;
     float rotateVel;
     float rotateAcc;
     Vector3 currRotation;
     // Use this for initialization
     void Start () {
         currRotation = new Vector3(0, 0, 0);
-        parentObj = this.transform.parent.gameObject;
     }
 
     // Update is called once per frame

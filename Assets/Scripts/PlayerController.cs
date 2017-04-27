@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour {
     //public float turnSpeed = 4;
     //private float origTurnSpeed;
     private bool prevFrameTurned = false;
-	private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     private Vector2 forwardVec = new Vector2(1, 0);
     private bool forwardPressed = false;
     private bool backwardPressed = false;
@@ -43,7 +42,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        forwardVec.Set(Mathf.Cos(playerBody.rotation * DEG_TO_RAD), Mathf.Sin(playerBody.rotation * DEG_TO_RAD));
+        forwardVec.Set(Mathf.Cos(playerBody.rotation * Mathf.Deg2Rad), Mathf.Sin(playerBody.rotation * Mathf.Deg2Rad));
         if (Input.GetKey(up))
         {
             if (!forwardPressed)
@@ -107,6 +106,7 @@ public class PlayerController : MonoBehaviour {
                 engineScript.setTurnLeft(false);
             }
         }
+
     }
     // Update is called once per frame
     void Update () {

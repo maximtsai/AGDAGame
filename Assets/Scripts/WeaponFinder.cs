@@ -29,6 +29,7 @@ public class WeaponFinder : MonoBehaviour {
     Transform weaponTransform; // thing used to control position of weapon that you pick up
     WeaponScript currentWeaponScript; // script of currently held weapon, we call functions from this
     Rigidbody2D playerRB;
+    bool usable = false;
 	// Use this for initialization
 	void Start () {
         // first search for some required world objects
@@ -38,19 +39,31 @@ public class WeaponFinder : MonoBehaviour {
             if (child.CompareTag("WeaponPickupIndicator"))
             {
                 pickUpIndicator = child.gameObject;
+                Transform indicatorCanvasTrans = pickUpIndicator.transform.FindChild("Canvas");
+                indicatorTextDisplay = indicatorCanvasTrans.FindChild("Text").GetComponent<Text>();
+                indicatorTextDisplay.text = equipWeapButton.ToString();
                 break;
             }
         }
-        Transform indicatorCanvasTrans = pickUpIndicator.transform.FindChild("Canvas");
-        indicatorTextDisplay = indicatorCanvasTrans.FindChild("Text").GetComponent<Text>();
+
+        if (listOfWeapons && pickUpIndicator && indicatorTextDisplay)
+        {
+            usable = true;
+        }
 
         closestWeaponDist = weaponGrabDist;
-        indicatorTextDisplay.text = equipWeapButton.ToString();
         playerRB = this.GetComponent<Rigidbody2D>();
         prevRotation = playerRB.rotation;
         prevPrevRotation = playerRB.rotation;
     }
     void FixedUpdate() {
+        if (!usable)
+        {
+            Debug.Log("WeaponFinder.cs not initialized due to missing elements");
+            // missing certain elements so terminate script
+            Destroy(this);
+            return;
+        }
         if (Input.GetKeyDown(equipWeapButton))
         {
             keyDown = true;
