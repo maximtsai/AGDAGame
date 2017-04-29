@@ -52,14 +52,10 @@ public class PlayerHealth : MonoBehaviour {
         // playear Debug.Log(this.gameObject.tag);
         GameObject impactedPiece = collision.contacts[0].otherCollider.gameObject;
         float armorVal = 0;
-        if (impactedPiece.CompareTag("LightArmor"))
+        if (impactedPiece.CompareTag("Armor"))
         {
             //Debug.Log("impacted light armor");
             armorVal = 8;
-        } else if (impactedPiece.CompareTag("HeavyArmor"))
-        {
-            //Debug.Log("impacted heavy armor");
-            armorVal = 20;
         }
         if (!impactedPiece.CompareTag("Weapon") && !impactedPiece.CompareTag("SoftWeapon"))
         {

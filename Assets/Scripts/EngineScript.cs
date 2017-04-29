@@ -7,7 +7,10 @@ public class EngineScript : MonoBehaviour
     // public string name = "ENGINENAME";
     public float acceleration = 100;
     public float maxSpeed = 14;
-    public float turnPower = 30;
+    public float baseTurnPower = 200; // how much turning power at theoretically infinite weight
+    public float bonusTurnPower = 20; // how much additional turning power at 0 weight
+    public float initialTurnMult = 0.1f; // 0-1 starting turning capability as percent of bonusTurnPower
+    public float turnAcc = 0.25f; // 0-1, how fast max turning capability reached
     public int engineType = 0; // 0 is default engine, 1-99999 reserved for any special engine behavior 
     // private Vector2 forwardVec = new Vector2(1, 0);
     Rigidbody2D playerBody;
@@ -15,12 +18,14 @@ public class EngineScript : MonoBehaviour
     bool goingBackwards;
     bool turningLeft;
     bool turningRight;
+    int prevTurnDirection; // 0 for no turn, 1 for turning left, -1 for turning right
     private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     private Vector2 forwardVec = new Vector2(0, 1);
     float initialDeltaTime = 0;
+    float warmupTurnMult = 0.1f; // 0 - 1, simulates acceleration on turning
 
-    const float ForwardTurnMultiplier = 0.7f;
-    const float BackwardTurnMultiplier = 0.85f;
+    const float ForwardmovementTurnMult = 0.7f;
+    const float BackwardmovementTurnMult = 0.85f;
     ExhaustControl exhaustController;
     // Use this for initialization
     void Start()
@@ -49,10 +54,10 @@ public class EngineScript : MonoBehaviour
         switch (engineType)
         {
             case 0:
-                float turnMultiplier = 1; // if moving forward/backwards, turn rate will decrease
+                float movementTurnMult = 1; // if moving forward/backwards, turn rate will decrease
                 if (goingForward)
                 {
-                    turnMultiplier = ForwardTurnMultiplier;
+                    movementTurnMult = ForwardmovementTurnMult;
                     Vector2 forward = acceleration * forwardVec;
                     if (playerBody.velocity.sqrMagnitude > maxSpeed)
                     {
@@ -66,7 +71,7 @@ public class EngineScript : MonoBehaviour
                 }
                 if (goingBackwards)
                 {
-                    turnMultiplier = BackwardTurnMultiplier;
+                    movementTurnMult = BackwardmovementTurnMult;
                     Vector2 backward = -acceleration * forwardVec;
                     if (playerBody.velocity.sqrMagnitude > maxSpeed)
                     {
@@ -82,16 +87,50 @@ public class EngineScript : MonoBehaviour
 
                 if (turningLeft)
                 {
+                    if (prevTurnDirection == 1)
+                    {
+                        // In previous frame you were already turning right, so turn right faster
+                        warmupTurnMult += (1 - warmupTurnMult) * turnAcc;
+                    }
+                    else
+                    {
+                        // player was previously turning in another direction, so engine needs to "warm up" again
+                        warmupTurnMult = initialTurnMult;
+                    }
                     //playerBody.MoveRotation(playerBody.rotation + turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
-                    playerBody.AddTorque(turnMultiplier*turnPower);
-                    playerBody.angularVelocity += turnMultiplier*250f;
+                    playerBody.AddTorque(movementTurnMult* bonusTurnPower * warmupTurnMult);
+                    playerBody.angularVelocity += movementTurnMult * baseTurnPower * warmupTurnMult;
+
+                    if (!turningRight)
+                    {
+                        prevTurnDirection = 1;
+                    }
                 }
                 if (turningRight)
                 {
+                    if (prevTurnDirection == -1)
+                    {
+                        // In previous frame you were already turning right, so turn right faster
+                        warmupTurnMult += (1 - warmupTurnMult) * turnAcc;
+                    } else
+                    {
+                        // player was previously turning in another direction, so engine needs to "warm up" again
+                        warmupTurnMult = initialTurnMult;
+                    }
                     //playerBody.MoveRotation(playerBody.rotation - turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
-                    playerBody.AddTorque(-turnMultiplier*turnPower);
-                    playerBody.angularVelocity -= turnMultiplier*250f;
+                    playerBody.AddTorque(-movementTurnMult* bonusTurnPower * warmupTurnMult);
+                    playerBody.angularVelocity -= movementTurnMult* baseTurnPower * warmupTurnMult;
+
+                    if (!turningLeft)
+                    {
+                        prevTurnDirection = -1;
+                    }
                 }
+                if (!turningLeft && !turningRight)
+                {
+                    prevTurnDirection = 0;
+                }
+
                 break;
             case 1:
                 break;
