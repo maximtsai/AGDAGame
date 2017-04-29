@@ -78,7 +78,6 @@ public class BreakableBehavior : MonoBehaviour {
         dotImpact -= tempArmor;
         tempArmor = Mathf.Max(tempArmor, dotImpact + 1);
         float finalImpact = dotImpact - minDmgThreshold;
-        Debug.Log(finalImpact);
         if (finalImpact > 0)
         {
             Vector3 sparkPos = new Vector3(contact.point.x, contact.point.y);
