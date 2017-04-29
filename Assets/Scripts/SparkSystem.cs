@@ -49,8 +49,8 @@ public class SparkSystem : MonoBehaviour {
                     if (!sparkObj.isPlaying)
                     {
                         sparkObj.transform.position = sparkPos;
-                        sparkObj.startLifetime = Mathf.Min(1, 0.1f + 0.05f * (impactMag - sparkVel));
-                        sparkObj.startSpeed = Mathf.Min(100, 5 + 7 * (impactMag - sparkVel));
+                        sparkObj.startLifetime = Mathf.Min(1, 0.15f + 0.06f * (impactMag - sparkVel));
+                        sparkObj.startSpeed = Mathf.Min(100, 5 + 7 * (impactMag - sparkVel) + sparkExtraSpd);
                         sparkObj.Emit((int)(1 + 0.3f * (impactMag - sparkVel)));
                         break;
                     }
@@ -58,17 +58,5 @@ public class SparkSystem : MonoBehaviour {
             }
             sparkHandled = false;
         }
-            //spark.transform.position = flarePos;
-            /*
-            if(Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity)) <= sparkVel)
-            {
-                Debug.Log("Low Speed Collision");
-                spark = new GameObject();
-                Instantiate(spark, this.transform, true);
-            }
-            */
-        //foreach (ContactPoint2D contact in collision.contacts)
-        //{
-        //}
     }
 }
