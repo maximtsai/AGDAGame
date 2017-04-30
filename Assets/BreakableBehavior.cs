@@ -80,8 +80,6 @@ public class BreakableBehavior : MonoBehaviour {
         float finalImpact = dotImpact - minDmgThreshold;
         if (finalImpact > 0)
         {
-            Vector3 sparkPos = new Vector3(contact.point.x, contact.point.y);
-
             if (dotImpact > currBreakThreshold)
             {
                 // armor is broken
