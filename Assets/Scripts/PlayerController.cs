@@ -12,22 +12,27 @@ public class PlayerController : MonoBehaviour {
     public KeyCode down;
     public KeyCode left;
     public KeyCode right;
+    public KeyCode equipWeapButton = KeyCode.F;
+    public KeyCode activateWeapButton = KeyCode.G;
+    Text indicatorTextDisplay;
+
     //public float turnSpeed = 4;
     //private float origTurnSpeed;
-    private bool prevFrameTurned = false;
-    private Vector2 forwardVec = new Vector2(1, 0);
-    private bool forwardPressed = false;
-    private bool backwardPressed = false;
-    private bool leftPressed = false;
-    private bool rightPressed = false;
-    private float forwardPressedDuration = 0;
-    private GameObject engine;
-    private EngineScript engineScript;
+    Vector2 forwardVec = new Vector2(1, 0);
+    bool forwardPressed = false;
+    bool backwardPressed = false;
+    bool leftPressed = false;
+    bool rightPressed = false;
+    bool equipPressed = false;
+    GameObject engine;
+    EngineScript engineScript;
+    WeaponFinder weaponFinderScript;
     float initialDeltaTime = 0;
     void Start() {
         //origTurnSpeed = turnSpeed;
         initialDeltaTime = Time.fixedDeltaTime;
         playerBody = GetComponent<Rigidbody2D>();
+        weaponFinderScript = GetComponent<WeaponFinder>();
         // set the engine
         foreach (Transform child in this.transform)
         {
@@ -35,6 +40,17 @@ public class PlayerController : MonoBehaviour {
             {
                 engine = child.gameObject;
                 engineScript = engine.GetComponent<EngineScript>();
+                break;
+            }
+        }
+        // set weapon indicator text
+        foreach (Transform child in this.transform)
+        {
+            if (child.CompareTag("WeaponPickupIndicator"))
+            {
+                Transform indicatorCanvasTrans = child.gameObject.transform.FindChild("Canvas");
+                indicatorTextDisplay = indicatorCanvasTrans.FindChild("Text").GetComponent<Text>();
+                indicatorTextDisplay.text = equipWeapButton.ToString();
                 break;
             }
         }
@@ -98,20 +114,30 @@ public class PlayerController : MonoBehaviour {
                 engineScript.setTurnLeft(true);
             }
         }
-        else
+        else if (leftPressed)
         {
-            if (leftPressed)
-            {
                 leftPressed = false;
                 engineScript.setTurnLeft(false);
-            }
         }
 
+        if (Input.GetKey(equipWeapButton))
+        {
+            if (!equipPressed)
+            {
+                equipPressed = true;
+                weaponFinderScript.pressWeaponKey();
+            }
+        } else if (equipPressed)
+        {
+            equipPressed = false;
+            weaponFinderScript.releaseWeaponKey();
+        }
+
+        if (Input.GetKey(activateWeapButton))
+        {
+            // TODO
+        }
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
 
     public bool isForwardPressed()
     {

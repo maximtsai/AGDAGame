@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class WeaponFinder : MonoBehaviour {
     GameObject listOfWeapons;
     GameObject pickUpIndicator;
-    Text indicatorTextDisplay;
     public KeyCode equipWeapButton = KeyCode.F;
     public float weaponGrabDist = 4;
 
@@ -40,13 +39,11 @@ public class WeaponFinder : MonoBehaviour {
             {
                 pickUpIndicator = child.gameObject;
                 Transform indicatorCanvasTrans = pickUpIndicator.transform.FindChild("Canvas");
-                indicatorTextDisplay = indicatorCanvasTrans.FindChild("Text").GetComponent<Text>();
-                indicatorTextDisplay.text = equipWeapButton.ToString();
                 break;
             }
         }
 
-        if (listOfWeapons && pickUpIndicator && indicatorTextDisplay)
+        if (listOfWeapons && pickUpIndicator)
         {
             usable = true;
         }
@@ -55,79 +52,20 @@ public class WeaponFinder : MonoBehaviour {
         playerRB = this.GetComponent<Rigidbody2D>();
         prevRotation = playerRB.rotation;
         prevPrevRotation = playerRB.rotation;
-    }
-    void FixedUpdate() {
         if (!usable)
         {
             Debug.Log("WeaponFinder.cs not initialized due to missing elements");
             // missing certain elements so terminate script
             Destroy(this);
-            return;
         }
-        if (Input.GetKeyDown(equipWeapButton))
-        {
-            keyDown = true;
-        }
-        else if (Input.GetKeyUp(equipWeapButton))
-        {
-            keyDown = false;
-        }
+    }
+    void FixedUpdate() {
+
         float currRotation = playerRB.rotation;
         rotationDiff = currRotation - prevPrevRotation;
         int tempIndex = -1;
         int closestWeaponIndex = -1;
-        if (hasWeapon)
-        {
-            // if you already have a weapon, throw it away
-            if (Input.GetKeyUp(equipWeapButton) || (!keyDown && prevKeyDown))
-            {
-                if (justPickedUpWeapon)
-                {
-                    // don't want to throw away weapon first time we pick it up.
-                    //    Debug.Log(keyDown);
-                    justPickedUpWeapon = false;
-                }
-                else
-                {
-                    // throw weapon away
-                    hasWeapon = false;
-                    foreach (Transform child in this.transform)
-                    {
-                        if (child.CompareTag("Weapon") || child.CompareTag("SoftWeapon"))
-                        {
-                            // throw weapon away
-                            child.SetParent(listOfWeapons.transform);
-                            Rigidbody2D childRB = child.gameObject.AddComponent<Rigidbody2D>();
-                            childRB.gravityScale = 0;
-                            childRB.drag = 0.75f;
-                            childRB.angularDrag = 1;
-                            Vector2 throwVelocity = playerRB.GetPointVelocity(child.position) * 2f;
-                            // also need to take into account player rotation velocity
-                            float velX = 0;
-                            float velY = 0;
-                            if (rotationDiff > 0)
-                            {
-                                // counterclockwise fling
-                                velX = Mathf.Cos((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
-                                velY = Mathf.Sin((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
-                            }
-                            else
-                            {
-                                // clockwise fling
-                                velX = Mathf.Cos((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
-                                velY = Mathf.Sin((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
-                            }
-                            throwVelocity.x += velX;
-                            throwVelocity.y += velY;
-
-                            child.gameObject.GetComponent<Rigidbody2D>().velocity = throwVelocity;
-                            child.gameObject.GetComponent<Rigidbody2D>().AddTorque(rotationDiff * 4);
-                            break;
-                        }
-                    }
-                }
-            }
-        } else
+        if (!hasWeapon)
         {
             // No weapon in hand. Look at all weapons, calculate distance to each, and determine
             // if they can be picked up
@@ -185,13 +123,10 @@ public class WeaponFinder : MonoBehaviour {
                         pickUpIndicator.SetActive(false);
                     }
                 }
-            } else
+            } else if(pickUpIndicator.activeSelf)
             {
                 // no weapon nearby, indicator is hidden
-                if (pickUpIndicator.activeSelf)
-                {
-                    pickUpIndicator.SetActive(false);
-                }
+                pickUpIndicator.SetActive(false);
             }
         }
         prevPrevRotation = prevRotation;
@@ -202,6 +137,7 @@ public class WeaponFinder : MonoBehaviour {
     {
         if (pickUpIndicator.activeSelf)
         {
+            // realign indicator so it's not rotating incorrectly
             pickUpIndicator.transform.position = indicatorPos;
             pickUpIndicator.transform.eulerAngles = indicatorRot;
         }
@@ -213,6 +149,59 @@ public class WeaponFinder : MonoBehaviour {
             //SpriteRenderer sprite = weaponTransform.gameObject.GetComponent<SpriteRenderer>();
             weaponTransform.localPosition = new Vector3(0, ws.weaponOffset * weaponTransform.gameObject.transform.localScale.y + this.transform.localScale.y * 0.5f, 0);
             weaponTransform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+    }
+    public void pressWeaponKey()
+    {
+        keyDown = true;
+    }
+    public void releaseWeaponKey()
+    {
+        keyDown = false;
+        float currRotation = playerRB.rotation;
+        rotationDiff = currRotation - prevPrevRotation;
+        if (justPickedUpWeapon)
+        {
+            justPickedUpWeapon = false;
+        } else if (hasWeapon)
+        {
+            // if you already have a weapon, throw it away
+            hasWeapon = false;
+            Debug.Log("hasweapon false");
+            foreach (Transform child in this.transform)
+            {
+                if (child.CompareTag("Weapon") || child.CompareTag("SoftWeapon"))
+                {
+                    // throw weapon away
+                    child.SetParent(listOfWeapons.transform);
+                    Rigidbody2D childRB = child.gameObject.AddComponent<Rigidbody2D>();
+                    childRB.gravityScale = 0;
+                    childRB.drag = 0.75f;
+                    childRB.angularDrag = 1;
+                    Vector2 throwVelocity = playerRB.GetPointVelocity(child.position) * 2f;
+                    // also need to take into account player rotation velocity
+                    float velX = 0;
+                    float velY = 0;
+                    if (rotationDiff > 0)
+                    {
+                        // counterclockwise fling
+                        velX = Mathf.Cos((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
+                        velY = Mathf.Sin((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
+                    }
+                    else
+                    {
+                        // clockwise fling
+                        velX = Mathf.Cos((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
+                        velY = Mathf.Sin((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
+                    }
+                    throwVelocity.x += velX;
+                    throwVelocity.y += velY;
+
+                    child.gameObject.GetComponent<Rigidbody2D>().velocity = throwVelocity;
+                    child.gameObject.GetComponent<Rigidbody2D>().AddTorque(rotationDiff * 4);
+                    break;
+                }
+            }
         }
     }
 }
