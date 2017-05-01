@@ -39,11 +39,13 @@ public class CannonFire : WeaponScript
 
     public override void activateWeapon(Rigidbody2D playerRigidBody)
     {
+        // What happens when the fire button is held  down
         playerRB = playerRigidBody;
         isActivated = true;
     }
     public override void deactivateWeapon()
     {
+        // what happens when the fire button is lifted
         isActivated = false;
     }
     void fireWeapon()
