@@ -34,7 +34,8 @@ public class SparkSystem : MonoBehaviour {
                     sparkObj.transform.position = sparkPos;
                     sparkObj.startLifetime = Mathf.Min(1, 0.15f+0.06f*(impactMag - sparkVel));
                     sparkObj.startSpeed = Mathf.Min(100, 5+7*(impactMag - sparkVel) + sparkExtraSpd);
-                    sparkObj.Emit((int)(1+0.3f*(impactMag - sparkVel)));
+                    sparkObj.Emit((int)Mathf.Min(4, (1+0.3f*(impactMag - sparkVel))));
+
                     break;
                 }
             }
@@ -51,7 +52,8 @@ public class SparkSystem : MonoBehaviour {
                         sparkObj.transform.position = sparkPos;
                         sparkObj.startLifetime = Mathf.Min(1, 0.15f + 0.06f * (impactMag - sparkVel));
                         sparkObj.startSpeed = Mathf.Min(100, 5 + 7 * (impactMag - sparkVel) + sparkExtraSpd);
-                        sparkObj.Emit((int)(1 + 0.3f * (impactMag - sparkVel)));
+
+                        sparkObj.Emit((int)Mathf.Min(4, (1 + 0.3f * (impactMag - sparkVel))));
                         break;
                     }
                 }

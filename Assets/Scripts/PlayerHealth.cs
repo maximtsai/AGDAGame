@@ -95,7 +95,7 @@ public class PlayerHealth : MonoBehaviour {
             if (dotImpact >= dmgVelocity + tempArmor)
             {
                 int damageDealt = (int)Mathf.Max(1, (Time.fixedDeltaTime / initialDeltaTime * (Mathf.Abs(dotImpact) - dmgVelocity - tempArmor)));
-                float outputval = dmgVelocity + tempArmor;
+
                 if (playerHealth >= 10 && playerHealth - damageDealt <= 0)
                 {
                     // to prevent the impression of instagibbing, a "last lifeline"
