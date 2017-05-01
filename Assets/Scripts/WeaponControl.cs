@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// WeaponFinder class enables the player to pick up weapons and drop/throw weapons
+/// WeaponControl class enables the player to pick up weapons and drop/throw weapons
 /// with whatever equipWeapButton is mapped to
 /// </summary>
-public class WeaponFinder : MonoBehaviour {
+public class WeaponControl : MonoBehaviour {
     GameObject listOfWeapons;
     GameObject pickUpIndicator;
     public KeyCode equipWeapButton = KeyCode.F;
@@ -21,8 +21,8 @@ public class WeaponFinder : MonoBehaviour {
     float rotationDiff = 0;
     const float DEG_TO_RAD = Mathf.PI / 180.0f;
     bool hasWeapon = false;
-    bool keyDown = false; // indicates if equip key is down, allows grabbing weapons on the fly
-    bool prevKeyDown = false;
+    bool equipKeyDown = false; // indicates if equip key is down, allows grabbing weapons on the fly
+    bool activateKeyDown = false; // indicates if equip key is down, allows grabbing weapons on the fly
     bool justPickedUpWeapon = false; // prevents you from dropping weapon right after you pick it up
     bool needToRealignWeapon = false;
     Transform weaponTransform; // thing used to control position of weapon that you pick up
@@ -54,7 +54,7 @@ public class WeaponFinder : MonoBehaviour {
         prevPrevRotation = playerRB.rotation;
         if (!usable)
         {
-            Debug.Log("WeaponFinder.cs not initialized due to missing elements");
+            Debug.Log("WeaponControl.cs not initialized due to missing elements");
             // missing certain elements so terminate script
             Destroy(this);
         }
@@ -105,8 +105,9 @@ public class WeaponFinder : MonoBehaviour {
                 indicatorPos.y = weaponTransform.position.y;
                 pickUpIndicator.SetActive(true);
                 // picking up weapon
-                if (keyDown)
+                if (equipKeyDown)
                 {
+                    currentWeaponScript = weaponTransform.GetComponent<WeaponScript>();
                     justPickedUpWeapon = true;
                     hasWeapon = true;
                     // grab weapon, put it in front of player
@@ -129,9 +130,14 @@ public class WeaponFinder : MonoBehaviour {
                 pickUpIndicator.SetActive(false);
             }
         }
+        // weapon activation/shooting and stuff
+        //if (currentWeaponScript && activateKeyDown)
+        //{
+            //currentWeaponScript.
+        //}
+
         prevPrevRotation = prevRotation;
         prevRotation = currRotation;
-        prevKeyDown = keyDown;
     }
     void LateUpdate()
     {
@@ -151,13 +157,13 @@ public class WeaponFinder : MonoBehaviour {
             weaponTransform.localEulerAngles = new Vector3(0, 0, 0);
         }
     }
-    public void pressWeaponKey()
+    public void pressEquipKey()
     {
-        keyDown = true;
+        equipKeyDown = true;
     }
-    public void releaseWeaponKey()
+    public void releaseEquipKey()
     {
-        keyDown = false;
+        equipKeyDown = false;
         float currRotation = playerRB.rotation;
         rotationDiff = currRotation - prevPrevRotation;
         if (justPickedUpWeapon)
@@ -167,7 +173,7 @@ public class WeaponFinder : MonoBehaviour {
         {
             // if you already have a weapon, throw it away
             hasWeapon = false;
-            Debug.Log("hasweapon false");
+            currentWeaponScript = null;
             foreach (Transform child in this.transform)
             {
                 if (child.CompareTag("Weapon") || child.CompareTag("SoftWeapon"))
@@ -202,6 +208,21 @@ public class WeaponFinder : MonoBehaviour {
                     break;
                 }
             }
+        }
+    }
+
+    public void pressActivateKey()
+    {
+        if (currentWeaponScript)
+        {
+            currentWeaponScript.activateWeapon(playerRB);
+        }
+    }
+    public void releaseActivateKey()
+    {
+        if (currentWeaponScript)
+        {
+            currentWeaponScript.deactivateWeapon();
         }
     }
 }

@@ -6,11 +6,11 @@ public class EngineScript : MonoBehaviour
 {
     // public string name = "ENGINENAME";
     public float acceleration = 100;
-    public float maxSpeed = 14;
+    public float maxSpeed = 15;
     public float baseTurnPower = 200; // how much turning power at theoretically infinite weight
     public float bonusTurnPower = 20; // how much additional turning power at 0 weight
-    public float initialTurnMult = 0.1f; // 0-1 starting turning capability as percent of bonusTurnPower
-    public float turnAcc = 0.25f; // 0-1, how fast max turning capability reached
+    public float initialTurnMult = 0.4f; // 0-1 starting turning capability as percent of bonusTurnPower
+    public float turnAcc = 0.5f; // 0-1, how fast max turning capability reached
     public int engineType = 0; // 0 is default engine, 1-99999 reserved for any special engine behavior 
     // private Vector2 forwardVec = new Vector2(1, 0);
     Rigidbody2D playerBody;
@@ -67,7 +67,7 @@ public class EngineScript : MonoBehaviour
                         forward = baseSpd + additionalSpd * Mathf.Max((maxSpeed + 15 - playerBody.velocity.sqrMagnitude) / 15, 0);
                     }
                     // -3 increases control of player
-                    playerBody.AddForce(forward - 3 * playerBody.velocity);
+                    playerBody.AddForce(forward - 4 * playerBody.velocity);
                 }
                 if (goingBackwards)
                 {
@@ -82,7 +82,7 @@ public class EngineScript : MonoBehaviour
                     }
                     // increases control of player
                     playerBody.AddForce(-playerBody.velocity);
-                    playerBody.AddForce(backward * 0.15f);
+                    playerBody.AddForce(backward * 0.25f);
                 }
 
                 if (turningLeft)
@@ -139,7 +139,7 @@ public class EngineScript : MonoBehaviour
         float speed = playerBody.velocity.magnitude;
         if (speed > 0.00001f)
         {
-            playerBody.AddForce(playerBody.velocity / (-0.25f * speed));
+            playerBody.AddForce(playerBody.velocity / (-0.1f * speed));
         }
     }
     public void setForward(bool goForward)

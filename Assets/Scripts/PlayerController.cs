@@ -24,15 +24,16 @@ public class PlayerController : MonoBehaviour {
     bool leftPressed = false;
     bool rightPressed = false;
     bool equipPressed = false;
+    bool activatePressed = false;
     GameObject engine;
     EngineScript engineScript;
-    WeaponFinder weaponFinderScript;
+    WeaponControl weaponControlScript;
     float initialDeltaTime = 0;
     void Start() {
         //origTurnSpeed = turnSpeed;
         initialDeltaTime = Time.fixedDeltaTime;
         playerBody = GetComponent<Rigidbody2D>();
-        weaponFinderScript = GetComponent<WeaponFinder>();
+        weaponControlScript = GetComponent<WeaponControl>();
         // set the engine
         foreach (Transform child in this.transform)
         {
@@ -125,17 +126,28 @@ public class PlayerController : MonoBehaviour {
             if (!equipPressed)
             {
                 equipPressed = true;
-                weaponFinderScript.pressWeaponKey();
+                weaponControlScript.pressEquipKey();
             }
         } else if (equipPressed)
         {
             equipPressed = false;
-            weaponFinderScript.releaseWeaponKey();
+            weaponControlScript.releaseEquipKey();
         }
 
         if (Input.GetKey(activateWeapButton))
         {
             // TODO
+            if (!activatePressed)
+            {
+                activatePressed = true;
+                weaponControlScript.pressActivateKey();
+
+            }
+        }
+        else if (activatePressed)
+        {
+            activatePressed = false;
+            weaponControlScript.releaseActivateKey();
         }
     }
 
