@@ -12,6 +12,10 @@ public class SparkSystem : MonoBehaviour {
     void Start()
     {
         listOfSparks = GameObject.Find("ListOfSparks");
+        if (!listOfSparks)
+        {
+            Destroy(this);
+        }
     }
 
     void OnCollisionEnter2D (Collision2D collision)

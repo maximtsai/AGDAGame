@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonFire : WeaponScript
+public class SniperScript : WeaponScript
 {
     public GameObject ammo;
     public int reloadDuration = 100;
     int currReload = 0;
-    public int clipSize = 5;
-    int remainingAmmo;
+    public int clipSize = 3;
+    int remainingAmmo = 3;
     public int fireDelay = 30;
     int currFireDelay = 0;
     Vector3 ammoPos = new Vector3(0, 0, 0);
@@ -16,12 +16,14 @@ public class CannonFire : WeaponScript
     public float fireVel = 20;
     // Use this for initialization
     Rigidbody2D playerRB;
-    void Start () {
-        remainingAmmo = clipSize;
+    void Start()
+    {
+
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         currReload--;
         currFireDelay--;
         if (isActivated && currFireDelay <= 0 && currReload <= 0)
@@ -35,7 +37,7 @@ public class CannonFire : WeaponScript
                 currReload = reloadDuration;
             }
         }
-	}
+    }
 
     public override void activateWeapon(Rigidbody2D playerRigidBody)
     {

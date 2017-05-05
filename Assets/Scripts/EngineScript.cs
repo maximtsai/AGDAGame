@@ -61,6 +61,7 @@ public class EngineScript : MonoBehaviour
                     Vector2 forward = acceleration * forwardVec;
                     if (playerBody.velocity.sqrMagnitude > maxSpeed)
                     {
+                        Debug.Log("asdf");
                         // soft cap for max speed
                         Vector2 baseSpd = forward * maxSpeed / playerBody.velocity.sqrMagnitude;
                         Vector2 additionalSpd = forward - baseSpd;
@@ -139,7 +140,7 @@ public class EngineScript : MonoBehaviour
         float speed = playerBody.velocity.magnitude;
         if (speed > 0.00001f)
         {
-            playerBody.AddForce(playerBody.velocity / (-0.1f * speed));
+            playerBody.AddForce(playerBody.velocity / (-0.175f * speed));
         }
     }
     public void setForward(bool goForward)

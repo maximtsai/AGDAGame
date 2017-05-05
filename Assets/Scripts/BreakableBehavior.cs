@@ -9,17 +9,22 @@ public class BreakableBehavior : MonoBehaviour {
     public float minDmgThreshold = 10; // how much force is required to do any amount of damage 
     public float initBreakThreshold = 40; // initially how much force is required to destroy the armor
     private float currBreakThreshold; // how much force is required to destroy the armor
-    public float fragility = 0.5f; // multiplier for how much breakThreshold is lowered whenever force exceeds minDmgThreshold
-    // Metal would have a good balance between minDmgThreshold, breakThreshold and fragility
+    public float brittleness = 0.5f; // multiplier for how much breakThreshold is lowered whenever force exceeds minDmgThreshold
+    public bool createSparks = true;
+    public bool flashRed = true;
+    // Metal would have a good balance between minDmgThreshold, breakThreshold and brittleness
     // Ceramic plates (protective but not good for multiple uses) have medium minDmgThreshold, high breakThreshold,
-    // but also high fragility
+    // but also high brittlenss
     FlashDamage FD;
     Vector3 currSize;
     int breakCounter = 99999;
     float tempArmor = 0; // temporary armor that armor gains after being hit, to reduce instagib scenarios
     void Start () {
         currBreakThreshold = initBreakThreshold;
-        FD = GetComponent<FlashDamage>();
+        if (flashRed)
+        {
+            FD = GetComponent<FlashDamage>();
+        }
         listOfDmgSparks = GameObject.Find("ListOfDmgSparks");
         if (!dmgSpark)
         {
@@ -59,19 +64,25 @@ public class BreakableBehavior : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D contact = collision.contacts[0];
-        GameObject impactedPiece = collision.contacts[0].otherCollider.gameObject;
-        float dotImpact = Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity));
+        GameObject impactedPiece = contact.otherCollider.gameObject;
+        float dotImpact = Mathf.Abs(Vector2.Dot(contact.normal, collision.relativeVelocity));
         Rigidbody2D otherColliderRB = collision.rigidbody;
         float sumImpact = dotImpact;
-        
         float colliderMass = 9999;
         if (otherColliderRB)
         {
             colliderMass = otherColliderRB.mass;
+            float speedMult = 0.2f;
+            float speedImpact = Mathf.Sqrt(Vector2.SqrMagnitude(otherColliderRB.velocity - collision.otherRigidbody.velocity));
+            if (otherColliderRB.sharedMaterial)
+            {
+                speedMult = otherColliderRB.sharedMaterial.friction * 2;
+            }
+            sumImpact += speedMult * speedImpact;
         }
         if (collision.collider.gameObject.CompareTag("Weapon"))
         {
-            sumImpact = sumImpact * 1.7f + 5;
+            sumImpact = sumImpact * 2f + 6;
         }
         else if (collision.collider.gameObject.CompareTag("Player"))
         {
@@ -87,14 +98,24 @@ public class BreakableBehavior : MonoBehaviour {
             {
                 // armor is broken
                 breakArmor(100);
-                FD.flashRed(0.9f);
-                createDmgSpark(new Vector3(contact.point.x, contact.point.y, 0), finalImpact*1.5f);
+                if (flashRed)
+                {
+                    FD.flashRed(0.9f);
+
+                }
+                if (createSparks)
+                {
+                    createDmgSpark(new Vector3(contact.point.x, contact.point.y, 0), finalImpact * 1.5f);
+                }
             }
             else
             {
-                currBreakThreshold -= fragility * finalImpact;
-                createDmgSpark(new Vector3(contact.point.x, contact.point.y, 0), finalImpact);
-                if (FD)
+                currBreakThreshold -= brittleness * finalImpact;
+                if (createSparks)
+                {
+                    createDmgSpark(new Vector3(contact.point.x, contact.point.y, 0), finalImpact);
+                }
+                if (FD && flashRed)
                 {
                     //Debug.Log(currBreakThreshold +", "+ initBreakThreshold);
                     FD.SetRed(1 - currBreakThreshold / initBreakThreshold);
