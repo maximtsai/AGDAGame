@@ -832,8 +832,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 2.8498414
-  m_LinearDrag: 1
+  m_Mass: 2.8745944
+  m_LinearDrag: 2.5
   m_AngularDrag: 50
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 8be6341e1ce3f4cec9902bc34f72d20a, type: 2}
@@ -848,7 +848,7 @@ CircleCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1673377836189974}
   m_Enabled: 1
-  m_Density: 4
+  m_Density: 10
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -863,7 +863,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430318075191358}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.4
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -905,7 +905,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1619544997256354}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.4
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -945,7 +945,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834629867385704}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.4
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -985,7 +985,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1453923563130450}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.4
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1025,7 +1025,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1102605465080970}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.4
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1065,7 +1065,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1448057756030440}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.4
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1105,7 +1105,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1960942151677574}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.4
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1145,7 +1145,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1316528153462180}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.3
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1170,7 +1170,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1099733675089478}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.3
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1195,7 +1195,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1202830792211542}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.3
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1220,7 +1220,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1744314773630086}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.3
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1245,7 +1245,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1672118346390596}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.3
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1270,7 +1270,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275614861729634}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 0.3
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -1322,8 +1322,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 50146912319225692}
   exhaustController: {fileID: 114671847887165588}
-  acceleration: 160
-  maxSpeed: 17
+  acceleration: 180
+  maxSpeed: 16
   baseTurnPower: 200
   bonusTurnPower: 25
   initialTurnMult: 0.4
@@ -1354,7 +1354,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114205820128647298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1366,6 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb91b02bb3e0a5d4cbc295a8a796ef6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gibPiece: {fileID: 1189679764439738, guid: 93a2288708bf6904dbcd9ddcc63f5b11, type: 2}
 --- !u!114 &114229695333468042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1407,7 +1410,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 15
   initBreakThreshold: 45
-  fragility: 0.4
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114324810667605912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1446,7 +1451,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114511726127427414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1472,7 +1479,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 15
   initBreakThreshold: 45
-  fragility: 0.4
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114551118899127918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1487,7 +1496,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114555282408354906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1513,7 +1524,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114608866535046298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1562,7 +1575,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114671847887165588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1632,7 +1647,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114768583129272608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1647,7 +1664,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114775680224062618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1673,7 +1692,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114829145048862352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1688,7 +1709,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114835236568381864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1703,7 +1726,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 15
   initBreakThreshold: 45
-  fragility: 0.4
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114835659746884326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1729,7 +1754,9 @@ MonoBehaviour:
   dmgSpark: {fileID: 0}
   minDmgThreshold: 10
   initBreakThreshold: 35
-  fragility: 0.7
+  brittleness: 0.5
+  createSparks: 1
+  flashRed: 1
 --- !u!114 &114912492234101980
 MonoBehaviour:
   m_ObjectHideFlags: 1
