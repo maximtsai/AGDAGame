@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class EngineScript : MonoBehaviour
 {
-    // public string name = "ENGINENAME";
+    // external references
+    public Rigidbody2D playerBody; // the engine will be moving this object
+    public ExhaustControl exhaustController; // should reference the particle system simulating engine exhaust
+
+    // tuning variables
     public float acceleration = 100;
     public float maxSpeed = 15;
     public float baseTurnPower = 200; // how much turning power at theoretically infinite weight
@@ -12,45 +16,31 @@ public class EngineScript : MonoBehaviour
     public float initialTurnMult = 0.4f; // 0-1 starting turning capability as percent of bonusTurnPower
     public float turnAcc = 0.5f; // 0-1, how fast max turning capability reached
     public int engineType = 0; // 0 is default engine, 1-99999 reserved for any special engine behavior 
-    // private Vector2 forwardVec = new Vector2(1, 0);
-    Rigidbody2D playerBody;
+    float warmupTurnMult = 0.1f; // 0 - 1, simulates acceleration on turning
+    const float ForwardmovementTurnMult = 0.7f;
+    const float BackwardmovementTurnMult = 0.85f;
+
+    // player state variables
     bool goingForward;
     bool goingBackwards;
     bool turningLeft;
     bool turningRight;
     int prevTurnDirection; // 0 for no turn, 1 for turning left, -1 for turning right
+
+    // helpful constants
     private const float DEG_TO_RAD = Mathf.PI / 180.0f;
     private Vector2 forwardVec = new Vector2(0, 1);
-    float initialDeltaTime = 0;
-    float warmupTurnMult = 0.1f; // 0 - 1, simulates acceleration on turning
-
-    const float ForwardmovementTurnMult = 0.7f;
-    const float BackwardmovementTurnMult = 0.85f;
-    ExhaustControl exhaustController;
-    // Use this for initialization
+    
     void Start()
     {
-        initialDeltaTime = Time.fixedDeltaTime;
         maxSpeed = maxSpeed * maxSpeed; // optimization thing, removes need to squareroot player speed.
-        // check if engine is actually attached to the player
-        if (this.transform.parent.tag == "Player")
-        {
-            playerBody = this.transform.parent.GetComponent<Rigidbody2D>();
-        }
-        foreach (Transform child in this.transform)
-        {
-            if (child.gameObject.tag == "ParticleSystem")
-            {
-                exhaustController = child.gameObject.GetComponent<ExhaustControl>();
-                break;
-            }
-        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         forwardVec.Set(-Mathf.Sin(playerBody.rotation * DEG_TO_RAD), Mathf.Cos(playerBody.rotation * DEG_TO_RAD));
+
         switch (engineType)
         {
             case 0:

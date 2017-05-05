@@ -832,7 +832,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 2.034989
+  m_Mass: 2.0349894
   m_LinearDrag: 1
   m_AngularDrag: 50
   m_GravityScale: 0
@@ -1305,6 +1305,10 @@ MonoBehaviour:
   right: 100
   equipWeapButton: 102
   activateWeapButton: 103
+  playerBody: {fileID: 50013518752200578}
+  engineScript: {fileID: 114986598938591464}
+  weaponControlScript: {fileID: 114081261443163026}
+  indicatorTextDisplay: {fileID: 114085946042955736}
 --- !u!114 &114054155429206714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1772,6 +1776,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc140bb181b11494393efd5de4352af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBody: {fileID: 50013518752200578}
+  exhaustController: {fileID: 114113366264436152}
   acceleration: 130
   maxSpeed: 16
   baseTurnPower: 200

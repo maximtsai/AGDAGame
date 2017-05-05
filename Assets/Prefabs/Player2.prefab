@@ -1305,6 +1305,10 @@ MonoBehaviour:
   right: 275
   equipWeapButton: 109
   activateWeapButton: 44
+  playerBody: {fileID: 50146912319225692}
+  engineScript: {fileID: 114068841696884108}
+  weaponControlScript: {fileID: 114608866535046298}
+  indicatorTextDisplay: {fileID: 114967504772273794}
 --- !u!114 &114068841696884108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1316,6 +1320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc140bb181b11494393efd5de4352af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBody: {fileID: 50146912319225692}
+  exhaustController: {fileID: 114671847887165588}
   acceleration: 160
   maxSpeed: 17
   baseTurnPower: 200
