@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonFire : WeaponScript
+public class CannonWeapon : WeaponScript
 {
     public GameObject ammo;
     public int reloadDuration = 100;
@@ -14,6 +14,7 @@ public class CannonFire : WeaponScript
     Vector3 ammoPos = new Vector3(0, 0, 0);
     bool isActivated = false;
     public float fireVel = 20;
+    Vector2 aimDir;
     // Use this for initialization
     Rigidbody2D playerRB;
     void Start () {
@@ -52,13 +53,14 @@ public class CannonFire : WeaponScript
     {
         float facingDirX = -Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad) * 1.3f;
         float facingDirY = Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad) * 1.3f;
+        aimDir = new Vector2(facingDirX, facingDirY);
         ammoPos.x = facingDirX;
         ammoPos.y = facingDirY;
         ammoPos = ammoPos + this.transform.position;
         ammoPos.z = 0;
         ammo.transform.position = ammoPos;
         GameObject newAmmo = Instantiate(ammo);
-        newAmmo.GetComponent<Rigidbody2D>().velocity = playerRB.velocity + new Vector2(facingDirX, facingDirY) * fireVel;
-        playerRB.velocity = playerRB.velocity + (new Vector2(facingDirX, facingDirY) * -fireVel * 0.1f);
+        newAmmo.GetComponent<Rigidbody2D>().velocity = playerRB.velocity + aimDir * fireVel;
+        playerRB.AddForce(aimDir * -fireVel * 0.2f, ForceMode2D.Impulse);//.velocity = playerRB.velocity + (new Vector2(facingDirX, facingDirY) * -fireVel * 0.1f);
     }
 }
