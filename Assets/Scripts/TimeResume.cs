@@ -6,6 +6,7 @@ public class TimeResume : MonoBehaviour {
     float initialDeltaTime = 0;
     float slowMoCharge = 70;
     bool slowMoReady = true;
+    bool isPaused = false;
 	// Use this for initialization
 	void Start () {
         initialDeltaTime = Time.fixedDeltaTime;
@@ -13,6 +14,22 @@ public class TimeResume : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            isPaused = !isPaused;
+            if (isPaused)
+            {
+                Time.timeScale = 0;
+            } else
+            {
+                Time.timeScale = 0.9f;
+            }
+        }
+        if (isPaused)
+        {
+
+            return;
+        }
         if (Time.timeScale < 1)
         {
             if (slowMoCharge > 0 && slowMoReady)

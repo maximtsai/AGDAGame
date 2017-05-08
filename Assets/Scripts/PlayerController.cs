@@ -25,7 +25,12 @@ public class PlayerController : MonoBehaviour {
     bool rightPressed = false;
     bool equipPressed = false;
     bool activatePressed = false;
-    
+
+    private void Start()
+    {
+        indicatorTextDisplay.text = equipWeapButton.ToString();
+    }
+
     void FixedUpdate()
     {
         if (Input.GetKey(up))

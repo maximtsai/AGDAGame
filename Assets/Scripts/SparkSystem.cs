@@ -8,8 +8,7 @@ public class SparkSystem : MonoBehaviour {
     GameObject listOfSparks;
     public float sparkVel = 11;
     bool sparkHandled = false;
-
-    void Start()
+    private void Awake()
     {
         listOfSparks = GameObject.Find("ListOfSparks");
         if (!listOfSparks)

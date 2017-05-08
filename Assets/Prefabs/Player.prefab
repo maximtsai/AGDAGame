@@ -513,7 +513,7 @@ Transform:
   m_Children:
   - {fileID: 224370907559065498}
   m_Father: {fileID: 4399334294003268}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4238834220862646
 Transform:
@@ -568,8 +568,8 @@ Transform:
   m_Children:
   - {fileID: 4370649204891202}
   - {fileID: 4414094640189200}
-  - {fileID: 4190493701009896}
   - {fileID: 4969035548922816}
+  - {fileID: 4190493701009896}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -754,7 +754,7 @@ Transform:
   - {fileID: 4715566932791202}
   - {fileID: 4819952508878986}
   m_Father: {fileID: 4399334294003268}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4972456906530278
 Transform:
@@ -832,14 +832,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 2.8745944
+  m_Mass: 2.6150584
   m_LinearDrag: 2.5
   m_AngularDrag: 50
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 8be6341e1ce3f4cec9902bc34f72d20a, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &58934314846387674
 CircleCollider2D:
@@ -848,14 +848,14 @@ CircleCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1314545391085172}
   m_Enabled: 1
-  m_Density: 10
+  m_Density: 8
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 2.1
 --- !u!60 &60012733936161356
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -1083,7 +1083,7 @@ PolygonCollider2D:
     - - {x: 0.40864372, y: -0.34104106}
       - {x: 0.5810394, y: -0.18031543}
       - {x: 0.3935337, y: -0.045425713}
-      - {x: 0.53520584, y: 0.2155205}
+      - {x: 0.4555628, y: 0.2613408}
       - {x: 0.3210411, y: 0.2896846}
       - {x: 0.14040947, y: 0.33208197}
       - {x: -0.101135254, y: 0.33656138}
@@ -1321,9 +1321,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114079724106258276
@@ -1406,9 +1406,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114113366264436152
@@ -1445,9 +1445,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 15
+  minDmgThreshold: 12
   initBreakThreshold: 45
-  brittleness: 0.5
+  brittleness: 2
   createSparks: 1
   flashRed: 1
 --- !u!114 &114223951728284552
@@ -1516,9 +1516,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114434552257529376
@@ -1533,9 +1533,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114461045310726068
@@ -1561,9 +1561,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 15
+  minDmgThreshold: 12
   initBreakThreshold: 45
-  brittleness: 0.5
+  brittleness: 2
   createSparks: 1
   flashRed: 1
 --- !u!114 &114472185737642248
@@ -1578,9 +1578,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114476188177579554
@@ -1618,9 +1618,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114575384262182394
@@ -1668,9 +1668,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114747099632183112
@@ -1712,9 +1712,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114837598141981440
@@ -1729,9 +1729,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114849987461706486
@@ -1770,9 +1770,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 15
+  minDmgThreshold: 12
   initBreakThreshold: 45
-  brittleness: 0.5
+  brittleness: 2
   createSparks: 1
   flashRed: 1
 --- !u!114 &114982314942658546
@@ -1787,9 +1787,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 10
+  minDmgThreshold: 7
   initBreakThreshold: 35
-  brittleness: 0.5
+  brittleness: 1
   createSparks: 1
   flashRed: 1
 --- !u!114 &114986598938591464

@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1212012587287572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.010000229, y: 6.92, z: 0}
+  m_LocalPosition: {x: 0, y: 4.52229, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,11 +54,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1.3554499
+  m_Mass: 3.2615566
   m_LinearDrag: 2
   m_AngularDrag: 1
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 8be6341e1ce3f4cec9902bc34f72d20a, type: 2}
+  m_Material: {fileID: 6200000, guid: 25b591169c1439b4c9e179b6c54fcfc8, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -70,7 +70,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1212012587287572}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 3
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -87,25 +87,23 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.41, y: -0.39999998}
-      - {x: 0.39, y: 0.07}
-      - {x: 0.32999998, y: 0.68}
-      - {x: 0.37, y: 0.72999996}
-      - {x: 0.37, y: 0.84}
-      - {x: 0.35, y: 0.85999995}
-      - {x: -0.34, y: 0.85999995}
-      - {x: -0.35999998, y: 0.84}
-      - {x: -0.37, y: 0.71999997}
-      - {x: -0.35, y: 0.26999998}
-      - {x: -0.39999998, y: -0.22}
-      - {x: -0.39999998, y: -0.72999996}
-      - {x: -0.26999998, y: -0.89}
-      - {x: -0.19999999, y: -0.93}
+    - - {x: 0.34790412, y: -0.43725777}
+      - {x: 0.26790434, y: 0.64274263}
+      - {x: 0.32032323, y: 0.84000015}
+      - {x: 0.2754849, y: 0.83516216}
+      - {x: -0.22822759, y: 0.82274246}
+      - {x: -0.3103231, y: 0.8027425}
+      - {x: -0.28306568, y: 0.70758057}
+      - {x: -0.32516143, y: 0.22032309}
+      - {x: -0.33790433, y: -0.38144875}
+      - {x: -0.31306577, y: -0.7051618}
+      - {x: -0.20790398, y: -0.85274243}
+      - {x: -0.1503231, y: -0.8803232}
       - {x: -0.07, y: -1}
       - {x: 0.07, y: -1}
-      - {x: 0.26, y: -0.90999997}
-      - {x: 0.35999998, y: -0.78999996}
-      - {x: 0.41, y: -0.69}
+      - {x: 0.24758053, y: -0.84790397}
+      - {x: 0.31032345, y: -0.77758074}
+      - {x: 0.32306603, y: -0.6279042}
 --- !u!114 &114196466930974924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,11 +116,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponOffset: 1.05
+  moveMultiplier: 1
+  turnMultiplier: 0.667
   ammo: {fileID: 1737281754872042, guid: 90354687c7762464ab868f0346622a99, type: 2}
-  reloadDuration: 100
-  clipSize: 3
+  reloadDuration: 130
+  clipSize: 1
   fireDelay: 30
-  fireVel: 25
+  fireVel: 22
 --- !u!212 &212358241374120068
 SpriteRenderer:
   m_ObjectHideFlags: 1
