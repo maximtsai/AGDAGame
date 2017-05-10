@@ -11,8 +11,8 @@ public class DisappearAfterTime : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         startTime = Time.realtimeSinceStartup;
-        scaleXChange = this.transform.localScale.x * 0.05f;
-        scaleYChange = this.transform.localScale.y * 0.05f;
+        scaleXChange = this.transform.localScale.x * 0.1f;
+        scaleYChange = this.transform.localScale.y * 0.1f;
     }
 
     void Update () {

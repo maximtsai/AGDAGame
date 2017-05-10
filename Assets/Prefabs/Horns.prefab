@@ -55,11 +55,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.38963056
+  m_Mass: 0.27016297
   m_LinearDrag: 1
   m_AngularDrag: 0.4
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 8be6341e1ce3f4cec9902bc34f72d20a, type: 2}
+  m_Material: {fileID: 6200000, guid: 25b591169c1439b4c9e179b6c54fcfc8, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -89,13 +89,13 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.44962585, y: -0.44817138}
-      - {x: 0.669591, y: 0.0889166}
-      - {x: 0.6644492, y: 0.44654548}
-      - {x: 0.5602758, y: 0.71411145}
+      - {x: 0.6275949, y: 0.08891666}
+      - {x: 0.6644492, y: 0.42134798}
+      - {x: 0.5602758, y: 0.6973132}
       - {x: 0.40123433, y: 0.8659181}
-      - {x: 0.4879582, y: 0.6502756}
-      - {x: 0.5073619, y: 0.35294566}
-      - {x: 0.22795588, y: -0.27652094}
+      - {x: 0.49635744, y: 0.6754731}
+      - {x: 0.56615627, y: 0.32774818}
+      - {x: 0.25315338, y: -0.27652097}
       - {x: 0.32454735, y: -0.31424496}
 --- !u!60 &60787633874973256
 PolygonCollider2D:
@@ -121,13 +121,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.22673142, y: -0.26538187}
-      - {x: -0.5208349, y: 0.32917577}
-      - {x: -0.5188966, y: 0.5843323}
+    - - {x: -0.26032817, y: -0.26538193}
+      - {x: -0.5460324, y: 0.28717983}
+      - {x: -0.53569484, y: 0.5927315}
       - {x: -0.41525692, y: 0.8647637}
-      - {x: -0.5816065, y: 0.7174749}
-      - {x: -0.6799817, y: 0.42766482}
-      - {x: -0.68231934, y: 0.08878726}
+      - {x: -0.56480825, y: 0.6838783}
+      - {x: -0.6379857, y: 0.41926563}
+      - {x: -0.62352484, y: 0.113984704}
       - {x: -0.4521222, y: -0.4697863}
 --- !u!114 &114476680400266156
 MonoBehaviour:
@@ -140,7 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b09804764f9ac46b5313f7dec37a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponOffset: 0.4
+  weaponOffset: 0.45
+  moveMultiplier: 1
+  turnMultiplier: 1
 --- !u!212 &212414589512353134
 SpriteRenderer:
   m_ObjectHideFlags: 1

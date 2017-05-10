@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212358241374120068}
   - component: {fileID: 50427263533388760}
   - component: {fileID: 60066883918862854}
-  - component: {fileID: 114196466930974924}
+  - component: {fileID: 114099958226517704}
   m_Layer: 0
   m_Name: Gun
   m_TagString: SoftWeapon
@@ -104,7 +104,7 @@ PolygonCollider2D:
       - {x: 0.24758053, y: -0.84790397}
       - {x: 0.31032345, y: -0.77758074}
       - {x: 0.32306603, y: -0.6279042}
---- !u!114 &114196466930974924
+--- !u!114 &114099958226517704
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1212012587287572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f90e5f8fe8b51a48b530a6a0eec0c2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 480c5171690c63643ad3bd960714c254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponOffset: 1.05
@@ -122,7 +122,7 @@ MonoBehaviour:
   reloadDuration: 130
   clipSize: 1
   fireDelay: 30
-  fireVel: 22
+  fireVel: 30
 --- !u!212 &212358241374120068
 SpriteRenderer:
   m_ObjectHideFlags: 1

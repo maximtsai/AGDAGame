@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 212435729812367534}
   - component: {fileID: 50298702256810502}
   - component: {fileID: 58662262374361148}
-  - component: {fileID: 114196958867307800}
   - component: {fileID: 114929880045684288}
+  - component: {fileID: 114800026074953740}
+  - component: {fileID: 114573431173630670}
   m_Layer: 0
   m_Name: ball
   m_TagString: SoftWeapon
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1737281754872042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.836476, y: 1.8371544, z: 0}
+  m_LocalPosition: {x: -11.727166, y: 7.5150375, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,7 +80,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.75
---- !u!114 &114196958867307800
+--- !u!114 &114573431173630670
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -87,14 +88,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1737281754872042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f0e604649234aa4d8e5fb2cf7a69c9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f57c1ad2ff51fd4ea850091ac46d960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  durationInSeconds: 3
-  startTime: 0
-  scaleXChange: 0
-  scaleYChange: 0
-  currScale: {x: 0, y: 0, z: 0}
+  durationInSeconds: 2
+--- !u!114 &114800026074953740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1737281754872042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ca679743c56484fa6e1408dde376c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114929880045684288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,7 +115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spark: {fileID: 1187764268849286, guid: b6f09b5c7c327b544b2022fcd2e9cb3d, type: 2}
-  sparkVel: 11
+  sparkMinVel: 11
+  sparkIntensity: 1
 --- !u!212 &212435729812367534
 SpriteRenderer:
   m_ObjectHideFlags: 1
