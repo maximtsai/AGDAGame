@@ -19,12 +19,20 @@ public class CoreScript : MonoBehaviour {
     Color currColor;
     bool turningRed = false;
     public GameObject gibPiece;
+    EngineScript currentEngineScript;
     void Start () {
         currRotation = new Vector3(0, 0, 0);
         initialDeltaTime = Time.fixedDeltaTime;
         SR = GetComponent<SpriteRenderer>();
         origColor = SR.color;
         currColor = origColor;
+        foreach (Transform child in this.transform.parent)
+        {
+            if (child.CompareTag("Engine"))
+            {
+                currentEngineScript = child.gameObject.GetComponent<EngineScript>();
+            }
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -47,7 +55,12 @@ public class CoreScript : MonoBehaviour {
                 }
                 sumImpact += speedMult * speedImpact;
             }
-            if (sumImpact > 8)
+            if (health == 1)
+            {
+                // low health slightly less likely to instadie
+                sumImpact -= 3;
+            }
+            if (sumImpact > 6)
             {
                 health--;
                 if (health == 1)
@@ -57,6 +70,8 @@ public class CoreScript : MonoBehaviour {
                     turningRed = true;
                     Time.timeScale = 0.01f;
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
+                    currentEngineScript.setCoreTurnMult(0.75f);
+                    currentEngineScript.setCoreMoveMult(0.75f);
                 }
                 else if (health <= 0)
                 {
@@ -124,6 +139,8 @@ public class CoreScript : MonoBehaviour {
                 currColor = origColor;
                 SR.color = currColor;
                 health = 2;
+                currentEngineScript.setCoreTurnMult(1);
+                currentEngineScript.setCoreMoveMult(1);
             }
         }
     }

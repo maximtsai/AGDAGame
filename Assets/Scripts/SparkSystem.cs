@@ -6,10 +6,10 @@ using UnityEngine;
 public class SparkSystem : MonoBehaviour {
     public GameObject spark;
     GameObject listOfSparks;
-    public float sparkVel = 11;
+    public float sparkMinVel = 11;
+    public float sparkIntensity = 1;
     bool sparkHandled = false;
-
-    void Start()
+    private void Awake()
     {
         listOfSparks = GameObject.Find("ListOfSparks");
         if (!listOfSparks)
@@ -26,8 +26,9 @@ public class SparkSystem : MonoBehaviour {
         float impactMag = Mathf.Max(0.8f * impactSpd + 0.15f * dotImpact, dotImpact + 0.2f * impactSpd);
         float sparkExtraSpd = Mathf.Max(0.1f, dotImpact * 0.1f);
 
-        if (impactMag > sparkVel)
+        if (impactMag > sparkMinVel)
         {
+            impactMag *= sparkIntensity;
             Vector3 sparkPos = new Vector3(contact.point.x, contact.point.y);
             foreach (Transform childSpark in listOfSparks.transform)
             {
@@ -36,9 +37,9 @@ public class SparkSystem : MonoBehaviour {
                 {
                     sparkHandled = true;
                     sparkObj.transform.position = sparkPos;
-                    sparkObj.startLifetime = Mathf.Min(1, 0.15f+0.06f*(impactMag - sparkVel));
-                    sparkObj.startSpeed = Mathf.Min(100, 5+7*(impactMag - sparkVel) + sparkExtraSpd);
-                    sparkObj.Emit((int)Mathf.Min(4, (1+0.3f*(impactMag - sparkVel))));
+                    sparkObj.startLifetime = Mathf.Min(1, 0.15f+0.06f*(impactMag - sparkMinVel));
+                    sparkObj.startSpeed = Mathf.Min(100, 5+7*(impactMag - sparkMinVel) + sparkExtraSpd);
+                    sparkObj.Emit((int)Mathf.Min(4, (1+0.3f*(impactMag - sparkMinVel))));
 
                     break;
                 }
@@ -54,10 +55,10 @@ public class SparkSystem : MonoBehaviour {
                     if (!sparkObj.isPlaying)
                     {
                         sparkObj.transform.position = sparkPos;
-                        sparkObj.startLifetime = Mathf.Min(1, 0.15f + 0.06f * (impactMag - sparkVel));
-                        sparkObj.startSpeed = Mathf.Min(100, 5 + 7 * (impactMag - sparkVel) + sparkExtraSpd);
+                        sparkObj.startLifetime = Mathf.Min(1, 0.15f + 0.06f * (impactMag - sparkMinVel));
+                        sparkObj.startSpeed = Mathf.Min(100, 5 + 7 * (impactMag - sparkMinVel) + sparkExtraSpd);
 
-                        sparkObj.Emit((int)Mathf.Min(4, (1 + 0.3f * (impactMag - sparkVel))));
+                        sparkObj.Emit((int)Mathf.Min(4, (1 + 0.3f * (impactMag - sparkMinVel))));
                         break;
                     }
                 }

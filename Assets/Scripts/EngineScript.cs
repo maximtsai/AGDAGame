@@ -19,6 +19,10 @@ public class EngineScript : MonoBehaviour
     float warmupTurnMult = 0.1f; // 0 - 1, simulates acceleration on turning
     const float ForwardmovementTurnMult = 0.7f;
     const float BackwardmovementTurnMult = 0.85f;
+    float weaponTurnSpdMult = 1;
+    float weaponMoveSpdMult = 1;
+    float coreTurnSpdMult = 1;
+    float coreMoveSpdMult = 1;
 
     // player state variables
     bool goingForward;
@@ -48,7 +52,7 @@ public class EngineScript : MonoBehaviour
                 if (goingForward)
                 {
                     movementTurnMult = ForwardmovementTurnMult;
-                    Vector2 forward = acceleration * forwardVec;
+                    Vector2 forward = acceleration * forwardVec * coreMoveSpdMult * weaponMoveSpdMult;
                     if (playerBody.velocity.sqrMagnitude > maxSpeed)
                     {
                         // soft cap for max speed
@@ -56,13 +60,13 @@ public class EngineScript : MonoBehaviour
                         Vector2 additionalSpd = forward - baseSpd;
                         forward = baseSpd + additionalSpd * Mathf.Max((maxSpeed + 15 - playerBody.velocity.sqrMagnitude) / 15, 0);
                     }
-                    // -3 increases control of player
+                    // increases control of player
                     playerBody.AddForce(forward - 4 * playerBody.velocity);
                 }
                 if (goingBackwards)
                 {
                     movementTurnMult = BackwardmovementTurnMult;
-                    Vector2 backward = -acceleration * forwardVec;
+                    Vector2 backward = -acceleration * forwardVec * coreMoveSpdMult * weaponMoveSpdMult;
                     if (playerBody.velocity.sqrMagnitude > maxSpeed)
                     {
                         // soft cap for max speed
@@ -88,8 +92,9 @@ public class EngineScript : MonoBehaviour
                         warmupTurnMult = initialTurnMult;
                     }
                     //playerBody.MoveRotation(playerBody.rotation + turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
-                    playerBody.AddTorque(movementTurnMult* bonusTurnPower * warmupTurnMult);
-                    playerBody.angularVelocity += movementTurnMult * baseTurnPower * warmupTurnMult;
+                    float multipliers = warmupTurnMult * Time.timeScale * coreTurnSpdMult * weaponTurnSpdMult;
+                    playerBody.AddTorque(movementTurnMult* bonusTurnPower * multipliers);
+                    playerBody.angularVelocity += movementTurnMult * baseTurnPower * multipliers;
 
                     if (!turningRight)
                     {
@@ -108,8 +113,9 @@ public class EngineScript : MonoBehaviour
                         warmupTurnMult = initialTurnMult;
                     }
                     //playerBody.MoveRotation(playerBody.rotation - turnSpeed * Time.fixedDeltaTime / initialDeltaTime);
-                    playerBody.AddTorque(-movementTurnMult* bonusTurnPower * warmupTurnMult);
-                    playerBody.angularVelocity -= movementTurnMult* baseTurnPower * warmupTurnMult;
+                    float multipliers = warmupTurnMult * Time.timeScale * coreTurnSpdMult * weaponTurnSpdMult;
+                    playerBody.AddTorque(-movementTurnMult* bonusTurnPower * multipliers);
+                    playerBody.angularVelocity -= movementTurnMult* baseTurnPower * multipliers;
 
                     if (!turningLeft)
                     {
@@ -150,5 +156,21 @@ public class EngineScript : MonoBehaviour
     public void setTurnRight(bool isTurningRight)
     {
         turningRight = isTurningRight;
+    }
+    public void setWeaponTurnMult(float mult)
+    {
+        weaponTurnSpdMult = mult;
+    }
+    public void setWeaponMoveMult(float mult)
+    {
+        weaponMoveSpdMult = mult;
+    }
+    public void setCoreTurnMult(float mult)
+    {
+        coreTurnSpdMult = mult;
+    }
+    public void setCoreMoveMult(float mult)
+    {
+        coreMoveSpdMult = mult;
     }
 }

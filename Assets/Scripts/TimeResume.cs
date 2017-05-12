@@ -6,6 +6,8 @@ public class TimeResume : MonoBehaviour {
     float initialDeltaTime = 0;
     float slowMoCharge = 70;
     bool slowMoReady = true;
+    bool isPaused = false;
+    public bool useSlowMo = true;
 	// Use this for initialization
 	void Start () {
         initialDeltaTime = Time.fixedDeltaTime;
@@ -13,27 +15,51 @@ public class TimeResume : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            isPaused = !isPaused;
+            if (isPaused)
+            {
+                Time.timeScale = 0;
+            } else
+            {
+                Time.timeScale = 0.9f;
+            }
+        }
+        if (isPaused)
+        {
+            return;
+        }
         if (Time.timeScale < 1)
         {
-            if (slowMoCharge > 0 && slowMoReady)
+            if (!useSlowMo)
             {
-                // default slow down time
-                slowMoCharge -= 1;
-                if (Time.timeScale < 0.05)
+                Time.timeScale += (1 - Time.timeScale) * 0.5f;
+                Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
+            }
+            else
+            {
+                if (slowMoCharge > 0 && slowMoReady)
                 {
-                    Time.timeScale = Mathf.Min(1, Time.timeScale + 0.001f);
+                    // default slow down time
+                    slowMoCharge -= 1;
+                    if (Time.timeScale < 0.05)
+                    {
+                        Time.timeScale = Mathf.Min(1, Time.timeScale + 0.001f);
+                    }
+                    else
+                    {
+                        Time.timeScale = Mathf.Min(1, Time.timeScale + 0.025f);
+                    }
+                    Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
                 else
                 {
-                    Time.timeScale = Mathf.Min(1, Time.timeScale + 0.025f);
+                    // quickly get back to normal time cuz no more slowmo charge
+                    slowMoReady = false;
+                    Time.timeScale = Mathf.Min(1, Time.timeScale + 0.1f);
+                    Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
-                Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
-            } else
-            {
-                // quickly get back to normal time cuz no more slowmo charge
-                slowMoReady = false;
-                Time.timeScale = Mathf.Min(1, Time.timeScale + 0.1f);
-                Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
             }
         } else
         {

@@ -18,8 +18,10 @@ public class BreakableBehavior : MonoBehaviour {
     FlashDamage FD;
     Vector3 currSize;
     int breakCounter = 99999;
+    float initialDeltaTime = 0;
     float tempArmor = 0; // temporary armor that armor gains after being hit, to reduce instagib scenarios
-    void Start () {
+    void Awake () {
+        initialDeltaTime = Time.fixedDeltaTime;
         currBreakThreshold = initBreakThreshold;
         if (flashRed)
         {
@@ -93,17 +95,19 @@ public class BreakableBehavior : MonoBehaviour {
         if (finalImpact > 0)
         {
             tempArmor = Mathf.Max(tempArmor, finalImpact + 1);
+            int armorRemainDuration = 100;
 
             if (dotImpact > currBreakThreshold)
             {
                 // armor is broken
-                breakArmor(100);
+                breakArmor(armorRemainDuration);
                 if (flashRed)
                 {
                     FD.flashRed(0.9f);
-
+                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1-0.05f*finalImpact));
+                    Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
-                if (createSparks)
+                if (createSparks && breakCounter > armorRemainDuration - 3)
                 {
                     createDmgSpark(new Vector3(contact.point.x, contact.point.y, 0), finalImpact * 1.5f);
                 }
@@ -111,7 +115,7 @@ public class BreakableBehavior : MonoBehaviour {
             else
             {
                 currBreakThreshold -= brittleness * finalImpact;
-                if (createSparks)
+                if (createSparks && breakCounter > armorRemainDuration - 3)
                 {
                     createDmgSpark(new Vector3(contact.point.x, contact.point.y, 0), finalImpact);
                 }
@@ -120,6 +124,8 @@ public class BreakableBehavior : MonoBehaviour {
                     //Debug.Log(currBreakThreshold +", "+ initBreakThreshold);
                     FD.SetRed(1 - currBreakThreshold / initBreakThreshold);
                     FD.flashRed(1 - currBreakThreshold / initBreakThreshold + 0.5f);
+                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1 - 0.02f * finalImpact));
+                    Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
             }
         } else

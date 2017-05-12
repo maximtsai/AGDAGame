@@ -7,6 +7,8 @@ public class WeaponScript : MonoBehaviour {
     Rigidbody2D rbComponent;
     GameObject listOfWeapons;
     public float weaponOffset = 1;
+    public float moveMultiplier = 1;
+    public float turnMultiplier = 1;
     void Start () {
         listOfWeapons = GameObject.Find("ListOfWeapons");
         rbComponent = this.GetComponent<Rigidbody2D>();

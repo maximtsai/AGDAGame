@@ -27,6 +27,7 @@ public class WeaponControl : MonoBehaviour {
     bool needToRealignWeapon = false;
     Transform weaponTransform; // thing used to control position of weapon that you pick up
     WeaponScript currentWeaponScript; // script of currently held weapon, we call functions from this
+    EngineScript currentEngineScript; // script of object's engine, used to control movement
     Rigidbody2D playerRB;
     bool usable = false;
 	// Use this for initialization
@@ -39,7 +40,10 @@ public class WeaponControl : MonoBehaviour {
             {
                 pickUpIndicator = child.gameObject;
                 Transform indicatorCanvasTrans = pickUpIndicator.transform.FindChild("Canvas");
-                break;
+            }
+            if (child.CompareTag("Engine"))
+            {
+                currentEngineScript = child.gameObject.GetComponent<EngineScript>();
             }
         }
 
@@ -117,12 +121,13 @@ public class WeaponControl : MonoBehaviour {
                     // going to right position in front of player.
 
                     needToRealignWeapon = true;
-                    //weaponTransform.localPosition = new Vector3(weaponOffsetDist + equipOffsetX, equipOffsetY, 0);
-                    //weaponTransform.localEulerAngles = new Vector3(0, 0, -90f);
                     if (pickUpIndicator.activeSelf)
                     {
                         pickUpIndicator.SetActive(false);
                     }
+                    // add movement multipliers/penalties
+                    currentEngineScript.setWeaponTurnMult(currentWeaponScript.turnMultiplier);
+                    currentEngineScript.setWeaponMoveMult(currentWeaponScript.moveMultiplier);
                 }
             } else if(pickUpIndicator.activeSelf)
             {
@@ -208,6 +213,9 @@ public class WeaponControl : MonoBehaviour {
                     break;
                 }
             }
+            // reset movement multipliers
+            currentEngineScript.setWeaponTurnMult(1);
+            currentEngineScript.setWeaponMoveMult(1);
         }
     }
 
