@@ -2327,7 +2327,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 824424421}
-  - component: {fileID: 824424423}
   - component: {fileID: 824424422}
   m_Layer: 0
   m_Name: ClientController
@@ -2357,18 +2356,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 824424420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85b29afd2f2076e45b5ec322b748777e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &824424423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 824424420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 138ccc6c6927d054ca61b490f1b8bc8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 578d546ac571d2a45970060ff771f491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IP: 127.0.0.1
