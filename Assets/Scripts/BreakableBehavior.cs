@@ -78,7 +78,7 @@ public class BreakableBehavior : MonoBehaviour {
             float speedImpact = Mathf.Sqrt(Vector2.SqrMagnitude(otherColliderRB.velocity - collision.otherRigidbody.velocity));
             if (otherColliderRB.sharedMaterial)
             {
-                speedMult = otherColliderRB.sharedMaterial.friction * 2;
+                speedMult = otherColliderRB.sharedMaterial.friction;
             }
             sumImpact += speedMult * speedImpact;
         }

@@ -18,11 +18,13 @@ public class SniperWeapon : WeaponScript
     int warmupCounter = 0;
     bool firing = false;
     Vector2 aimDir;
+    Collider2D weaponCollider;
     // Use this for initialization
     Rigidbody2D playerRB;
     void Start()
     {
         remainingAmmo = clipSize;
+        weaponCollider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -56,22 +58,25 @@ public class SniperWeapon : WeaponScript
     }
     void fireWeapon()
     {
-        float facingDirX = -Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad) * 1.7f;
-        float facingDirY = Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad) * 1.7f;
-        aimDir = new Vector2(facingDirX + Random.Range(-0.1f, 0.1f), facingDirY + Random.Range(-0.1f, 0.1f));
+        float facingDirX = -Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad);
+        float facingDirY = Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad);
+        aimDir = new Vector2(facingDirX + Random.Range(-0.01f, 0.01f), facingDirY + Random.Range(-0.01f, 0.01f));
         float angle = Mathf.Atan2(facingDirY, facingDirX);
         Debug.Log(angle * Mathf.Rad2Deg);
-        ammoPos.x = facingDirX;
-        ammoPos.y = facingDirY;
+        ammoPos.x = facingDirX*-0.2f;
+        ammoPos.y = facingDirY*-0.2f;
         ammoPos = ammoPos + this.transform.position;
         ammoPos.z = 0;
         ammo.transform.position = ammoPos;
         GameObject newAmmo = Instantiate(ammo);
         newAmmo.transform.eulerAngles = new Vector3(0,0,angle*Mathf.Rad2Deg+90);
-        tempNoClipWithHost ammoNoClipScript = newAmmo.GetComponent<tempNoClipWithHost>();
+        tempNoCollision ammoNoClipScript = newAmmo.GetComponent<tempNoCollision>();
         if (ammoNoClipScript)
         {
-            ammoNoClipScript.setNoCollision(GetComponent<Rigidbody2D>());
+            if (weaponCollider)
+            {
+                ammoNoClipScript.SetNoCollision(weaponCollider);
+            }
         }
         newAmmo.GetComponent<Rigidbody2D>().velocity = playerRB.velocity + aimDir * fireVel;
         playerRB.AddForce(aimDir * -fireVel*0.01f, ForceMode2D.Impulse);//.velocity = playerRB.velocity + (new Vector2(facingDirX, facingDirY) * -fireVel * 0.1f);

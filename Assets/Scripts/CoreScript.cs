@@ -42,6 +42,7 @@ public class CoreScript : MonoBehaviour {
             ContactPoint2D contact = collision.contacts[0];
             float dotImpact = Mathf.Abs(Vector2.Dot(contact.normal, collision.relativeVelocity));
             Rigidbody2D otherColliderRB = collision.rigidbody;
+            Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
             float sumImpact = dotImpact;
             float colliderMass = 9999;
             if (otherColliderRB)
@@ -68,7 +69,7 @@ public class CoreScript : MonoBehaviour {
                     isInvul = true;
                     timeOfInjury = Time.time;
                     turningRed = true;
-                    Time.timeScale = 0.01f;
+                    Time.timeScale = 0.00872f;
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                     currentEngineScript.setCoreTurnMult(0.75f);
                     currentEngineScript.setCoreMoveMult(0.75f);

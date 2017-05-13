@@ -19,8 +19,8 @@ public class DisappearAfterTime : MonoBehaviour {
 		if (Time.realtimeSinceStartup - startTime >= durationInSeconds)
         {
             currScale = this.transform.localScale;
-            currScale.x -= scaleXChange;
-            currScale.y -= scaleYChange;
+            currScale.x -= scaleXChange * Time.timeScale;
+            currScale.y -= scaleYChange * Time.timeScale;
             this.transform.localScale = currScale;
             if (currScale.x <= 0)
             {

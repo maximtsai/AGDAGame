@@ -832,11 +832,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 2.6150584
+  m_Mass: 2.6150577
   m_LinearDrag: 2.5
   m_AngularDrag: 50
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 8be6341e1ce3f4cec9902bc34f72d20a, type: 2}
+  m_Material: {fileID: 6200000, guid: e90a3cb1f0e709b4e87d6a1ce87a6538, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -1600,7 +1600,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1314545391085172}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb91b02bb3e0a5d4cbc295a8a796ef6d, type: 3}
   m_Name: 
@@ -1757,7 +1757,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spark: {fileID: 1187764268849286, guid: b6f09b5c7c327b544b2022fcd2e9cb3d, type: 2}
-  sparkVel: 9
+  sparkMinVel: 11
+  sparkIntensity: 1
 --- !u!114 &114944590117352694
 MonoBehaviour:
   m_ObjectHideFlags: 1
