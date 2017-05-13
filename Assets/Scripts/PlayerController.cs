@@ -37,11 +37,11 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKey(up))
         {
-            DarkRiftAPI.SendMessageToServer(0, 0, "up");
             if (!forwardPressed)
             {
                 forwardPressed = true;
                 engineScript.setForward(true);
+                DarkRiftAPI.SendMessageToServer(110, 0, 10);
             }
         } else
         {
@@ -49,15 +49,16 @@ public class PlayerController : MonoBehaviour {
             {
                 forwardPressed = false;
                 engineScript.setForward(false);
+                DarkRiftAPI.SendMessageToServer(110, 0, 11);
             }
         }
         if (Input.GetKey(down))
         {
-            DarkRiftAPI.SendMessageToServer(0, 0, "down");
             if (!backwardPressed)
             {
                 backwardPressed = true;
                 engineScript.setBackward(true);
+                DarkRiftAPI.SendMessageToServer(110, 0, 20);
             }
         } else
         {
@@ -65,16 +66,17 @@ public class PlayerController : MonoBehaviour {
             {
                 backwardPressed = false;
                 engineScript.setBackward(false);
+                DarkRiftAPI.SendMessageToServer(110, 0, 21);
             }
         }
 
         if (Input.GetKey(right))
         {
-            DarkRiftAPI.SendMessageToServer(0, 0, "right");
             if (!rightPressed)
             {
                 rightPressed = true;
                 engineScript.setTurnRight(true);
+                DarkRiftAPI.SendMessageToServer(110, 0, 30);
             }
         } else
         {
@@ -82,22 +84,24 @@ public class PlayerController : MonoBehaviour {
             {
                 rightPressed = false;
                 engineScript.setTurnRight(false);
+                DarkRiftAPI.SendMessageToServer(110, 0, 31);
             }
         }
 
         if (Input.GetKey(left))
         {
-            DarkRiftAPI.SendMessageToServer(0, 0, "left");
             if (!leftPressed)
             {
                 leftPressed = true;
                 engineScript.setTurnLeft(true);
+                DarkRiftAPI.SendMessageToServer(110, 0, 40);
             }
         }
         else if (leftPressed)
         {
-                leftPressed = false;
-                engineScript.setTurnLeft(false);
+            leftPressed = false;
+            engineScript.setTurnLeft(false);
+            DarkRiftAPI.SendMessageToServer(110, 0, 41);
         }
 
         if (Input.GetKey(equipWeapButton))
@@ -106,11 +110,13 @@ public class PlayerController : MonoBehaviour {
             {
                 equipPressed = true;
                 weaponControlScript.pressEquipKey();
+                DarkRiftAPI.SendMessageToServer(110, 0, 50);
             }
         } else if (equipPressed)
         {
             equipPressed = false;
             weaponControlScript.releaseEquipKey();
+            DarkRiftAPI.SendMessageToServer(110, 0, 51);
         }
 
         if (Input.GetKey(activateWeapButton))
@@ -120,6 +126,7 @@ public class PlayerController : MonoBehaviour {
             {
                 activatePressed = true;
                 weaponControlScript.pressActivateKey();
+                DarkRiftAPI.SendMessageToServer(110, 0, 60);
 
             }
         }
@@ -127,6 +134,7 @@ public class PlayerController : MonoBehaviour {
         {
             activatePressed = false;
             weaponControlScript.releaseActivateKey();
+            DarkRiftAPI.SendMessageToServer(110, 0, 61);
         }
     }
 

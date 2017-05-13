@@ -33,11 +33,59 @@ public class XEmbeddedCubeManager : MonoBehaviour
 	{
 		//Decode the data so it is readable
 		data.DecodeData ();
+        
+        Debug.Log(data.tag);
 
         if (data.tag == 000)
         {
-            Debug.Log("YAY~~!!");
             Debug.Log((string) data.data);
+        }
+
+        if (data.tag == 110)
+        {
+
+            Debug.Log(data.data);
+            // Key input
+            GameObject player = GameObject.Find("Player");
+            Debug.Log(player);
+            EngineScript engineScript = player.GetComponentInChildren< EngineScript >();
+            Debug.Log(engineScript);
+
+            switch ((int) data.data)
+            {
+                case 10:
+                    engineScript.setForward(true);
+                    break;
+                case 11:
+                    engineScript.setForward(false);
+                    break;
+                case 20:
+                    engineScript.setBackward(true);
+                    break;
+                case 21:
+                    engineScript.setBackward(false);
+                    break;
+                case 30:
+                    engineScript.setTurnRight(true);
+                    break;
+                case 31:
+                    engineScript.setTurnRight(false);
+                    break;
+                case 40:
+                    engineScript.setTurnLeft(true);
+                    break;
+                case 41:
+                    engineScript.setTurnLeft(false);
+                    break;
+                case 50:
+                    break;
+                case 51:
+                    break;
+                case 60:
+                    break;
+                case 61:
+                    break;
+            }
         }
         /*
         //Convert the data to Vector3
