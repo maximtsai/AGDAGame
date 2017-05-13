@@ -125,7 +125,8 @@ public class WeaponControl : MonoBehaviour {
                     {
                         pickUpIndicator.SetActive(false);
                     }
-                    // add movement multipliers/penalties
+                    // add movement multipliers/penalties and link the engine with the weapon
+                    currentWeaponScript.setEngineScript(currentEngineScript);
                     currentEngineScript.setWeaponTurnMult(currentWeaponScript.turnMultiplier);
                     currentEngineScript.setWeaponMoveMult(currentWeaponScript.moveMultiplier);
                 }
@@ -135,11 +136,6 @@ public class WeaponControl : MonoBehaviour {
                 pickUpIndicator.SetActive(false);
             }
         }
-        // weapon activation/shooting and stuff
-        //if (currentWeaponScript && activateKeyDown)
-        //{
-            //currentWeaponScript.
-        //}
 
         prevPrevRotation = prevRotation;
         prevRotation = currRotation;

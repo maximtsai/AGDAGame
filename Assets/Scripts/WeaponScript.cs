@@ -6,6 +6,7 @@ public class WeaponScript : MonoBehaviour {
     // Use this for initialization
     Rigidbody2D rbComponent;
     GameObject listOfWeapons;
+    internal EngineScript engScript; // Internal means object can be used by subclasses, not just read
     public float weaponOffset = 1;
     public float moveMultiplier = 1;
     public float turnMultiplier = 1;
@@ -22,5 +23,8 @@ public class WeaponScript : MonoBehaviour {
     {
 
     }
-
+    public void setEngineScript(EngineScript ES)
+    {
+        engScript = ES;
+    }
 }

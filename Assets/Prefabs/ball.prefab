@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1737281754872042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.581055, y: 10.874294, z: 0}
+  m_LocalPosition: {x: 13.147341, y: 6.046327, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spark: {fileID: 1187764268849286, guid: b6f09b5c7c327b544b2022fcd2e9cb3d, type: 2}
+  sparkOnCollide: 1
   sparkMinVel: 11
   sparkIntensity: 1
 --- !u!212 &212435729812367534

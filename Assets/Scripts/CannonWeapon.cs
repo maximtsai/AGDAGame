@@ -4,35 +4,44 @@ using UnityEngine;
 
 public class CannonWeapon : WeaponScript
 {
+    public GameObject chargeSparkEmitter;
+    ParticleSystem chargeSparkParticleSystem;
     public GameObject ammo;
     public int reloadDuration = 100;
-    int currReload = 0;
+    float currReload = 0;
     public int clipSize = 5;
     int remainingAmmo;
     public int fireDelay = 30;
-    int currFireDelay = 0;
+    float currFireDelay = 0;
     Vector3 ammoPos = new Vector3(0, 0, 0);
     bool isActivated = false;
     public float fireVel = 20;
-    int warmupDuration = 4;// ticks before weapon fires
-    int warmupCounter = 0;
+    float warmupDuration = 22;// ticks before weapon fires
+    float warmupCounter = 0;
     bool firing = false;
+    bool sparkHandled = false; // used to handle chargeSparks
     Vector2 aimDir;
     Collider2D weaponCollider;
     // Use this for initialization
     Rigidbody2D playerRB;
+
     void Start () {
         remainingAmmo = clipSize;
         weaponCollider = GetComponent<Collider2D>();
+        chargeSparkParticleSystem = chargeSparkEmitter.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
     void FixedUpdate () {
         if (firing)
         {
-            warmupCounter++;
-            if (warmupCounter == warmupDuration)
+            warmupCounter += Time.timeScale;
+            if (warmupCounter <= warmupDuration - 10) {
+                // play charging up animation
+                chargeSparkParticleSystem.Emit(2);
+            } else if (warmupCounter >= warmupDuration)
             {
+                // fire a bullet and adjust ammo and reload times as necessary
                 fireWeapon();
                 currFireDelay = fireDelay;
                 remainingAmmo--;
@@ -46,18 +55,20 @@ public class CannonWeapon : WeaponScript
             }            
         } else
         {
-            currReload--;
-            currFireDelay--;
+            currReload = Mathf.Max(0, currReload - Time.timeScale);
+            currFireDelay = Mathf.Max(0, currFireDelay - Time.timeScale); ;
             if (isActivated && currFireDelay <= 0 && currReload <= 0)
             {
                 firing = true;
+                engScript.setWeaponTurnMult(this.turnMultiplier * 0.25f);
+                engScript.setWeaponMoveMult(this.moveMultiplier * 0.25f);
             }
         }
 	}
 
     public override void activateWeapon(Rigidbody2D playerRigidBody)
     {
-        // What happens when the fire button is held  down
+        // What happens when the fire button is pressed
         playerRB = playerRigidBody;
         isActivated = true;
     }
@@ -68,6 +79,8 @@ public class CannonWeapon : WeaponScript
     }
     void fireWeapon()
     {
+        engScript.setWeaponTurnMult(this.turnMultiplier);
+        engScript.setWeaponMoveMult(this.moveMultiplier);
         float facingDirX = -Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad);
         float facingDirY = Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad);
         aimDir = new Vector2(facingDirX, facingDirY);
@@ -85,4 +98,5 @@ public class CannonWeapon : WeaponScript
         newAmmo.GetComponent<Rigidbody2D>().velocity = playerRB.velocity + aimDir * fireVel;
         playerRB.AddForce(aimDir * -fireVel, ForceMode2D.Impulse);//.velocity = playerRB.velocity + (new Vector2(facingDirX, facingDirY) * -fireVel * 0.1f);
     }
+
 }
