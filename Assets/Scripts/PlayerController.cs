@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using DarkRift;
+
 /// <summary>
 /// PlayerController takes player input and calls the proper scripts to activate
 /// </summary>
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKey(up))
         {
+            DarkRiftAPI.SendMessageToServer(0, 0, "up");
             if (!forwardPressed)
             {
                 forwardPressed = true;
@@ -50,6 +53,7 @@ public class PlayerController : MonoBehaviour {
         }
         if (Input.GetKey(down))
         {
+            DarkRiftAPI.SendMessageToServer(0, 0, "down");
             if (!backwardPressed)
             {
                 backwardPressed = true;
@@ -66,6 +70,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKey(right))
         {
+            DarkRiftAPI.SendMessageToServer(0, 0, "right");
             if (!rightPressed)
             {
                 rightPressed = true;
@@ -82,6 +87,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKey(left))
         {
+            DarkRiftAPI.SendMessageToServer(0, 0, "left");
             if (!leftPressed)
             {
                 leftPressed = true;
