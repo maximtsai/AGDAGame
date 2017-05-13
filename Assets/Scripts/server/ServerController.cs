@@ -3,7 +3,7 @@ using System.Collections;
 
 using DarkRift;
 
-public class XEmbeddedCubeManager : MonoBehaviour
+public class ServerController : MonoBehaviour
 {
 	[SerializeField]
 	Transform[] cubes;

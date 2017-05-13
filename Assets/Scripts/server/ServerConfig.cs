@@ -16,7 +16,7 @@ using System;
  * if you want to add any plugins.
  */
 
-public class XServer : MonoBehaviour, IManualDataProcessor
+public class ServerConfig : MonoBehaviour, IManualDataProcessor
 {
 	/// <summary>
 	/// 	The port to host the server on.
