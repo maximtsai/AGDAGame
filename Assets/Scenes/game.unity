@@ -157,6 +157,11 @@ Prefab:
       propertyPath: m_Mass
       value: 2.0349896
       objectReference: {fileID: 0}
+    - target: {fileID: 114038131521677650, guid: e297ae027b58c884a814d9faa259413d,
+        type: 2}
+      propertyPath: playerId
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e297ae027b58c884a814d9faa259413d, type: 2}
   m_IsPrefabParent: 0
@@ -2086,6 +2091,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4271742829382626, guid: 7ea844d5aa71e914482959b8639348b4, type: 2}
       propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114063739918160028, guid: 7ea844d5aa71e914482959b8639348b4,
+        type: 2}
+      propertyPath: playerId
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []

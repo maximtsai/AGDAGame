@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour {
     public WeaponControl weaponControlScript;
     public Text indicatorTextDisplay;
 
+    public ushort playerId;
+
     bool forwardPressed = false;
     bool backwardPressed = false;
     bool leftPressed = false;
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviour {
             {
                 forwardPressed = true;
                 engineScript.setForward(true);
-                DarkRiftAPI.SendMessageToServer(110, 0, 10);
+                DarkRiftAPI.SendMessageToServer(110, playerId, 10);
             }
         } else
         {
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour {
             {
                 forwardPressed = false;
                 engineScript.setForward(false);
-                DarkRiftAPI.SendMessageToServer(110, 0, 11);
+                DarkRiftAPI.SendMessageToServer(110, playerId, 11);
             }
         }
         if (Input.GetKey(down))
@@ -58,7 +60,7 @@ public class PlayerController : MonoBehaviour {
             {
                 backwardPressed = true;
                 engineScript.setBackward(true);
-                DarkRiftAPI.SendMessageToServer(110, 0, 20);
+                DarkRiftAPI.SendMessageToServer(110, playerId, 20);
             }
         } else
         {
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour {
             {
                 backwardPressed = false;
                 engineScript.setBackward(false);
-                DarkRiftAPI.SendMessageToServer(110, 0, 21);
+                DarkRiftAPI.SendMessageToServer(110, playerId, 21);
             }
         }
 
@@ -76,7 +78,7 @@ public class PlayerController : MonoBehaviour {
             {
                 rightPressed = true;
                 engineScript.setTurnRight(true);
-                DarkRiftAPI.SendMessageToServer(110, 0, 30);
+                DarkRiftAPI.SendMessageToServer(110, playerId, 30);
             }
         } else
         {
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour {
             {
                 rightPressed = false;
                 engineScript.setTurnRight(false);
-                DarkRiftAPI.SendMessageToServer(110, 0, 31);
+                DarkRiftAPI.SendMessageToServer(110, playerId, 31);
             }
         }
 
@@ -94,14 +96,14 @@ public class PlayerController : MonoBehaviour {
             {
                 leftPressed = true;
                 engineScript.setTurnLeft(true);
-                DarkRiftAPI.SendMessageToServer(110, 0, 40);
+                DarkRiftAPI.SendMessageToServer(110, playerId, 40);
             }
         }
         else if (leftPressed)
         {
             leftPressed = false;
             engineScript.setTurnLeft(false);
-            DarkRiftAPI.SendMessageToServer(110, 0, 41);
+            DarkRiftAPI.SendMessageToServer(110, playerId, 41);
         }
 
         if (Input.GetKey(equipWeapButton))
@@ -110,13 +112,13 @@ public class PlayerController : MonoBehaviour {
             {
                 equipPressed = true;
                 weaponControlScript.pressEquipKey();
-                DarkRiftAPI.SendMessageToServer(110, 0, 50);
+                DarkRiftAPI.SendMessageToServer(110, playerId, 50);
             }
         } else if (equipPressed)
         {
             equipPressed = false;
             weaponControlScript.releaseEquipKey();
-            DarkRiftAPI.SendMessageToServer(110, 0, 51);
+            DarkRiftAPI.SendMessageToServer(110, playerId, 51);
         }
 
         if (Input.GetKey(activateWeapButton))
@@ -126,7 +128,7 @@ public class PlayerController : MonoBehaviour {
             {
                 activatePressed = true;
                 weaponControlScript.pressActivateKey();
-                DarkRiftAPI.SendMessageToServer(110, 0, 60);
+                DarkRiftAPI.SendMessageToServer(110, playerId, 60);
 
             }
         }
@@ -134,7 +136,7 @@ public class PlayerController : MonoBehaviour {
         {
             activatePressed = false;
             weaponControlScript.releaseActivateKey();
-            DarkRiftAPI.SendMessageToServer(110, 0, 61);
+            DarkRiftAPI.SendMessageToServer(110, playerId, 61);
         }
     }
 

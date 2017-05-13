@@ -43,13 +43,10 @@ public class XEmbeddedCubeManager : MonoBehaviour
 
         if (data.tag == 110)
         {
-
             Debug.Log(data.data);
             // Key input
-            GameObject player = GameObject.Find("Player");
-            Debug.Log(player);
+            GameObject player = getPlayerById(data.subject);
             EngineScript engineScript = player.GetComponentInChildren< EngineScript >();
-            Debug.Log(engineScript);
 
             switch ((int) data.data)
             {
@@ -97,4 +94,17 @@ public class XEmbeddedCubeManager : MonoBehaviour
         */
 
 	}
+
+    GameObject getPlayerById(ushort id)
+    {
+        foreach (PlayerController script in GameObject.FindObjectsOfType<PlayerController>())
+        {
+            if (script.playerId == id)
+            {
+                return script.gameObject;
+            }
+        }
+        Debug.Log("Couldn't find player id #" + id);
+        return null;
+    }
 }
