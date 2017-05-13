@@ -18,9 +18,12 @@ public class ServerController : MonoBehaviour
 			foreach (PlayerController pc in GameObject.FindObjectsOfType<PlayerController>())
             {
                 // Sync playerbodies
-                cs.SendReply(011, pc.playerId, pc.playerBody.position);
+                Vector2 position = pc.playerBody.position;
+                cs.SendReply(011, pc.playerId, new float[] { position.x, position.y });
                 cs.SendReply(012, pc.playerId, pc.playerBody.rotation);
-                cs.SendReply(013, pc.playerId, pc.playerBody.velocity);
+
+                Vector2 velocity = pc.playerBody.velocity;
+                cs.SendReply(013, pc.playerId, new float[] { velocity.x, velocity.y });
                 cs.SendReply(014, pc.playerId, pc.playerBody.angularVelocity);
             }
 		}

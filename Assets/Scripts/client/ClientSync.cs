@@ -3,7 +3,7 @@ using UnityEngine;
 
 using DarkRift;
 
-public class PlayerSync : MonoBehaviour
+public class ClientSync : MonoBehaviour
 {
 	void Start()
 	{
@@ -12,25 +12,31 @@ public class PlayerSync : MonoBehaviour
 
 	void OnDataReceived(byte tag, ushort subject, object data)
 	{
+        Debug.Log("tag:" + tag);
+        Debug.Log("data: " + data);
 		if (tag == 011)
         {
             GameObject player = getPlayerById((ushort) subject);
-            player.GetComponent<Rigidbody2D>().position = ((Rigidbody2D)data).position;
+            float[] rawPosition = (float[]) data;
+            Vector2 position = new Vector2(rawPosition[0], rawPosition[1]);
+            player.GetComponent<Rigidbody2D>().MovePosition(position);
         }
         if (tag == 012)
         {
             GameObject player = getPlayerById((ushort)subject);
-            player.GetComponent<Rigidbody2D>().rotation = ((Rigidbody2D)data).rotation;
+            player.GetComponent<Rigidbody2D>().rotation = (float) data;
         }
         if (tag == 013)
         {
             GameObject player = getPlayerById((ushort)subject);
-            player.GetComponent<Rigidbody2D>().velocity = ((Rigidbody2D)data).velocity;
+            float[] rawVelocity = (float[])data;
+            Vector2 velocity = new Vector2(rawVelocity[0], rawVelocity[1]);
+            player.GetComponent<Rigidbody2D>().velocity = velocity;
         }
         if (tag == 014)
         {
             GameObject player = getPlayerById((ushort)subject);
-            player.GetComponent<Rigidbody2D>().angularVelocity = ((Rigidbody2D)data).angularVelocity;
+            player.GetComponent<Rigidbody2D>().angularVelocity = (float) data;
         }
     }
 
