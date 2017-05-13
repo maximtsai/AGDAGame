@@ -109,7 +109,7 @@ public class BreakableBehavior : MonoBehaviour {
                 }
                 if (createSparks && breakCounter > armorRemainDuration - 3)
                 {
-                    createDmgSpark(new Vector3(contact.point.x, contact.point.y, 0), finalImpact * 1.5f);
+                    createDmgSpark(new Vector3(contact.point.x, contact.point.y, 0), finalImpact * 1.5f + 1);
                 }
             }
             else
@@ -146,9 +146,9 @@ public class BreakableBehavior : MonoBehaviour {
             {
                 sparkHandled = true;
                 sparkObj.transform.position = sparkPos;
-                sparkObj.startLifetime = Mathf.Min(1, 1 + 0.04f * (impactMag));
-                sparkObj.startSpeed = Mathf.Min(100, 15 + 6 * (impactMag));
-                sparkObj.Emit((int)(0.7f + 0.15f * impactMag + Random.Range(0, 0.3f)));
+                sparkObj.startLifetime = Mathf.Min(1, 1.2f + 0.04f * (impactMag));
+                sparkObj.startSpeed = Mathf.Min(100, 25 + 5 * (impactMag));
+                sparkObj.Emit((int)(0.75f + 0.15f * impactMag + Random.Range(0, 0.5f)));
                 break;
             }
         }

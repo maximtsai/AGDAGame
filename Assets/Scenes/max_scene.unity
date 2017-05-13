@@ -155,7 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spark: {fileID: 1187764268849286, guid: b6f09b5c7c327b544b2022fcd2e9cb3d, type: 2}
-  sparkVel: 9
+  sparkMinVel: 11
+  sparkIntensity: 1
 --- !u!114 &28886425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +191,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 3.5771122
+  m_Mass: 3.577112
   m_LinearDrag: 2.5
   m_AngularDrag: 50
   m_GravityScale: 0
@@ -701,6 +702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0be0557cb5760419e88c2f227ae118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useSlowMo: 1
 --- !u!4 &95261170
 Transform:
   m_ObjectHideFlags: 0
@@ -6642,7 +6644,7 @@ Prefab:
     - target: {fileID: 198822322378596204, guid: b4a98ef4c221cb5478e8ab6b12d4affb,
         type: 2}
       propertyPath: TrailModule.colorOverTrail.maxColor.r
-      value: 1
+      value: 0.94482756
       objectReference: {fileID: 0}
     - target: {fileID: 198822322378596204, guid: b4a98ef4c221cb5478e8ab6b12d4affb,
         type: 2}
@@ -6652,7 +6654,7 @@ Prefab:
     - target: {fileID: 198822322378596204, guid: b4a98ef4c221cb5478e8ab6b12d4affb,
         type: 2}
       propertyPath: TrailModule.colorOverTrail.maxColor.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198822322378596204, guid: b4a98ef4c221cb5478e8ab6b12d4affb,
         type: 2}
@@ -6662,7 +6664,7 @@ Prefab:
     - target: {fileID: 198822322378596204, guid: b4a98ef4c221cb5478e8ab6b12d4affb,
         type: 2}
       propertyPath: TrailModule.colorOverLifetime.maxColor.r
-      value: 1
+      value: 0.977282
       objectReference: {fileID: 0}
     - target: {fileID: 198822322378596204, guid: b4a98ef4c221cb5478e8ab6b12d4affb,
         type: 2}
@@ -6672,7 +6674,7 @@ Prefab:
     - target: {fileID: 198822322378596204, guid: b4a98ef4c221cb5478e8ab6b12d4affb,
         type: 2}
       propertyPath: TrailModule.colorOverLifetime.maxColor.b
-      value: 1
+      value: 0.7647059
       objectReference: {fileID: 0}
     - target: {fileID: 198822322378596204, guid: b4a98ef4c221cb5478e8ab6b12d4affb,
         type: 2}
@@ -7771,7 +7773,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spark: {fileID: 1187764268849286, guid: b6f09b5c7c327b544b2022fcd2e9cb3d, type: 2}
-  sparkVel: 9
+  sparkMinVel: 11
+  sparkIntensity: 1
 --- !u!114 &1258505871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7788,7 +7791,7 @@ MonoBehaviour:
   down: 274
   left: 276
   right: 275
-  equipWeapButton: 256
+  equipWeapButton: 109
   activateWeapButton: 44
   playerBody: {fileID: 1258505872}
   engineScript: {fileID: 480641792}
