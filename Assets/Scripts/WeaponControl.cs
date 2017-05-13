@@ -34,16 +34,16 @@ public class WeaponControl : MonoBehaviour {
 	void Start () {
         // first search for some required world objects
         listOfWeapons = GameObject.Find("ListOfWeapons");
-        foreach (Transform child in this.transform)
+        foreach (Transform childTrans in this.transform)
         {
-            if (child.CompareTag("WeaponPickupIndicator"))
+            if (childTrans.CompareTag("WeaponPickupIndicator"))
             {
-                pickUpIndicator = child.gameObject;
+                pickUpIndicator = childTrans.gameObject;
                 Transform indicatorCanvasTrans = pickUpIndicator.transform.FindChild("Canvas");
             }
-            if (child.CompareTag("Engine"))
+            if (childTrans.CompareTag("Engine"))
             {
-                currentEngineScript = child.gameObject.GetComponent<EngineScript>();
+                currentEngineScript = childTrans.gameObject.GetComponent<EngineScript>();
             }
         }
 
@@ -73,22 +73,26 @@ public class WeaponControl : MonoBehaviour {
         {
             // No weapon in hand. Look at all weapons, calculate distance to each, and determine
             // if they can be picked up
-            foreach (Transform child in listOfWeapons.transform)
+            foreach (Transform childTrans in listOfWeapons.transform)
             {
                 tempIndex++;
                 // minor preliminary optimizations
-                float xDistDiff = Mathf.Abs(this.transform.position.x - child.position.x);
+                float xDistDiff = Mathf.Abs(this.transform.position.x - childTrans.position.x);
                 if (xDistDiff > weaponGrabDist)
                 {
                     continue;
                 }
-                float yDistDiff = Mathf.Abs(this.transform.position.y - child.position.y);
+                float yDistDiff = Mathf.Abs(this.transform.position.y - childTrans.position.y);
                 if (yDistDiff > weaponGrabDist)
                 {
                     continue;
                 }
+                if (childTrans.position.z > 0)
+                {
+                    continue;
+                }
 
-                float distToWeapon = Vector2.Distance(this.transform.position, child.position);
+                float distToWeapon = Vector2.Distance(this.transform.position, childTrans.position);
                 // if there are multiple weapons nearby, always grab the closest weapon
                 if (distToWeapon < closestWeaponDist)
                 {
@@ -175,17 +179,22 @@ public class WeaponControl : MonoBehaviour {
             // if you already have a weapon, throw it away
             hasWeapon = false;
             currentWeaponScript = null;
-            foreach (Transform child in this.transform)
+            foreach (Transform childTrans in this.transform)
             {
-                if (child.CompareTag("Weapon") || child.CompareTag("SoftWeapon"))
+                if (childTrans.CompareTag("Weapon") || childTrans.CompareTag("SoftWeapon"))
                 {
                     // throw weapon away
-                    child.SetParent(listOfWeapons.transform);
-                    Rigidbody2D childRB = child.gameObject.AddComponent<Rigidbody2D>();
+                    childTrans.SetParent(listOfWeapons.transform);
+                    Rigidbody2D childRB = childTrans.gameObject.AddComponent<Rigidbody2D>();
+
+                    Vector3 weaponPos = childTrans.position;
+                    weaponPos.z = 20;
+                    childTrans.position = weaponPos;
+
                     childRB.gravityScale = 0;
                     childRB.drag = 0.75f;
                     childRB.angularDrag = 1;
-                    Vector2 throwVelocity = playerRB.GetPointVelocity(child.position) * 2f;
+                    Vector2 throwVelocity = playerRB.GetPointVelocity(childTrans.position) * 2f;
                     // also need to take into account player rotation velocity
                     float velX = 0;
                     float velY = 0;
@@ -204,8 +213,8 @@ public class WeaponControl : MonoBehaviour {
                     throwVelocity.x += velX;
                     throwVelocity.y += velY;
 
-                    child.gameObject.GetComponent<Rigidbody2D>().velocity = throwVelocity;
-                    child.gameObject.GetComponent<Rigidbody2D>().AddTorque(rotationDiff * 4);
+                    childTrans.gameObject.GetComponent<Rigidbody2D>().velocity = throwVelocity;
+                    childTrans.gameObject.GetComponent<Rigidbody2D>().AddTorque(rotationDiff * 4);
                     break;
                 }
             }
