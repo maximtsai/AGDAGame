@@ -47,6 +47,7 @@ public class XEmbeddedCubeManager : MonoBehaviour
             // Key input
             GameObject player = getPlayerById(data.subject);
             EngineScript engineScript = player.GetComponentInChildren< EngineScript >();
+            WeaponControl weaponControl = player.GetComponentInChildren<WeaponControl>();
 
             switch ((int) data.data)
             {
@@ -75,12 +76,16 @@ public class XEmbeddedCubeManager : MonoBehaviour
                     engineScript.setTurnLeft(false);
                     break;
                 case 50:
+                    weaponControl.pressEquipKey();
                     break;
                 case 51:
+                    weaponControl.releaseEquipKey();
                     break;
                 case 60:
+                    weaponControl.pressActivateKey();
                     break;
                 case 61:
+                    weaponControl.releaseActivateKey();
                     break;
             }
         }
