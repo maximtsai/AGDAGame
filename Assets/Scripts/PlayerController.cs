@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
             if (!forwardPressed)
             {
                 forwardPressed = true;
-                engineScript.setForward(true);
+                //engineScript.setForward(true);
                 DarkRiftAPI.SendMessageToServer(110, playerId, 10);
             }
         } else
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
             if (forwardPressed)
             {
                 forwardPressed = false;
-                engineScript.setForward(false);
+                //engineScript.setForward(false);
                 DarkRiftAPI.SendMessageToServer(110, playerId, 11);
             }
         }
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
             if (!backwardPressed)
             {
                 backwardPressed = true;
-                engineScript.setBackward(true);
+                //engineScript.setBackward(true);
                 DarkRiftAPI.SendMessageToServer(110, playerId, 20);
             }
         } else
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour {
             if (backwardPressed)
             {
                 backwardPressed = false;
-                engineScript.setBackward(false);
+                //engineScript.setBackward(false);
                 DarkRiftAPI.SendMessageToServer(110, playerId, 21);
             }
         }
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
             if (!rightPressed)
             {
                 rightPressed = true;
-                engineScript.setTurnRight(true);
+                //engineScript.setTurnRight(true);
                 DarkRiftAPI.SendMessageToServer(110, playerId, 30);
             }
         } else
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour {
             if (rightPressed)
             {
                 rightPressed = false;
-                engineScript.setTurnRight(false);
+                //engineScript.setTurnRight(false);
                 DarkRiftAPI.SendMessageToServer(110, playerId, 31);
             }
         }
@@ -95,14 +95,14 @@ public class PlayerController : MonoBehaviour {
             if (!leftPressed)
             {
                 leftPressed = true;
-                engineScript.setTurnLeft(true);
+                //engineScript.setTurnLeft(true);
                 DarkRiftAPI.SendMessageToServer(110, playerId, 40);
             }
         }
         else if (leftPressed)
         {
             leftPressed = false;
-            engineScript.setTurnLeft(false);
+            //engineScript.setTurnLeft(false);
             DarkRiftAPI.SendMessageToServer(110, playerId, 41);
         }
 

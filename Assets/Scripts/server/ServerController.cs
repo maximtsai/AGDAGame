@@ -5,9 +5,6 @@ using DarkRift;
 
 public class ServerController : MonoBehaviour
 {
-	[SerializeField]
-	Transform[] cubes;
-
 	void Start ()
 	{
 		//Latch on to onData
@@ -16,18 +13,17 @@ public class ServerController : MonoBehaviour
 
 	void Update()
 	{
-		/*
-        //Broadcast all positions to all clients constantly
 		foreach (ConnectionService cs in DarkRiftServer.GetAllConnections())
 		{
-			for (int i=0; i<cubes.Length; i++)
-			{
-				cs.SendReply(0, (ushort)i, (Vector3Carrier)cubes[i].position);
-			}
+			foreach (PlayerController pc in GameObject.FindObjectsOfType<PlayerController>())
+            {
+                // Sync playerbodies
+                cs.SendReply(011, pc.playerId, pc.playerBody.position);
+                cs.SendReply(012, pc.playerId, pc.playerBody.rotation);
+                cs.SendReply(013, pc.playerId, pc.playerBody.velocity);
+                cs.SendReply(014, pc.playerId, pc.playerBody.angularVelocity);
+            }
 		}
-        */
-
-
 	}
 
 	//Called when we receive data
