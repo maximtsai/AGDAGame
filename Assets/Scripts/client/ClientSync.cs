@@ -12,14 +12,13 @@ public class ClientSync : MonoBehaviour
 
 	void OnDataReceived(byte tag, ushort subject, object data)
 	{
-        Debug.Log("tag:" + tag);
-        Debug.Log("data: " + data);
 		if (tag == 011)
         {
             GameObject player = getPlayerById((ushort) subject);
             float[] rawPosition = (float[]) data;
             Vector2 position = new Vector2(rawPosition[0], rawPosition[1]);
-            player.GetComponent<Rigidbody2D>().MovePosition(position);
+            player.GetComponent<Rigidbody2D>().position = position;
+            // TODO: If displacement is small then instead MovePosition() (can't use for large b/c explosions)
         }
         if (tag == 012)
         {
