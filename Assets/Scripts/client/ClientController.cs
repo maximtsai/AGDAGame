@@ -12,6 +12,7 @@ public class ClientController : MonoBehaviour
     void Start()
     {
         DarkRiftAPI.Connect(IP);
+        DarkRiftAPI.SendMessageToServer(100, 255, null);
     }
 
     void Update()

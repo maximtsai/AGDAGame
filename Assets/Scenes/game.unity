@@ -2372,6 +2372,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2e74ecc2394a341a4816f564e9d6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hittables: {fileID: 1407942333}
+  listOfWeapons: {fileID: 2085379806}
+  cubePrefab: {fileID: 1022355260451982, guid: 86f4be10a0e20b14185fc998640d0ce3, type: 2}
 --- !u!1 &833893965
 GameObject:
   m_ObjectHideFlags: 0

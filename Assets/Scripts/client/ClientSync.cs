@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using DarkRift;
 
 public class ClientSync : MonoBehaviour
 {
+    public GameObject hittables;
+    public GameObject listOfWeapons;
+
+    public GameObject cubePrefab;
+    
 	void Start()
 	{
 		DarkRiftAPI.onData += OnDataReceived;
@@ -37,6 +43,27 @@ public class ClientSync : MonoBehaviour
             GameObject player = getPlayerById((ushort)subject);
             player.GetComponent<Rigidbody2D>().angularVelocity = (float) data;
         }
+
+        if (tag == 030)
+        {
+            //Initialize weapons
+
+        }
+        
+        if (tag == 040)
+        {
+            //Initialize obstacles
+            List<ObstacleContainer> obstacleData = (List<ObstacleContainer>)data;
+            foreach (ObstacleContainer obsCon in obstacleData) {
+                GameObject newObstacle = Instantiate(
+                    cubePrefab, 
+                    obsCon.transformData.position, //TODO test that this doesn't need to be localPosition and localRotation
+                    obsCon.transformData.rotation, 
+                    hittables.transform); //TODO test that this actually adds this to the hittables GameObject
+                newObstacle.transform.localScale = obsCon.transformData.localScale;
+            }
+        }
+
     }
 
     GameObject getPlayerById(ushort id)

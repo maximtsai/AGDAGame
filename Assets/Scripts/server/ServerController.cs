@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
-
+using System.Collections.Generic;
 using DarkRift;
 
-public class ServerController : MonoBehaviour
+public class ServerController : MonoBehaviour 
 {
-	void Start ()
+    public GameObject hittables;
+    public GameObject listOfWeapons;
+
+    void Start ()
 	{
 		//Latch on to onData
 		ConnectionService.onData += OnData;
@@ -40,6 +42,28 @@ public class ServerController : MonoBehaviour
         if (data.tag == 000)
         {
             Debug.Log((string) data.data);
+        }
+
+        //New Client has connected
+        if (data.tag == 100)
+        {
+            List<ObstacleContainer> obstacleData = new List<ObstacleContainer>();
+
+            //Prepare the Weapon and Obstacle data
+            foreach (Transform weapon in listOfWeapons.transform)
+            {
+                //TODO
+                
+            }
+            
+            foreach (Transform hitTransform in hittables.transform)
+            {
+                ObstacleContainer toSend = new ObstacleContainer(hitTransform, false); //TODO detect if cube is spinnable...somehow
+                obstacleData.Add(toSend);
+            }
+
+            con.SendReply(030, 255, obstacleData);
+            //con.SendReply(040, 255, weaponData);
         }
 
         if (data.tag == 110)
