@@ -4,13 +4,15 @@ using DarkRift;
 
 public class ServerController : MonoBehaviour 
 {
-    public GameObject hittables;
-    public GameObject listOfWeapons;
+    private GameObject hittables;
+    private GameObject listOfWeapons;
 
     void Start ()
 	{
 		//Latch on to onData
 		ConnectionService.onData += OnData;
+        hittables = GameObject.Find("hittables");
+        listOfWeapons = GameObject.Find("ListOfWeapons");
 	}
 
 	void Update()
@@ -50,20 +52,19 @@ public class ServerController : MonoBehaviour
             List<ObstacleContainer> obstacleData = new List<ObstacleContainer>();
 
             //Prepare the Weapon and Obstacle data
-            foreach (Transform weapon in listOfWeapons.transform)
-            {
-                //TODO
-                
-            }
-            
+            //foreach (Transform weapon in listOfWeapons.transform)
+            //{
+            //    //TODO
+            //    
+            //}
             foreach (Transform hitTransform in hittables.transform)
             {
                 ObstacleContainer toSend = new ObstacleContainer(hitTransform, false); //TODO detect if cube is spinnable...somehow
                 obstacleData.Add(toSend);
             }
-
-            con.SendReply(030, 255, obstacleData);
-            //con.SendReply(040, 255, weaponData);
+            //con.SendReply(030, 255, weaponData);
+            Debug.Log("Send it out!!!");
+            con.SendReply(040, 255, obstacleData);
         }
 
         if (data.tag == 110)

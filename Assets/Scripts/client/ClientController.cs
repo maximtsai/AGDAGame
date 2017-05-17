@@ -12,7 +12,8 @@ public class ClientController : MonoBehaviour
     void Start()
     {
         DarkRiftAPI.Connect(IP);
-        DarkRiftAPI.SendMessageToServer(100, 255, null);
+        DarkRiftAPI.SendMessageToServer(100, 255, new Vector3(0,0,0)); //TODO What data should we send?
+        Debug.Log("CLIENT MESSAGE SENT");
     }
 
     void Update()

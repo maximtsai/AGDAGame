@@ -2347,7 +2347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0abe0b7a9bf3d4682369ba00311a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubes: []
+  hittables: {fileID: 1407942333}
+  listOfWeapons: {fileID: 2085379806}
 --- !u!114 &824424422
 MonoBehaviour:
   m_ObjectHideFlags: 0
