@@ -59,7 +59,8 @@ public class ServerController : MonoBehaviour
             //}
             foreach (Transform hitTransform in hittables.transform)
             {
-                ObstacleContainer toSend = new ObstacleContainer(hitTransform, false); //TODO detect if cube is spinnable...somehow
+                bool isSpinCube = hitTransform.gameObject.GetComponent<Rigidbody2D>().sharedMaterial != null;
+                ObstacleContainer toSend = new ObstacleContainer(hitTransform, isSpinCube);
                 obstacleData.Add(toSend);
             }
             //con.SendReply(030, 255, weaponData);

@@ -1795,6 +1795,8 @@ MonoBehaviour:
   hittables: {fileID: 1407942333}
   listOfWeapons: {fileID: 2085379806}
   cubePrefab: {fileID: 1022355260451982, guid: 86f4be10a0e20b14185fc998640d0ce3, type: 2}
+  spinnableCubePrefab: {fileID: 1334915055554994, guid: f3978ab858f15764ca9fd23b1b78374b,
+    type: 2}
 --- !u!1 &833893965
 GameObject:
   m_ObjectHideFlags: 0
