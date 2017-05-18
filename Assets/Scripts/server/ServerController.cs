@@ -7,17 +7,27 @@ public class ServerController : MonoBehaviour
     private GameObject hittables;
     private GameObject listOfWeapons;
 
-    void Start ()
-	{
-		//Latch on to onData
-		ConnectionService.onData += OnData;
+    void Start()
+    {
+        //Latch on to onData
+        ConnectionService.onData += OnData;
         hittables = GameObject.Find("hittables"); //TODO find using tags instead?
         listOfWeapons = GameObject.Find("ListOfWeapons");
-	}
+
+        // Assign IDs to everything
+        ushort hitId = 0;
+        foreach (Transform hitTransform in hittables.transform)
+        {
+            hitTransform.gameObject.GetComponent<Hittable>().HittableId = hitId;
+            hitId++;
+        }
+    }
 
 	void Update()
 	{
         Dictionary<ushort, ObstacleContainer> obstaclesToUpdate = new Dictionary<ushort, ObstacleContainer>();
+
+        //TODO This is bugging out if there are no clients attached because then none of the hittables have been assigned IDs
 
         //TODO Should really only send updates for obstacles that have moved
         foreach (Transform hitTransform in hittables.transform)
@@ -79,15 +89,14 @@ public class ServerController : MonoBehaviour
             //    //TODO
             //    
             //}
-            ushort hitId = 0;
+            
             foreach (Transform hitTransform in hittables.transform)
             {
-                hitTransform.gameObject.GetComponent<Hittable>().HittableId = hitId;
+                ushort hitId = hitTransform.gameObject.GetComponent<Hittable>().HittableId;
                 ObstacleContainer toSend = new ObstacleContainer(hitId, hitTransform, false); //TODO detect if cube is spinnable...somehow
                 obstacleData.Add(toSend);
-                hitId++;
 
-                //TODO this is just test code
+                //TODO this is just test code...to remove
                 ushort newHitId = hitTransform.gameObject.GetComponent<Hittable>().HittableId;
                 Debug.Log("New hitId is " + hitId);
             }
