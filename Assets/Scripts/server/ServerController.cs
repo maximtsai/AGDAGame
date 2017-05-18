@@ -11,15 +11,33 @@ public class ServerController : MonoBehaviour
 	{
 		//Latch on to onData
 		ConnectionService.onData += OnData;
-        hittables = GameObject.Find("hittables");
+        hittables = GameObject.Find("hittables"); //TODO find using tags instead?
         listOfWeapons = GameObject.Find("ListOfWeapons");
 	}
 
 	void Update()
 	{
-		foreach (ConnectionService cs in DarkRiftServer.GetAllConnections())
-		{
-			foreach (PlayerController pc in GameObject.FindObjectsOfType<PlayerController>())
+        Dictionary<ushort, ObstacleContainer> obstaclesToUpdate = new Dictionary<ushort, ObstacleContainer>();
+
+        //TODO Should really only send updates for obstacles that have moved
+        foreach (Transform hitTransform in hittables.transform)
+        {
+            // Sync Obstacles
+            Vector3 position = hitTransform.position;
+            Quaternion rotation = hitTransform.rotation;
+            ushort hitId = hitTransform.gameObject.GetComponent<Hittable>().HittableId;
+            Debug.Log("Updating hitId " + hitId);
+            obstaclesToUpdate.Add(hitId, new ObstacleContainer(hitId, position, rotation));
+        }
+        //foreach (Transform wepTransform in listOfWeapons.transform)
+        //{
+        //    //Sync Weapons
+        //    //TODO
+        //}
+
+        foreach (ConnectionService cs in DarkRiftServer.GetAllConnections())
+        {
+            foreach (PlayerController pc in GameObject.FindObjectsOfType<PlayerController>())
             {
                 // Sync playerbodies
                 Vector2 position = pc.playerBody.position;
@@ -30,8 +48,12 @@ public class ServerController : MonoBehaviour
                 cs.SendReply(013, pc.playerId, new float[] { velocity.x, velocity.y });
                 cs.SendReply(014, pc.playerId, pc.playerBody.angularVelocity);
             }
-		}
-	}
+
+            cs.SendReply(041, 255, obstaclesToUpdate);
+        }
+
+        
+    }
 
 	//Called when we receive data
 	void OnData(ConnectionService con, ref NetworkMessage data)
@@ -57,10 +79,17 @@ public class ServerController : MonoBehaviour
             //    //TODO
             //    
             //}
+            ushort hitId = 0;
             foreach (Transform hitTransform in hittables.transform)
             {
-                ObstacleContainer toSend = new ObstacleContainer(hitTransform, false); //TODO detect if cube is spinnable...somehow
+                hitTransform.gameObject.GetComponent<Hittable>().HittableId = hitId;
+                ObstacleContainer toSend = new ObstacleContainer(hitId, hitTransform, false); //TODO detect if cube is spinnable...somehow
                 obstacleData.Add(toSend);
+                hitId++;
+
+                //TODO this is just test code
+                ushort newHitId = hitTransform.gameObject.GetComponent<Hittable>().HittableId;
+                Debug.Log("New hitId is " + hitId);
             }
             //con.SendReply(030, 255, weaponData);
             Debug.Log("Send it out!!!");
