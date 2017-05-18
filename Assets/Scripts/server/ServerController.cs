@@ -27,8 +27,6 @@ public class ServerController : MonoBehaviour
 	{
         Dictionary<ushort, ObstacleContainer> obstaclesToUpdate = new Dictionary<ushort, ObstacleContainer>();
 
-        //TODO This is bugging out if there are no clients attached because then none of the hittables have been assigned IDs
-
         //TODO Should really only send updates for obstacles that have moved
         foreach (Transform hitTransform in hittables.transform)
         {
@@ -93,7 +91,8 @@ public class ServerController : MonoBehaviour
             foreach (Transform hitTransform in hittables.transform)
             {
                 ushort hitId = hitTransform.gameObject.GetComponent<Hittable>().HittableId;
-                ObstacleContainer toSend = new ObstacleContainer(hitId, hitTransform, false); //TODO detect if cube is spinnable...somehow
+                bool isSpinCube = hitTransform.gameObject.GetComponent<Rigidbody2D>().sharedMaterial != null;
+                ObstacleContainer toSend = new ObstacleContainer(hitId, hitTransform, isSpinCube);
                 obstacleData.Add(toSend);
 
                 //TODO this is just test code...to remove
