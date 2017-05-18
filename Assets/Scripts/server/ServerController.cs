@@ -27,21 +27,24 @@ public class ServerController : MonoBehaviour
 	{
         Dictionary<ushort, ObstacleContainer> obstaclesToUpdate = new Dictionary<ushort, ObstacleContainer>();
 
-        //TODO Should really only send updates for obstacles that have moved
-        foreach (Transform hitTransform in hittables.transform)
+        if (DarkRiftServer.GetAllConnections().Length > 0)
         {
-            // Sync Obstacles
-            Vector3 position = hitTransform.position;
-            Quaternion rotation = hitTransform.rotation;
-            ushort hitId = hitTransform.gameObject.GetComponent<Hittable>().HittableId;
-            Debug.Log("Updating hitId " + hitId);
-            obstaclesToUpdate.Add(hitId, new ObstacleContainer(hitId, position, rotation));
+            //TODO Should really only send updates for obstacles that have moved
+            foreach (Transform hitTransform in hittables.transform)
+            {
+                // Sync Obstacles
+                Vector3 position = hitTransform.position;
+                Quaternion rotation = hitTransform.rotation;
+                ushort hitId = hitTransform.gameObject.GetComponent<Hittable>().HittableId;
+                //Debug.Log("Updating hittable with hitId " + hitId);
+                obstaclesToUpdate.Add(hitId, new ObstacleContainer(hitId, position, rotation));
+            }
+            foreach (Transform wepTransform in listOfWeapons.transform)
+            {
+                //Sync Weapons
+                //TODO
+            }
         }
-        //foreach (Transform wepTransform in listOfWeapons.transform)
-        //{
-        //    //Sync Weapons
-        //    //TODO
-        //}
 
         foreach (ConnectionService cs in DarkRiftServer.GetAllConnections())
         {
