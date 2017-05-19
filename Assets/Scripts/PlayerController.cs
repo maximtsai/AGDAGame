@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
     public KeyCode right;
     public KeyCode equipWeapButton = KeyCode.F;
     public KeyCode activateWeapButton = KeyCode.G;
-    public string horizontalAxis;
+    public string horizontalAxis = "emptyAxis";
     public Rigidbody2D playerBody;
 
     public EngineScript engineScript;
