@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     public KeyCode right;
     public KeyCode equipWeapButton = KeyCode.F;
     public KeyCode activateWeapButton = KeyCode.G;
+    public string horizontalAxis;
     public Rigidbody2D playerBody;
 
     public EngineScript engineScript;
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if (Input.GetKey(right))
+        if (Input.GetKey(right) || (Input.GetAxisRaw(horizontalAxis) > 0))
         {
             if (!rightPressed)
             {
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if (Input.GetKey(left))
+        if (Input.GetKey(left) || (Input.GetAxisRaw(horizontalAxis) < 0))
         {
             if (!leftPressed)
             {
