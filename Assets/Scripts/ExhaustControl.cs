@@ -9,7 +9,7 @@ public class ExhaustControl : MonoBehaviour {
     float origExhaustSize;
     float forwardPressedDuration;
     // Use this for initialization
-    void Start () {
+    void Awake () {
         exhaustParticleSystem = GetComponent<ParticleSystem>();
         origExhaustSpeed = exhaustParticleSystem.startSpeed;
         origExhaustSize = exhaustParticleSystem.startSize;
@@ -29,10 +29,10 @@ public class ExhaustControl : MonoBehaviour {
         }
     }
 
-    public void setForward(bool isPressed)
+    public void setForward(bool goingForward)
     {
-        forwardPressed = isPressed;
-        if (!isPressed)
+        forwardPressed = goingForward;
+        if (!goingForward)
         {
             forwardPressedDuration = 0;
             // make a small initial spurt when you press down forward or when you release

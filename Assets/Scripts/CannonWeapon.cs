@@ -24,7 +24,7 @@ public class CannonWeapon : WeaponScript
     Collider2D weaponCollider;
     // Use this for initialization
     Rigidbody2D playerRB;
-
+    float chargeSparkTimeAccum = 0;
     void Start () {
         remainingAmmo = clipSize;
         weaponCollider = GetComponent<Collider2D>();
@@ -38,7 +38,20 @@ public class CannonWeapon : WeaponScript
             warmupCounter += Time.timeScale;
             if (warmupCounter <= warmupDuration - 10) {
                 // play charging up animation
-                chargeSparkParticleSystem.Emit(2);
+                if (Time.timeScale > 0.95f)
+                {
+                    chargeSparkParticleSystem.Emit(2);
+                } else if (Time.timeScale > 0.4f)
+                {
+                    chargeSparkParticleSystem.Emit(1);
+                } else if (chargeSparkTimeAccum > 1)
+                {
+                    chargeSparkTimeAccum = 0;
+                    chargeSparkParticleSystem.Emit(1);
+                } else
+                {
+                    chargeSparkTimeAccum += Time.timeScale;
+                }
             } else if (warmupCounter >= warmupDuration)
             {
                 // fire a bullet and adjust ammo and reload times as necessary

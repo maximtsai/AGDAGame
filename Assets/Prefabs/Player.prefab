@@ -287,7 +287,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1937354725207240}
   m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
-  m_LocalPosition: {x: 1.3651886, y: 2.3632655, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 224370907559065498}
@@ -313,7 +313,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1314545391085172}
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.93}
   m_LocalScale: {x: 0.13200012, y: 0.13200012, z: 1}
   m_Children:
@@ -445,7 +445,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 3.577112
+  m_Mass: 3.5771105
   m_LinearDrag: 2.5
   m_AngularDrag: 50
   m_GravityScale: 0
@@ -676,16 +676,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a22bc6a5e405fc4dbce4c63755af99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up: 119
-  down: 115
-  left: 97
-  right: 100
-  equipWeapButton: 102
-  activateWeapButton: 103
+  up: 114
+  down: 102
+  left: 100
+  right: 103
+  equipWeapButton: 97
+  activateWeapButton: 115
   playerBody: {fileID: 50013518752200578}
   engineScript: {fileID: 114986598938591464}
   weaponControlScript: {fileID: 114081261443163026}
   indicatorTextDisplay: {fileID: 114085946042955736}
+  tutKeyManager: {fileID: 0}
 --- !u!114 &114054155429206714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -727,6 +728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipWeapButton: 102
   weaponGrabDist: 4.5
+  tutKeyManager: {fileID: 0}
 --- !u!114 &114085946042955736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -932,10 +934,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 50013518752200578}
   exhaustController: {fileID: 114113366264436152}
-  acceleration: 180
+  acceleration: 200
   maxSpeed: 16
-  baseTurnPower: 200
-  bonusTurnPower: 25
+  baseTurnPower: 140
+  bonusTurnPower: 30
   initialTurnMult: 0.4
   turnAcc: 0.5
   engineType: 0

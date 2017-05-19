@@ -151,10 +151,10 @@ MonoBehaviour:
   turnMultiplier: 0.667
   chargeSparkEmitter: {fileID: 1721534941122708}
   ammo: {fileID: 1737281754872042, guid: 90354687c7762464ab868f0346622a99, type: 2}
-  reloadDuration: 130
+  reloadDuration: 80
   clipSize: 1
   fireDelay: 30
-  fireVel: 30
+  fireVel: 40
 --- !u!198 &198996644025823474
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -39,11 +39,11 @@ public class BreakableBehavior : MonoBehaviour {
     {
         if (tempArmor > 0)
         {
-            tempArmor = Mathf.Max(0, tempArmor - 0.5f);
+            tempArmor = Mathf.Max(0, tempArmor - 0.25f * Time.timeScale);
         }
         else if (tempArmor < 0)
         {
-            tempArmor = Mathf.Min(0, tempArmor + 0.5f);
+            tempArmor = Mathf.Min(0, tempArmor + 0.25f * Time.timeScale);
         }
         if (breakCounter < 1000)
         {
@@ -76,6 +76,21 @@ public class BreakableBehavior : MonoBehaviour {
             colliderMass = otherColliderRB.mass;
             float speedMult = 0.2f;
             float speedImpact = Mathf.Sqrt(Vector2.SqrMagnitude(otherColliderRB.velocity - collision.otherRigidbody.velocity));
+            if (otherColliderRB.gameObject.CompareTag("Player")) {
+                // attacker was a player
+                PlayerController PControl = otherColliderRB.gameObject.GetComponent<PlayerController>();
+                if (PControl.isForwardPressed())
+                {
+                    // Add a bit of extra damage if player is accelerating into the attack
+                    // Done so that pushing up against an opponent with a weapon will do a bit more damage.
+                    float facingDirX = -Mathf.Sin(otherColliderRB.rotation * Mathf.Deg2Rad);
+                    float facingDirY = Mathf.Cos(otherColliderRB.rotation * Mathf.Deg2Rad);
+                    Vector2 otherPlayerDirectionVector = new Vector2(facingDirX, facingDirY);
+
+                    sumImpact += 5*Vector2.Dot(contact.normal, otherPlayerDirectionVector);
+                }
+            }
+
             if (otherColliderRB.sharedMaterial)
             {
                 speedMult = otherColliderRB.sharedMaterial.friction;
@@ -94,7 +109,7 @@ public class BreakableBehavior : MonoBehaviour {
         float finalImpact = sumImpact - minDmgThreshold - tempArmor;
         if (finalImpact > 0)
         {
-            tempArmor = Mathf.Max(tempArmor, finalImpact + 1);
+            tempArmor = Mathf.Max(tempArmor, finalImpact*1.5f + 1);
             int armorRemainDuration = 100;
 
             if (dotImpact > currBreakThreshold)
@@ -131,7 +146,7 @@ public class BreakableBehavior : MonoBehaviour {
         } else
         {
             // temporarily make armor a bit more vulnerable after it's deflected an attack
-            tempArmor -= sumImpact * 0.25f;
+            tempArmor -= sumImpact * 0.2f;
         }
     }
 

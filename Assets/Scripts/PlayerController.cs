@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour {
     public WeaponControl weaponControlScript;
     public Text indicatorTextDisplay;
 
+    public TutorialKeysManager tutKeyManager; // causes various hud elements to disappear 
+    // if right key is pressed
+
     bool forwardPressed = false;
     bool backwardPressed = false;
     bool leftPressed = false;
@@ -37,6 +40,14 @@ public class PlayerController : MonoBehaviour {
         {
             if (!forwardPressed)
             {
+                if (this.name == "Player1")
+                {
+                    tutKeyManager.P1UPMovePressed();
+                }
+                else if (this.name == "Player2")
+                {
+                    tutKeyManager.P2UPMovePressed();
+                }
                 forwardPressed = true;
                 engineScript.setForward(true);
             }
@@ -52,6 +63,14 @@ public class PlayerController : MonoBehaviour {
         {
             if (!backwardPressed)
             {
+                if (this.name == "Player1")
+                {
+                    tutKeyManager.P1DownMovePressed();
+                }
+                else if (this.name == "Player2")
+                {
+                    tutKeyManager.P2DownMovePressed();
+                }
                 backwardPressed = true;
                 engineScript.setBackward(true);
             }
@@ -68,6 +87,14 @@ public class PlayerController : MonoBehaviour {
         {
             if (!rightPressed)
             {
+                if (this.name == "Player1")
+                {
+                    tutKeyManager.P1RightMovePressed();
+                }
+                else if (this.name == "Player2")
+                {
+                    tutKeyManager.P2RightMovePressed();
+                }
                 rightPressed = true;
                 engineScript.setTurnRight(true);
             }
@@ -84,6 +111,14 @@ public class PlayerController : MonoBehaviour {
         {
             if (!leftPressed)
             {
+                if (this.name == "Player1")
+                {
+                    tutKeyManager.P1LeftMovePressed();
+                }
+                else if (this.name == "Player2")
+                {
+                    tutKeyManager.P2LeftMovePressed();
+                }
                 leftPressed = true;
                 engineScript.setTurnLeft(true);
             }

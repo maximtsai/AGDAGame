@@ -11,7 +11,7 @@ public class EngineScript : MonoBehaviour
     // tuning variables
     public float acceleration = 100;
     public float maxSpeed = 15;
-    public float baseTurnPower = 200; // how much turning power at theoretically infinite weight
+    public float baseTurnPower = 100; // how much turning power at theoretically infinite weight
     public float bonusTurnPower = 20; // how much additional turning power at 0 weight
     public float initialTurnMult = 0.4f; // 0-1 starting turning capability as percent of bonusTurnPower
     public float turnAcc = 0.5f; // 0-1, how fast max turning capability reached
@@ -95,7 +95,7 @@ public class EngineScript : MonoBehaviour
                     float multipliers = warmupTurnMult * Time.timeScale * coreTurnSpdMult * weaponTurnSpdMult;
                     playerBody.AddTorque(movementTurnMult* bonusTurnPower * multipliers);
                     playerBody.angularVelocity += movementTurnMult * baseTurnPower * multipliers;
-
+                    playerBody.rotation += movementTurnMult * baseTurnPower * multipliers * 0.005f;
                     if (!turningRight)
                     {
                         prevTurnDirection = 1;
@@ -116,6 +116,7 @@ public class EngineScript : MonoBehaviour
                     float multipliers = warmupTurnMult * Time.timeScale * coreTurnSpdMult * weaponTurnSpdMult;
                     playerBody.AddTorque(-movementTurnMult* bonusTurnPower * multipliers);
                     playerBody.angularVelocity -= movementTurnMult* baseTurnPower * multipliers;
+                    playerBody.rotation -= movementTurnMult * baseTurnPower * multipliers * 0.005f;
 
                     if (!turningLeft)
                     {

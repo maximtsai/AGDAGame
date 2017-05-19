@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 114516691104683868}
   - component: {fileID: 50523916785241462}
   - component: {fileID: 60930421662946942}
+  - component: {fileID: 114110846487832002}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Weapon
@@ -173,8 +174,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1297056636224476}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7313457, y: 0.18191487, z: -0.1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.024849238, y: -0.5963852, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4665566591112326}
@@ -209,9 +210,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.32957137
+  m_Mass: 0.2980004
   m_LinearDrag: 0.5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -371,12 +372,6 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -0.084637165, y: -0.5908353}
       - {x: -0.042262793, y: -0.65192544}
-      - {x: -0.04644203, y: -0.96195924}
-      - {x: -0.05514264, y: -0.9945274}
-      - {x: -0.028439283, y: -1.0185493}
-      - {x: 0.029999971, y: -1.0212307}
-      - {x: 0.052571535, y: -0.9878241}
-      - {x: 0.041778088, y: -0.9576402}
       - {x: 0.039054632, y: -0.65180165}
       - {x: 0.08329654, y: -0.59217596}
 --- !u!60 &60930421662946942
@@ -426,6 +421,18 @@ PolygonCollider2D:
       - {x: 0.14213014, y: -0.50203127}
       - {x: 0.09439564, y: -0.49425885}
       - {x: 0.08658719, y: -0.42757395}
+--- !u!114 &114110846487832002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297056636224476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15240b92091b2647a9eb2fda23946ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durationToIgnore: 0.1
 --- !u!114 &114516691104683868
 MonoBehaviour:
   m_ObjectHideFlags: 1

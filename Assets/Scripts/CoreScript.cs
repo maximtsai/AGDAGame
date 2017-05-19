@@ -59,9 +59,9 @@ public class CoreScript : MonoBehaviour {
             if (health == 1)
             {
                 // low health slightly less likely to instadie
-                sumImpact -= 3;
+                sumImpact -= 4;
             }
-            if (sumImpact > 6)
+            if (sumImpact > 6.5f)
             {
                 health--;
                 if (health == 1)
@@ -76,7 +76,12 @@ public class CoreScript : MonoBehaviour {
                 }
                 else if (health <= 0)
                 {
-                    // blow up
+                    // blow up, explode
+                    WeaponControl WControl = this.transform.parent.GetComponent<WeaponControl>();
+                    if (WControl && WControl.hasWeaponEquipped())
+                    {
+
+                    }
                     this.transform.parent.gameObject.SetActive(false);
                     for (int i = 0; i < 30; i++)
                     {

@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TimeResume : MonoBehaviour {
+    public GameObject pauseText;
     float initialDeltaTime = 0;
     float slowMoCharge = 70;
     bool slowMoReady = true;
     bool isPaused = false;
+    bool readyToReset = false;
     public bool useSlowMo = true;
 	// Use this for initialization
 	void Start () {
@@ -21,13 +25,33 @@ public class TimeResume : MonoBehaviour {
             if (isPaused)
             {
                 Time.timeScale = 0;
+                pauseText.SetActive(true);
             } else
             {
+                if (readyToReset)
+                {
+                    // undo reset procedures
+                    readyToReset = false;
+                    pauseText.GetComponent<Text>().text = "PAUSE";
+                }
                 Time.timeScale = 0.9f;
+                pauseText.SetActive(false);
             }
         }
         if (isPaused)
         {
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                // Pressing R triggers reset
+                if (readyToReset)
+                {
+                    SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                } else
+                {
+                    pauseText.GetComponent<Text>().text = "PRESS R AGAIN TO RESET";
+                    readyToReset = true;
+                }
+            }
             return;
         }
         if (Time.timeScale < 1)

@@ -12,6 +12,7 @@ public class WeaponControl : MonoBehaviour {
     GameObject pickUpIndicator;
     public KeyCode equipWeapButton = KeyCode.F;
     public float weaponGrabDist = 4;
+    public TutorialKeysManager tutKeyManager; // causes various hud elements to disappear 
 
     float closestWeaponDist;
     Vector3 indicatorPos = new Vector3(0,0,-5); // where the indicator will show up at
@@ -118,6 +119,15 @@ public class WeaponControl : MonoBehaviour {
                     currentWeaponScript = weaponTransform.GetComponent<WeaponScript>();
                     justPickedUpWeapon = true;
                     hasWeapon = true;
+                    if (this.name == "Player1")
+                    {
+                        tutKeyManager.P1EquipPressed();
+                    }
+                    else if (this.name == "Player2")
+                    {
+                        tutKeyManager.P2EquipPressed();
+                    }
+
                     // grab weapon, put it in front of player
                     Destroy(weaponTransform.GetComponent<Rigidbody2D>());
                     weaponTransform.SetParent(this.transform);
@@ -223,12 +233,94 @@ public class WeaponControl : MonoBehaviour {
             currentEngineScript.setWeaponMoveMult(1);
         }
     }
+    public void throwWeaponAway()
+    {
+        hasWeapon = false;
+        currentWeaponScript = null;
+        foreach (Transform childTrans in this.transform)
+        {
+            if (childTrans.CompareTag("Weapon") || childTrans.CompareTag("SoftWeapon"))
+            {
+                // throw weapon away
+                childTrans.SetParent(listOfWeapons.transform);
+                Rigidbody2D childRB = childTrans.gameObject.AddComponent<Rigidbody2D>();
 
+                Vector3 weaponPos = childTrans.position;
+                weaponPos.z = 20;
+                childTrans.position = weaponPos;
+
+                childRB.gravityScale = 0;
+                childRB.drag = 0.75f;
+                childRB.angularDrag = 1;
+                Vector2 throwVelocity = playerRB.GetPointVelocity(childTrans.position) * 2f;
+                // also need to take into account player rotation velocity
+                float velX = 0;
+                float velY = 0;
+                if (rotationDiff > 0)
+                {
+                    // counterclockwise fling
+                    velX = Mathf.Cos((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
+                    velY = Mathf.Sin((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
+                }
+                else
+                {
+                    // clockwise fling
+                    velX = Mathf.Cos((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
+                    velY = Mathf.Sin((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
+                }
+                throwVelocity.x += velX;
+                throwVelocity.y += velY;
+
+                childTrans.gameObject.GetComponent<Rigidbody2D>().velocity = throwVelocity;
+                childTrans.gameObject.GetComponent<Rigidbody2D>().AddTorque(rotationDiff * 4);
+                break;
+            }
+        }
+        // reset movement multipliers
+        currentEngineScript.setWeaponTurnMult(1);
+        currentEngineScript.setWeaponMoveMult(1);
+    }
+
+    public void dropWeapon()
+    {
+        // similar to throwWeaponAway except without making the weapon launch out.
+        hasWeapon = false;
+        currentWeaponScript = null;
+        foreach (Transform childTrans in this.transform)
+        {
+            if (childTrans.CompareTag("Weapon") || childTrans.CompareTag("SoftWeapon"))
+            {
+                // throw weapon away
+                childTrans.SetParent(listOfWeapons.transform);
+                Rigidbody2D childRB = childTrans.gameObject.AddComponent<Rigidbody2D>();
+
+                Vector3 weaponPos = childTrans.position;
+                weaponPos.z = 20;
+                childTrans.position = weaponPos;
+
+                childRB.gravityScale = 0;
+                childRB.drag = 0.75f;
+                childRB.angularDrag = 1;
+                break;
+            }
+        }
+        // reset movement multipliers
+        currentEngineScript.setWeaponTurnMult(1);
+        currentEngineScript.setWeaponMoveMult(1);
+    }
     public void pressActivateKey()
     {
         if (currentWeaponScript)
         {
             currentWeaponScript.activateWeapon(playerRB);
+            if (this.name == "Player1")
+            {
+                tutKeyManager.P1ActivatePressed();
+            }
+            else if (this.name == "Player2")
+            {
+                tutKeyManager.P2ActivatePressed();
+            }
         }
     }
     public void releaseActivateKey()
@@ -237,5 +329,9 @@ public class WeaponControl : MonoBehaviour {
         {
             currentWeaponScript.deactivateWeapon();
         }
+    }
+    public bool hasWeaponEquipped()
+    {
+        return hasWeapon;
     }
 }
