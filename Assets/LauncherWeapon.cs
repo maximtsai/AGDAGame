@@ -10,7 +10,7 @@ public class LauncherWeapon : WeaponScript
     public GameObject ammo;
     public int reloadDuration = 100;
     float currReload = 0;
-    int clipSize = 8;
+    int clipSize = 16;
     int remainingAmmo = 0;
     public float fireDelay = 10;
     float currFireDelay = 0;
@@ -352,15 +352,15 @@ public class LauncherWeapon : WeaponScript
             {
                 if (clipSize == 0)
                 {
-                    clipSize = 4;
+                    clipSize = 8;
                     currReload = reloadDuration;
 
                     leftLauncherTip.transform.localPosition = leftLauncherTipOrigPos;
                     rightLauncherTip.transform.localPosition = rightLauncherTipOrigPos;
                 }
-                else if (clipSize == 4)
+                else if (clipSize == 8)
                 {
-                    clipSize = 8;
+                    clipSize = 16;
                     farLeftLauncherTip.transform.localPosition = farLeftLauncherTipOrigPos;
                     farRightLauncherTip.transform.localPosition = farRightLauncherTipOrigPos;
                 }

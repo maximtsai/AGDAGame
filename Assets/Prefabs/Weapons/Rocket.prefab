@@ -57,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1811052161479142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.664362, y: -7.8229575, z: 0}
+  m_LocalPosition: {x: -14.89, y: -5.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4828876159002126}
@@ -179,9 +179,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9cd7ee361f3df4eba1c9456b98b358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listOfShrapnel: {fileID: 0}
   detonationImpactVelocity: 3
   detonationDelay: 3
-  explosionPrefab: {fileID: 0}
+  shrapnel: {fileID: 1450176067036928, guid: 181e0c6ee5667d24f9ab0685007f7dbc, type: 2}
+  numberOfShrapnel: 9
 --- !u!198 &198809045940659136
 ParticleSystem:
   m_ObjectHideFlags: 1

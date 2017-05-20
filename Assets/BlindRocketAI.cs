@@ -26,7 +26,7 @@ public class BlindRocketAI : MonoBehaviour {
     void FixedUpdate () {
         if (stillHasFuel)
         {
-            randomSway = randomSway * 0.95f + Random.Range(-1.0f, 1.0f) * randomSwayMagnitude;
+            randomSway = randomSway * 0.95f + Random.Range(-1.0f, 1.0f) * randomSwayMagnitude * Time.timeScale;
             rocketRB.rotation += randomSway + presetSway;
             forwardVec.Set(-Mathf.Sin(rocketRB.rotation * Mathf.Deg2Rad), Mathf.Cos(rocketRB.rotation * Mathf.Deg2Rad));
             if (startTime + fuelDuration < Time.time)

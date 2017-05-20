@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DisappearAfterTime : MonoBehaviour {
     public float durationInSeconds = 3;
+    public bool deactivateInsteadOfDisappear = false;
     float startTime;
     float scaleXChange;
     float scaleYChange;
@@ -11,8 +12,8 @@ public class DisappearAfterTime : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         startTime = Time.realtimeSinceStartup;
-        scaleXChange = this.transform.localScale.x * 0.1f;
-        scaleYChange = this.transform.localScale.y * 0.1f;
+        scaleXChange = this.transform.localScale.x * 0.075f;
+        scaleYChange = this.transform.localScale.y * 0.075f;
     }
 
     void Update () {
@@ -24,8 +25,19 @@ public class DisappearAfterTime : MonoBehaviour {
             this.transform.localScale = currScale;
             if (currScale.x <= 0)
             {
-                Destroy(this.gameObject);
+                if (deactivateInsteadOfDisappear)
+                {
+                    this.gameObject.SetActive(false);
+                } else
+                {
+                    Destroy(this.gameObject);
+
+                }
             }
         }
 	}
+    public void resetDisappearTime()
+    {
+        startTime = Time.realtimeSinceStartup;
+    }
 }

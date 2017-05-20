@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class ExplosiveScript : MonoBehaviour
 {
+    public GameObject listOfShrapnel;
     public float detonationImpactVelocity = 3;
     public float detonationDelay = 3;
-    public GameObject explosionPrefab;
+    public GameObject shrapnel;
+    public int numberOfShrapnel = 10;
+    int shrapnelInstantiated = 0;
     float startTime;
     // Use this for initialization
+    private void Awake()
+    {
+        listOfShrapnel = GameObject.Find("ListOfShrapnel");
+        if (!listOfShrapnel)
+        {
+            Debug.Log("Warning, no ListOfShrapnel object found");
+            Destroy(this);
+        }
+    }
     void Start()
     {
         startTime = Time.time;
     }
 
     // Update is called once per frame
-    void Update()
-    {
 
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.contacts.Length > 0)
@@ -35,11 +44,57 @@ public class ExplosiveScript : MonoBehaviour
         }
         if (Time.time > startTime + detonationDelay)
         {
-
+            Explode();
         }
     }
     private void Explode()
     {
-        //Instantiate(explosionPrefab, this.transform.position, new Quaternion(0, 0, 0, 0));
+        for (int i = 0; i < numberOfShrapnel; i++)
+        {
+            createShrapnel(this.transform.position);
+        }
+        Destroy(this.gameObject);
+    }
+
+    private void createShrapnel(Vector2 shrapnelPos)
+    {
+        Vector2 tempVec = new Vector2(0, 0);
+        bool shrapnelHandled = false;
+        foreach (Transform childShrapnel in listOfShrapnel.transform)
+        {
+            GameObject shrapnelObj = childShrapnel.gameObject;
+            // use an existing shrapnel object if it is available
+            if (!shrapnelObj.activeSelf)
+            {
+                shrapnelHandled = true;
+                shrapnelObj.SetActive(true);
+                shrapnelObj.transform.position = shrapnelPos;
+                Rigidbody2D rb = shrapnelObj.GetComponent<Rigidbody2D>();
+                // reset disappear timer
+                shrapnelObj.GetComponent<DisappearAfterTime>().resetDisappearTime(); 
+                tempVec.x = Random.Range(-50, 50);
+                tempVec.y = Random.Range(-50, 50);
+                rb.velocity = tempVec;
+                tempVec.x *= 0.01f;
+                tempVec.y *= 0.01f;
+                tempVec = tempVec + rb.position;
+                rb.position = tempVec;
+                break;
+            }
+        }
+        if (!shrapnelHandled)
+        {
+            // create new shrapnel object
+            GameObject newShrapnel = Instantiate(shrapnel, listOfShrapnel.transform, true);
+            newShrapnel.transform.position = shrapnelPos;
+            Rigidbody2D rb = newShrapnel.GetComponent<Rigidbody2D>();
+            tempVec.x = Random.Range(-50, 50);
+            tempVec.y = Random.Range(-50, 50);
+            rb.velocity = tempVec;
+            tempVec.x *= 0.01f;
+            tempVec.y *= 0.01f;
+            tempVec = tempVec + rb.position;
+        }
+        shrapnelHandled = false;
     }
 }
