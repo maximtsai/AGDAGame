@@ -12,6 +12,7 @@ public class TimeResume : MonoBehaviour {
     bool isPaused = false;
     bool readyToReset = false;
     public bool useSlowMo = true;
+    public string sceneName = "Game";
 	// Use this for initialization
 	void Start () {
         initialDeltaTime = Time.fixedDeltaTime;
@@ -45,7 +46,7 @@ public class TimeResume : MonoBehaviour {
                 // Pressing R triggers reset
                 if (readyToReset)
                 {
-                    SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                    SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
                 } else
                 {
                     pauseText.GetComponent<Text>().text = "PRESS R AGAIN TO RESET";
