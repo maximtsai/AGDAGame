@@ -53,6 +53,16 @@ public class ClientSync : MonoBehaviour
             Debug.Log("TIME TO INITIALIZE WEAPONS");
 
         }
+        if (tag == 031)
+        {
+            List<ObstacleContainer> weapons = (List<ObstacleContainer>) data;
+            foreach (ObstacleContainer weaponData in weapons)
+            {
+                GameObject weapon = getWeaponById(weaponData.id);
+                weapon.transform.position = weaponData.GetPosition();
+                weapon.transform.rotation = weaponData.GetRotation();
+            }
+        }
         
         if (tag == 040)
         {
@@ -84,15 +94,33 @@ public class ClientSync : MonoBehaviour
                 ushort thisHitId = hittableToUpdate.gameObject.GetComponent<Hittable>().HittableId;
                 if (updateData.TryGetValue(thisHitId, out obsUpdate))
                 {
-                    float[] newPosition = obsUpdate.position;
-                    float[] newRotation = obsUpdate.rotation;
-                    hittableToUpdate.position = new Vector3(newPosition[0], newPosition[1], newPosition[2]);
-                    hittableToUpdate.rotation = new Quaternion(newRotation[0], newRotation[1], newRotation[2], newRotation[3]);
+                    hittableToUpdate.position = obsUpdate.GetPosition();
+                    hittableToUpdate.rotation = obsUpdate.GetRotation();
                 }
             }
         }
 
 
+    }
+
+
+    GameObject getWeaponById(ushort id)
+    {
+        if (id == 0)
+        {
+            Debug.Log("Unset weapon id!!");
+            return null;
+        }
+
+        foreach (WeaponScript script in GameObject.FindObjectsOfType<WeaponScript>())
+        {
+            if (script.weaponId == id)
+            {
+                return script.gameObject;
+            }
+        }
+        Debug.Log("Couldn't find weapon id #" + id);
+        return null;
     }
 
     GameObject getPlayerById(ushort id)

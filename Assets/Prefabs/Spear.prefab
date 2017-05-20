@@ -195,6 +195,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponOffset: 1.4
+  moveMultiplier: 1
+  turnMultiplier: 1
+  weaponId: 1
 --- !u!212 &212231553173551258
 SpriteRenderer:
   m_ObjectHideFlags: 1

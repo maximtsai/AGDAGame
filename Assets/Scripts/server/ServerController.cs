@@ -26,6 +26,7 @@ public class ServerController : MonoBehaviour
 	void Update()
 	{
         Dictionary<ushort, ObstacleContainer> obstaclesToUpdate = new Dictionary<ushort, ObstacleContainer>();
+        List<ObstacleContainer> weaponsToUpdate = new List<ObstacleContainer>();
 
         if (DarkRiftServer.GetAllConnections().Length > 0)
         {
@@ -41,9 +42,13 @@ public class ServerController : MonoBehaviour
             }
             foreach (Transform wepTransform in listOfWeapons.transform)
             {
-                //Sync Weapons
-                //TODO
+                Vector3 position = wepTransform.position;
+                Quaternion rotation = wepTransform.rotation;
+                ushort weaponId = wepTransform.gameObject.GetComponent<WeaponScript>().weaponId;
+
+                weaponsToUpdate.Add(new ObstacleContainer(weaponId, position, rotation));
             }
+
         }
 
         foreach (ConnectionService cs in DarkRiftServer.GetAllConnections())
@@ -61,6 +66,7 @@ public class ServerController : MonoBehaviour
             }
 
             cs.SendReply(041, 255, obstaclesToUpdate);
+            cs.SendReply(031, 255, weaponsToUpdate);
         }
 
         

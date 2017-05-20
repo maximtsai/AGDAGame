@@ -143,6 +143,7 @@ MonoBehaviour:
   weaponOffset: 0.45
   moveMultiplier: 1
   turnMultiplier: 1
+  weaponId: 2
 --- !u!212 &212414589512353134
 SpriteRenderer:
   m_ObjectHideFlags: 1
