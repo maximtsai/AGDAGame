@@ -53,6 +53,7 @@ public class ExplosiveScript : MonoBehaviour
         {
             createShrapnel(this.transform.position);
         }
+        Time.timeScale = Mathf.Min(Time.timeScale, 0.95f);
         Destroy(this.gameObject);
     }
 
@@ -69,11 +70,12 @@ public class ExplosiveScript : MonoBehaviour
                 shrapnelHandled = true;
                 shrapnelObj.SetActive(true);
                 shrapnelObj.transform.position = shrapnelPos;
+                shrapnelObj.transform.localScale = new Vector3(0.3f, 0.3f, 1);
                 Rigidbody2D rb = shrapnelObj.GetComponent<Rigidbody2D>();
                 // reset disappear timer
                 shrapnelObj.GetComponent<DisappearAfterTime>().resetDisappearTime(); 
-                tempVec.x = Random.Range(-50, 50);
-                tempVec.y = Random.Range(-50, 50);
+                tempVec.x = Random.Range(-65, 65);
+                tempVec.y = Random.Range(-65, 65);
                 rb.velocity = tempVec;
                 tempVec.x *= 0.01f;
                 tempVec.y *= 0.01f;
@@ -88,8 +90,8 @@ public class ExplosiveScript : MonoBehaviour
             GameObject newShrapnel = Instantiate(shrapnel, listOfShrapnel.transform, true);
             newShrapnel.transform.position = shrapnelPos;
             Rigidbody2D rb = newShrapnel.GetComponent<Rigidbody2D>();
-            tempVec.x = Random.Range(-50, 50);
-            tempVec.y = Random.Range(-50, 50);
+            tempVec.x = Random.Range(-65, 65);
+            tempVec.y = Random.Range(-65, 65);
             rb.velocity = tempVec;
             tempVec.x *= 0.01f;
             tempVec.y *= 0.01f;

@@ -87,7 +87,7 @@ public class BreakableBehavior : MonoBehaviour {
                     float facingDirY = Mathf.Cos(otherColliderRB.rotation * Mathf.Deg2Rad);
                     Vector2 otherPlayerDirectionVector = new Vector2(facingDirX, facingDirY);
 
-                    sumImpact += 5*Vector2.Dot(contact.normal, otherPlayerDirectionVector);
+                    sumImpact += 6*Vector2.Dot(contact.normal, otherPlayerDirectionVector);
                 }
             }
 

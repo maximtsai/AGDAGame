@@ -69,9 +69,9 @@ public class FlashDamage : MonoBehaviour {
     }
     public void flashRed(float flashIntensity)
     {
-        currColor.r = Mathf.Min(1, goalRedStrength + flashIntensity);
-        currColor.g = Mathf.Max(0, goalGreenStrength - flashIntensity);
-        currColor.b = Mathf.Max(0, goalBlueStrength - flashIntensity);
+        currColor.r = Mathf.Min(1, goalRedStrength + flashIntensity * 0);
+        currColor.g = Mathf.Max(0, goalGreenStrength - flashIntensity * 0);
+        currColor.b = Mathf.Max(0, goalBlueStrength - flashIntensity * 0);
         SR.color = currColor;
     }
 }

@@ -38,13 +38,13 @@ public class LauncherWeapon : WeaponScript
     Vector3 tempVector = new Vector3(0, 0, 0);
     bool isActivated = false;
     // public float fireVel = 20;
-    float warmUpDuration = 44;// ticks before weapon fires
+    public float warmUpDuration = 50;// ticks before weapon fires
     float warmupCounter = 0;
     bool warmingUp = false; // the initial setup period before firing
     bool firing = false; // actually shooting stuff
     bool coolingDown = false;
-    float finishedFiringCounter = 10;
-    float finishedFiringFullCounter = 10;
+    float finishedFiringCounter = 50;
+    float finishedFiringFullCounter = 50;
     int currentCannonFiring = 1; // the cannon that is firing the next ammo
     Vector2 aimDir;
     Collider2D weaponColliderLeft;
@@ -308,24 +308,24 @@ public class LauncherWeapon : WeaponScript
                 // finished firing, retract 
                 float moveDiff = leftLauncher.transform.localPosition.x - leftLauncherOrigPos.x;
                 tempVector = leftLauncher.transform.localPosition;
-                tempVector.x = leftLauncherOrigPos.x + moveDiff * 0.8f;
+                tempVector.x = leftLauncherOrigPos.x + moveDiff * 0.9f;
                 leftLauncher.transform.localPosition = tempVector;
 
                 moveDiff = rightLauncher.transform.localPosition.x - rightLauncherOrigPos.x;
                 tempVector = rightLauncher.transform.localPosition;
-                tempVector.x = rightLauncherOrigPos.x + moveDiff * 0.8f;
+                tempVector.x = rightLauncherOrigPos.x + moveDiff * 0.9f;
                 rightLauncher.transform.localPosition = tempVector;
 
                 float farMoveDiff = farLeftLauncher.transform.localPosition.x - farLeftLauncherOrigPos.x;
                 tempVector = farLeftLauncher.transform.localPosition;
-                tempVector.x = farLeftLauncherOrigPos.x + farMoveDiff * 0.8f;
+                tempVector.x = farLeftLauncherOrigPos.x + farMoveDiff * 0.9f;
                 farLeftLauncher.transform.localPosition = tempVector;
 
                 farMoveDiff = farRightLauncher.transform.localPosition.x - farRightLauncherOrigPos.x;
                 tempVector = farRightLauncher.transform.localPosition;
-                tempVector.x = farRightLauncherOrigPos.x + farMoveDiff * 0.8f;
+                tempVector.x = farRightLauncherOrigPos.x + farMoveDiff * 0.9f;
                 farRightLauncher.transform.localPosition = tempVector;
-                if (moveDiff <= 0.05f && farMoveDiff <= 0.05f)
+                if (moveDiff <= 0.03f && farMoveDiff <= 0.03f)
                 {
                     // close enough to original position, snap it to proper orig position
                     leftLauncher.transform.localPosition = leftLauncherOrigPos;

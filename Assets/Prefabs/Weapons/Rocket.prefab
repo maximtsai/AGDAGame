@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuelDuration: 3
   exhaustController: {fileID: 114443449397145724}
-  acceleration: 75
+  acceleration: 80
   maxSpeed: 25
   presetSway: 0
   randomSwayMagnitude: 0.5
@@ -182,8 +182,8 @@ MonoBehaviour:
   listOfShrapnel: {fileID: 0}
   detonationImpactVelocity: 3
   detonationDelay: 3
-  shrapnel: {fileID: 1450176067036928, guid: 181e0c6ee5667d24f9ab0685007f7dbc, type: 2}
-  numberOfShrapnel: 9
+  shrapnel: {fileID: 1150638050748584, guid: 181e0c6ee5667d24f9ab0685007f7dbc, type: 2}
+  numberOfShrapnel: 10
 --- !u!198 &198809045940659136
 ParticleSystem:
   m_ObjectHideFlags: 1
