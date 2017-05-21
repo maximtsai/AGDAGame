@@ -59,7 +59,7 @@ public class CoreScript : MonoBehaviour {
             if (health == 1)
             {
                 // low health slightly less likely to instadie
-                sumImpact -= 2,5f;
+                sumImpact -= 2.5f;
             }
             if (sumImpact > 6.5f)
             {
