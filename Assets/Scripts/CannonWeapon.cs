@@ -16,7 +16,7 @@ public class CannonWeapon : WeaponScript
     Vector3 ammoPos = new Vector3(0, 0, 0);
     bool isActivated = false;
     public float fireVel = 20;
-    float warmupDuration = 22;// ticks before weapon fires
+    public float warmupDuration = 25;// ticks before weapon fires
     float warmupCounter = 0;
     bool firing = false;
     bool sparkHandled = false; // used to handle chargeSparks
@@ -36,7 +36,7 @@ public class CannonWeapon : WeaponScript
         if (firing)
         {
             warmupCounter += Time.timeScale;
-            if (warmupCounter <= warmupDuration - 10) {
+            if (warmupCounter <= warmupDuration - 11) {
                 // play charging up animation
                 if (Time.timeScale > 0.95f)
                 {

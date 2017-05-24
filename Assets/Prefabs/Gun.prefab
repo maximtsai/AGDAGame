@@ -353,7 +353,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1212012587287572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.07800579, y: -9.165629, z: 0}
+  m_LocalPosition: {x: 0.07800579, y: -13.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4012460768157910}
@@ -686,13 +686,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponOffset: 1.05
   moveMultiplier: 0.667
-  turnMultiplier: 0.6
+  turnMultiplier: 0.55
   chargeSparkEmitter: {fileID: 1721534941122708}
   ammo: {fileID: 1737281754872042, guid: 90354687c7762464ab868f0346622a99, type: 2}
   reloadDuration: 95
   clipSize: 1
   fireDelay: 30
   fireVel: 40
+  warmupDuration: 25
 --- !u!198 &198996644025823474
 ParticleSystem:
   m_ObjectHideFlags: 1

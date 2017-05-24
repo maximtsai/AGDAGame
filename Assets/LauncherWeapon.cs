@@ -369,7 +369,7 @@ public class LauncherWeapon : WeaponScript
             {
                 // player just pressed fire button
                 warmingUp = true;
-                engScript.setWeaponTurnMult(this.turnMultiplier * 0.15f);
+                engScript.setWeaponTurnMult(this.turnMultiplier * 0.1f);
                 engScript.setWeaponMoveMult(this.moveMultiplier * 0.15f);
             }
         }
