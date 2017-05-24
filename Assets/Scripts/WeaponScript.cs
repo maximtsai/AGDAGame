@@ -24,7 +24,7 @@ public class WeaponScript : MonoBehaviour {
             // the item can be picked up or not. If weapon's z position is > 0, this indicates
             // it was recently thrown (as a result of WeaponControl.cs) and thus cannot be picked up
             weaponPos = transform.position;
-            weaponPos.z = Mathf.Max(0, weaponPos.z-Time.timeScale);
+            weaponPos.z = Mathf.Max(0, weaponPos.z-Time.timeScale*0.75f);
             transform.position = weaponPos;
         }
     }

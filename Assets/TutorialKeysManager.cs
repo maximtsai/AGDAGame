@@ -19,198 +19,131 @@ public class TutorialKeysManager : MonoBehaviour {
     public GameObject P2Equip;
     public GameObject P2Activate;
     // Use this for initialization
-    // GameObject[] listOfDisappearingThings;
-    List<GameObject> listOfDisappearingThings = new List<GameObject>();
+    List<GameObject> listOfHighlightedObjects = new List<GameObject>();
     Vector3 tempVec = new Vector3(0,0,0);
     Color tempCol = new Color(1, 1, 1, 0);
     float scaleChange;
     float alphaChange = 0.05f;
     float initialSize = 0;
+    float goalAlpha;
+    bool continueTutorial = true;
     void Start () {
-        scaleChange = P1UpMove.transform.localScale.x * 0.05f;
-        initialSize = P1UpMove.transform.localScale.x + 0.0001f;
+        scaleChange = P1UpMove.transform.localScale.x * 0.025f;
+        initialSize = P1UpMove.transform.localScale.x;
+        goalAlpha = P1UpMove.GetComponent<SpriteRenderer>().color.a;
+
+        listOfHighlightedObjects.Add(P1Activate);
+        listOfHighlightedObjects.Add(P1Equip);
+        listOfHighlightedObjects.Add(P1UpMove);
+        listOfHighlightedObjects.Add(P1RightMove);
+        listOfHighlightedObjects.Add(P1DownMove);
+        listOfHighlightedObjects.Add(P1LeftMove);
+
+        listOfHighlightedObjects.Add(P2Activate);
+        listOfHighlightedObjects.Add(P2Equip);
+        listOfHighlightedObjects.Add(P2UpMove);
+        listOfHighlightedObjects.Add(P2RightMove);
+        listOfHighlightedObjects.Add(P2DownMove);
+        listOfHighlightedObjects.Add(P2LeftMove);
     }
 
     // Update is called once per frame
     void Update () {
-        foreach (GameObject disappearingObj in listOfDisappearingThings)
+        if (continueTutorial)
         {
-            // expand disappearing object
-            tempVec = disappearingObj.transform.localScale;
-            tempVec.x += scaleChange;
-            tempVec.y += scaleChange;
-            disappearingObj.transform.localScale = tempVec;
-
-            // fade out disappearing object
-            tempCol = disappearingObj.GetComponent<SpriteRenderer>().color;
-            tempCol.a = Mathf.Max(0, tempCol.a - alphaChange);
-            disappearingObj.GetComponent<SpriteRenderer>().color = tempCol;
-
-            // fade out all child texts
-            foreach(Transform textTransform in disappearingObj.transform)
+            foreach (GameObject shrinkingObj in listOfHighlightedObjects)
             {
-                tempCol = textTransform.GetComponent<Text>().color;
-                tempCol.a = Mathf.Max(0, tempCol.a - alphaChange);
-                textTransform.GetComponent<Text>().color = tempCol;
+                // shrink object
+                tempVec = shrinkingObj.transform.localScale;
+                tempVec.x = Mathf.Max(initialSize, tempVec.x - scaleChange);
+                tempVec.y = Mathf.Max(initialSize, tempVec.y - scaleChange);
+                shrinkingObj.transform.localScale = tempVec;
+
+                // fade out shrinking object
+                tempCol = shrinkingObj.GetComponent<SpriteRenderer>().color;
+                tempCol.a = Mathf.Max(goalAlpha, tempCol.a - alphaChange);
+                shrinkingObj.GetComponent<SpriteRenderer>().color = tempCol;
+                // fade out all child texts
+                foreach (Transform textTransform in shrinkingObj.transform)
+                {
+                    tempCol = textTransform.GetComponent<Text>().color;
+                    tempCol.a = Mathf.Max(goalAlpha, tempCol.a - alphaChange);
+                    textTransform.GetComponent<Text>().color = tempCol;
+                }
             }
         }
     }
     public void P1UPMovePressed()
     {
-        if (P1UpMove.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P1UpMove.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P1UpMove.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P1UpMove);
-        }
+        ButtonPressed(P1UpMove);
     }
     public void P1DownMovePressed()
     {
-        if (P1DownMove.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P1DownMove.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P1DownMove.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P1DownMove);
-        }
+        ButtonPressed(P1DownMove);
     }
     public void P1LeftMovePressed()
     {
-        if (P1LeftMove.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P1LeftMove.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P1LeftMove.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P1LeftMove);
-        }
+        ButtonPressed(P1LeftMove);
     }
     public void P1RightMovePressed()
     {
-        if (P1RightMove.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P1RightMove.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P1RightMove.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P1RightMove);
-        }
+        ButtonPressed(P1RightMove);
     }
     public void P1EquipPressed()
     {
-        if (P1Equip.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P1Equip.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P1Equip.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P1Equip);
-        }
+        ButtonPressed(P1Equip);
     }
     public void P1ActivatePressed()
     {
-        if (P1Activate.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P1Activate.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P1Activate.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P1Activate);
-        }
+        ButtonPressed(P1Activate);
     }
 
 
     public void P2UPMovePressed()
     {
-        if (P2UpMove.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P2UpMove.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P2UpMove.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P2UpMove);
-        }
+        ButtonPressed(P2UpMove);
     }
     public void P2DownMovePressed()
     {
-        if (P2DownMove.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P2DownMove.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P2DownMove.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P2DownMove);
-        }
+        ButtonPressed(P2DownMove);
     }
     public void P2LeftMovePressed()
     {
-        if (P2LeftMove.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P2LeftMove.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P2LeftMove.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P2LeftMove);
-        }
+        ButtonPressed(P2LeftMove);
     }
     public void P2RightMovePressed()
     {
-        if (P2RightMove.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P2RightMove.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P2RightMove.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P2RightMove);
-        }
+        ButtonPressed(P2RightMove);
     }
     public void P2EquipPressed()
     {
-        if (P2Equip.transform.localScale.x <= initialSize)
-        {
-            tempCol.a = 1;
-            P2Equip.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P2Equip.transform)
-            {
-                textTransform.GetComponent<Text>().color = tempCol;
-            }
-            listOfDisappearingThings.Add(P2Equip);
-        }
+        ButtonPressed(P2Equip);
     }
     public void P2ActivatePressed()
     {
-        if (P2Activate.transform.localScale.x <= initialSize)
+        ButtonPressed(P2Activate);
+    }
+
+    void ButtonPressed(GameObject keyPressed)
+    {
+        if (continueTutorial)
         {
-            tempCol.a = 1;
-            P2Activate.GetComponent<SpriteRenderer>().color = tempCol;
-            foreach (Transform textTransform in P2Activate.transform)
+            goalAlpha -= 0.01f;
+            if (goalAlpha <= -0.1f)
+            {
+                continueTutorial = false;
+                return;
+            }
+            tempCol.a = Mathf.Min(1, goalAlpha + 0.5f);
+            keyPressed.GetComponent<SpriteRenderer>().color = tempCol;
+            tempVec = keyPressed.transform.localScale;
+            tempVec.x *= 1.1f;
+            tempVec.y *= 1.1f;
+            keyPressed.transform.localScale = tempVec;
+            foreach (Transform textTransform in keyPressed.transform)
             {
                 textTransform.GetComponent<Text>().color = tempCol;
             }
-            listOfDisappearingThings.Add(P2Activate);
         }
     }
 

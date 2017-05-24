@@ -183,7 +183,7 @@ MonoBehaviour:
   detonationImpactVelocity: 5
   detonationDelay: 3
   shrapnel: {fileID: 1150638050748584, guid: 181e0c6ee5667d24f9ab0685007f7dbc, type: 2}
-  numberOfShrapnel: 8
+  numberOfShrapnel: 9
 --- !u!198 &198809045940659136
 ParticleSystem:
   m_ObjectHideFlags: 1

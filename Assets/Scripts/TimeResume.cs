@@ -7,19 +7,20 @@ using UnityEngine.UI;
 public class TimeResume : MonoBehaviour {
     public GameObject pauseText;
     float initialDeltaTime = 0;
-    float slowMoCharge = 70;
-    bool slowMoReady = true;
+    int slowMoCooldown = 250;
+    int slowMoHoldDuration = 0;
     bool isPaused = false;
     bool readyToReset = false;
     public bool useSlowMo = true;
     public string sceneName = "Game";
+    float prevTimeScale = 1;
 	// Use this for initialization
 	void Start () {
         initialDeltaTime = Time.fixedDeltaTime;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if (Input.GetKeyUp(KeyCode.P))
         {
             isPaused = !isPaused;
@@ -55,55 +56,60 @@ public class TimeResume : MonoBehaviour {
             }
             return;
         }
+        if (prevTimeScale > Time.timeScale)
+        {
+            // something recently triggered a time slowdown
+            if (slowMoCooldown == 0)
+            {
+                float timeReduction = (1 - Time.timeScale);
+                slowMoHoldDuration = (int)(timeReduction * timeReduction * 50);
+                if (slowMoHoldDuration < 30)
+                {
+                    // slowmo not enough to be useful
+                    slowMoHoldDuration = 0;
+                } else
+                {
+                    slowMoCooldown = slowMoHoldDuration * 7; // no long slowmos for awhile
+                }
+            }
+        }
         if (Time.timeScale < 1)
         {
-            if (Time.timeScale == 0.0314f)
+            if (Time.timeScale == 0.0123f)
             {
                 // hacky special case used to force slow-mo for critical events such as player core being damaged
-                slowMoReady = true;
+                slowMoHoldDuration = 55;
+                slowMoCooldown = 0;
+            }
+            if (Time.timeScale < 0.025f)
+            {
+                Time.timeScale = 0.025f;
             }
             if (!useSlowMo)
             {
-                Time.timeScale += (1 - Time.timeScale) * 0.5f;
-                Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
+                Time.timeScale += Mathf.Min(1, Time.timeScale + 0.2f);
             }
             else
             {
-                if (slowMoCharge > 0 && slowMoReady)
+                if (slowMoHoldDuration > 0)
                 {
-                    // default slow down time
-                    slowMoCharge -= 1;
-                    if (Time.timeScale < 0.05)
-                    {
-                        Time.timeScale = Mathf.Min(1, Time.timeScale + 0.001f);
-                    }
-                    else
-                    {
-                        Time.timeScale = Mathf.Min(1, Time.timeScale + 0.025f);
-                    }
-                    Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
-                }
-                else
+                    slowMoHoldDuration--;
+                } else
                 {
-                    // quickly get back to normal time cuz no more slowmo charge
-                    slowMoReady = false;
                     Time.timeScale = Mathf.Min(1, Time.timeScale + 0.1f);
-                    Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
             }
+            Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
         }
         // regenerate slowmo
         if (Time.timeScale > 0.99f)
         {
-            if (slowMoCharge < 70)
+            if (slowMoCooldown > 0)
             {
-                slowMoCharge += 0.25f;
-                slowMoReady = false;
-            } else
-            {
-                slowMoReady = true;
+                slowMoCooldown--;
             }
         }
         //Time.fixedDeltaTime = Time.timeScale;
+        prevTimeScale = Time.timeScale;
     }
 }

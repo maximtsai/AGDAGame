@@ -39,7 +39,7 @@ public class BreakableBehavior : MonoBehaviour {
     {
         if (tempArmor > 0)
         {
-            tempArmor = Mathf.Max(0, tempArmor - 0.25f * Time.timeScale);
+            tempArmor = Mathf.Max(0, tempArmor - 0.1f * Time.timeScale);
         }
         else if (tempArmor < 0)
         {
@@ -86,8 +86,11 @@ public class BreakableBehavior : MonoBehaviour {
                     float facingDirX = -Mathf.Sin(otherColliderRB.rotation * Mathf.Deg2Rad);
                     float facingDirY = Mathf.Cos(otherColliderRB.rotation * Mathf.Deg2Rad);
                     Vector2 otherPlayerDirectionVector = new Vector2(facingDirX, facingDirY);
-
-                    sumImpact += 6*Vector2.Dot(contact.normal, otherPlayerDirectionVector);
+                    // choose larger of two values, this is done to allow a constantly pushing player to 
+                    // deal consistent damage but not abuse turning to deal as much extra damage
+                    float damageScheme1 = sumImpact*0.1f + 13 * Vector2.Dot(contact.normal, otherPlayerDirectionVector);
+                    float damageScheme2 = sumImpact + 3 * Vector2.Dot(contact.normal, otherPlayerDirectionVector);
+                    sumImpact = Mathf.Max(damageScheme1, damageScheme2);
                 }
             }
 
@@ -109,7 +112,6 @@ public class BreakableBehavior : MonoBehaviour {
         float finalImpact = sumImpact - minDmgThreshold - tempArmor;
         if (finalImpact > 0)
         {
-            tempArmor = Mathf.Max(tempArmor, finalImpact*1.5f + 1);
             int armorRemainDuration = 100;
 
             if (dotImpact > currBreakThreshold)
@@ -118,9 +120,8 @@ public class BreakableBehavior : MonoBehaviour {
                 breakArmor(armorRemainDuration);
                 if (flashRed)
                 {
-                    FD.SetGrey();
                     FD.flashRed(0.9f);
-                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1-0.05f*finalImpact));
+                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1-0.075f*finalImpact));
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
                 if (createSparks && breakCounter > armorRemainDuration - 3)
@@ -139,12 +140,21 @@ public class BreakableBehavior : MonoBehaviour {
                 {
                     //Debug.Log(currBreakThreshold +", "+ initBreakThreshold);
                     FD.SetRed(1 - currBreakThreshold / initBreakThreshold);
-                    FD.flashRed(0.25f + finalImpact*0.05f);
-                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1 - 0.02f * finalImpact));
+                    FD.flashRed(0.25f + finalImpact*0.055f);
+                    float resultTimeChange = 1 - 0.05f * finalImpact;
+                    if (resultTimeChange > 0.1f)
+                    {
+                        resultTimeChange = 1 - 0.01f * finalImpact;
+                    }
+                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, resultTimeChange));
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
             }
-        } else
+            // make immediate attacks deal slightly less damage
+            tempArmor = Mathf.Max(tempArmor, finalImpact * 2 + 1);
+
+        }
+        else
         {
             // temporarily make armor a bit more vulnerable after it's deflected an attack
             tempArmor -= sumImpact * 0.2f;

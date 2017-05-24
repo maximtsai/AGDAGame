@@ -189,6 +189,14 @@ public class WeaponControl : MonoBehaviour {
             // if you already have a weapon, throw it away
             hasWeapon = false;
             currentWeaponScript = null;
+            if (this.name == "Player1")
+            {
+                tutKeyManager.P1EquipPressed();
+            }
+            else if (this.name == "Player2")
+            {
+                tutKeyManager.P2EquipPressed();
+            }
             foreach (Transform childTrans in this.transform)
             {
                 if (childTrans.CompareTag("Weapon") || childTrans.CompareTag("SoftWeapon"))
@@ -198,7 +206,7 @@ public class WeaponControl : MonoBehaviour {
                     Rigidbody2D childRB = childTrans.gameObject.AddComponent<Rigidbody2D>();
 
                     Vector3 weaponPos = childTrans.position;
-                    weaponPos.z = 20;
+                    weaponPos.z = 30;
                     childTrans.position = weaponPos;
 
                     childRB.gravityScale = 0;
@@ -247,7 +255,7 @@ public class WeaponControl : MonoBehaviour {
                 Rigidbody2D childRB = childTrans.gameObject.AddComponent<Rigidbody2D>();
 
                 Vector3 weaponPos = childTrans.position;
-                weaponPos.z = 20;
+                weaponPos.z = 30;
                 childTrans.position = weaponPos;
 
                 childRB.gravityScale = 0;
@@ -296,7 +304,7 @@ public class WeaponControl : MonoBehaviour {
                 Rigidbody2D childRB = childTrans.gameObject.AddComponent<Rigidbody2D>();
 
                 Vector3 weaponPos = childTrans.position;
-                weaponPos.z = 20;
+                weaponPos.z = 30;
                 childTrans.position = weaponPos;
 
                 childRB.gravityScale = 0;

@@ -69,15 +69,15 @@ public class CoreScript : MonoBehaviour {
             {
                 health--;
                 // always trigger slowmo with the special 0.031415f time.
-                Time.timeScale = 0.031415f;
+                Time.timeScale = 0.0123f;
                 Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 if (health == 1)
                 {
                     isInvul = true;
                     timeOfInjury = Time.time;
                     turningRed = true;
-                    currentEngineScript.setCoreTurnMult(5f);
-                    currentEngineScript.setCoreMoveMult(5f);
+                    currentEngineScript.setCoreTurnMult(4f);
+                    currentEngineScript.setCoreMoveMult(4f);
                 }
                 else if (health <= 0)
                 {
