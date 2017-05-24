@@ -23,7 +23,7 @@ public class CannonWeapon : WeaponScript
     Vector2 aimDir;
     Collider2D weaponCollider;
     // Use this for initialization
-    Rigidbody2D playerRB;
+    Rigidbody2D currentRB;
     float chargeSparkTimeAccum = 0;
     void Start () {
         remainingAmmo = clipSize;
@@ -82,13 +82,20 @@ public class CannonWeapon : WeaponScript
     public override void activateWeapon(Rigidbody2D playerRigidBody)
     {
         // What happens when the fire button is pressed
-        playerRB = playerRigidBody;
+        currentRB = playerRigidBody;
         isActivated = true;
     }
     public override void deactivateWeapon()
     {
         // what happens when the fire button is lifted
         isActivated = false;
+    }
+    public override void unequipWeaponExtra()
+    {
+        deactivateWeapon();
+        currentRB = GetComponent<Rigidbody2D>();
+        Debug.Log(currentRB);
+
     }
     void fireWeapon()
     {
@@ -108,8 +115,11 @@ public class CannonWeapon : WeaponScript
         {
             ammoNoClipScript.SetNoCollision(weaponCollider);
         }
-        newAmmo.GetComponent<Rigidbody2D>().velocity = playerRB.velocity + aimDir * fireVel;
-        playerRB.AddForce(aimDir * -fireVel, ForceMode2D.Impulse);//.velocity = playerRB.velocity + (new Vector2(facingDirX, facingDirY) * -fireVel * 0.1f);
+        if (currentRB)
+        {
+            newAmmo.GetComponent<Rigidbody2D>().velocity = currentRB.velocity + aimDir * fireVel;
+            currentRB.AddForce(aimDir * -fireVel, ForceMode2D.Impulse);//.velocity = currentRB.velocity + (new Vector2(facingDirX, facingDirY) * -fireVel * 0.1f);
+        }
     }
 
 }

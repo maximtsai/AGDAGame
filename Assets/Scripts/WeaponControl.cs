@@ -188,7 +188,6 @@ public class WeaponControl : MonoBehaviour {
         {
             // if you already have a weapon, throw it away
             hasWeapon = false;
-            currentWeaponScript = null;
             if (this.name == "Player1")
             {
                 tutKeyManager.P1EquipPressed();
@@ -240,12 +239,14 @@ public class WeaponControl : MonoBehaviour {
             // reset movement multipliers
             currentEngineScript.setWeaponTurnMult(1);
             currentEngineScript.setWeaponMoveMult(1);
+            currentWeaponScript.unequipWeaponExtra();
+            currentWeaponScript = null;
+
         }
     }
     public void throwWeaponAway()
     {
         hasWeapon = false;
-        currentWeaponScript = null;
         foreach (Transform childTrans in this.transform)
         {
             if (childTrans.CompareTag("Weapon") || childTrans.CompareTag("SoftWeapon"))
@@ -288,13 +289,14 @@ public class WeaponControl : MonoBehaviour {
         // reset movement multipliers
         currentEngineScript.setWeaponTurnMult(1);
         currentEngineScript.setWeaponMoveMult(1);
+        currentWeaponScript.unequipWeaponExtra();
+        currentWeaponScript = null;
     }
 
     public void dropWeapon()
     {
         // similar to throwWeaponAway except without making the weapon launch out.
         hasWeapon = false;
-        currentWeaponScript = null;
         foreach (Transform childTrans in this.transform)
         {
             if (childTrans.CompareTag("Weapon") || childTrans.CompareTag("SoftWeapon"))
@@ -316,6 +318,8 @@ public class WeaponControl : MonoBehaviour {
         // reset movement multipliers
         currentEngineScript.setWeaponTurnMult(1);
         currentEngineScript.setWeaponMoveMult(1);
+        currentWeaponScript.unequipWeaponExtra();
+        currentWeaponScript = null;
     }
     public void pressActivateKey()
     {

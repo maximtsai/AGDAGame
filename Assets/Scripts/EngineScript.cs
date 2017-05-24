@@ -66,7 +66,7 @@ public class EngineScript : MonoBehaviour
                         // soft cap for max speed
                         Vector2 baseSpd = forward * maxSpeed / playerBody.velocity.sqrMagnitude;
                         Vector2 additionalSpd = forward - baseSpd;
-                        forward = baseSpd + additionalSpd * Mathf.Max((maxSpeed + 15 - playerBody.velocity.sqrMagnitude) / 15, 0);
+                        forward = baseSpd + additionalSpd * Mathf.Max((maxSpeed + 10 - playerBody.velocity.sqrMagnitude) / 10, 0.1f);
                     }
                     // increases control of player
                     playerBody.AddForce(forward - 4 * playerBody.velocity);
@@ -80,7 +80,7 @@ public class EngineScript : MonoBehaviour
                         // soft cap for max speed
                         Vector2 baseSpd = backward * maxSpeed / playerBody.velocity.sqrMagnitude;
                         Vector2 additionalSpd = (backward - baseSpd);
-                        backward = baseSpd + additionalSpd * Mathf.Max((maxSpeed + 5 - playerBody.velocity.sqrMagnitude) / 5, 0);
+                        backward = baseSpd + additionalSpd * Mathf.Max((maxSpeed + 5 - playerBody.velocity.sqrMagnitude) / 5, 0.1f);
                     }
                     // increases control of player
                     playerBody.AddForce(-playerBody.velocity);

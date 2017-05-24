@@ -52,7 +52,7 @@ public class LauncherWeapon : WeaponScript
     Collider2D weaponColliderFarLeft;
     Collider2D weaponColliderFarRight;
     // Use this for initialization
-    Rigidbody2D playerRB;
+    Rigidbody2D currentRB;
 
     void Start()
     {
@@ -194,9 +194,9 @@ public class LauncherWeapon : WeaponScript
                 float yOffset;
                 GameObject newAmmo = Instantiate(ammo);
                 tempNoCollision ammoNoClipScript = newAmmo.GetComponent<tempNoCollision>();
-                newAmmo.GetComponent<Rigidbody2D>().velocity = playerRB.velocity + aimDir * 5; // initial rocket velocity
-                playerRB.AddForce(aimDir * -0.1f, ForceMode2D.Impulse); // recoil
-                playerRB.MovePosition(playerRB.position + aimDir * -0.1f); // recoil
+                newAmmo.GetComponent<Rigidbody2D>().velocity = currentRB.velocity + aimDir * 5; // initial rocket velocity
+                currentRB.AddForce(aimDir * -0.1f, ForceMode2D.Impulse); // recoil
+                currentRB.MovePosition(currentRB.position + aimDir * -0.1f); // recoil
 
                 switch (currentCannonFiring)
                 {
@@ -226,7 +226,7 @@ public class LauncherWeapon : WeaponScript
                             ammoNoClipScript.SetNoCollision(weaponColliderLeft);
                         }
                         currentCannonFiring = 2;
-                        playerRB.AddTorque(400); // recoil
+                        currentRB.AddTorque(400); // recoil
                         break;
                     case 2:
                         // withdraw left rocket tip
@@ -250,7 +250,7 @@ public class LauncherWeapon : WeaponScript
                             ammoNoClipScript.SetNoCollision(weaponColliderRight);
                         }
                         currentCannonFiring = 3;
-                        playerRB.AddTorque(-400); // recoil
+                        currentRB.AddTorque(-400); // recoil
                         break;
                     case 3:
                         tempVector = farLeftLauncherTipOrigPos;
@@ -273,7 +273,7 @@ public class LauncherWeapon : WeaponScript
                             ammoNoClipScript.SetNoCollision(weaponColliderLeft);
                         }
                         currentCannonFiring = 4;
-                        playerRB.AddTorque(600); // recoil
+                        currentRB.AddTorque(600); // recoil
                         break;
                     case 4:
                         tempVector = farRightLauncherTipOrigPos;
@@ -296,7 +296,7 @@ public class LauncherWeapon : WeaponScript
                             ammoNoClipScript.SetNoCollision(weaponColliderRight);
                         }
                         currentCannonFiring = 1;
-                        playerRB.AddTorque(-600); // recoil
+                        currentRB.AddTorque(-600); // recoil
                         break;
                 }
             }
@@ -378,7 +378,7 @@ public class LauncherWeapon : WeaponScript
     public override void activateWeapon(Rigidbody2D playerRigidBody)
     {
         // What happens when the fire button is pressed
-        playerRB = playerRigidBody;
+        currentRB = playerRigidBody;
         isActivated = true;
     }
     public override void deactivateWeapon()
@@ -386,28 +386,15 @@ public class LauncherWeapon : WeaponScript
         // what happens when the fire button is lifted
         isActivated = false;
     }
+    public override void unequipWeaponExtra()
+    {
+        deactivateWeapon();
+        currentRB = GetComponent<Rigidbody2D>();
+        Debug.Log(currentRB);
+    }
     void fireWeapon()
     {
         firing = true;
-        //engScript.setWeaponTurnMult(this.turnMultiplier);
-        //engScript.setWeaponMoveMult(this.moveMultiplier);
-
-        /*
-        if 
-        ammoPos.x = -facingDirX * 0.25f;
-        ammoPos.y = -facingDirY * 0.25f;
-        ammoPos = ammoPos + this.transform.position;
-        ammoPos.z = 0;
-        ammo.transform.position = ammoPos;
-        GameObject newAmmo = Instantiate(ammo);
-        tempNoCollision ammoNoClipScript = newAmmo.GetComponent<tempNoCollision>();
-        if (ammoNoClipScript)
-        {
-            ammoNoClipScript.SetNoCollision(weaponColliderLeft);
-        }
-        newAmmo.GetComponent<Rigidbody2D>().velocity = playerRB.velocity + aimDir * fireVel;
-        playerRB.AddForce(aimDir * -fireVel, ForceMode2D.Impulse);//.velocity = playerRB.velocity + (new Vector2(facingDirX, facingDirY) * -fireVel * 0.1f);
-        */
     }
 
 }

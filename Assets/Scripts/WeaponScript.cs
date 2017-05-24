@@ -41,4 +41,8 @@ public class WeaponScript : MonoBehaviour {
     {
         engScript = ES;
     }
+    virtual public void unequipWeaponExtra()
+    {
+        Debug.Log("wat");
+    }
 }

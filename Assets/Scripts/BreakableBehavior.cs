@@ -108,7 +108,7 @@ public class BreakableBehavior : MonoBehaviour {
         {
             sumImpact = sumImpact * 1.2f + 1;
         }
-        sumImpact *= colliderMass/(1.5f+colliderMass); // more massive objects hurt more
+        sumImpact *= colliderMass/(1.6f+colliderMass); // more massive objects hurt more
         float finalImpact = sumImpact - minDmgThreshold - tempArmor;
         if (finalImpact > 0)
         {
@@ -121,7 +121,7 @@ public class BreakableBehavior : MonoBehaviour {
                 if (flashRed)
                 {
                     FD.flashRed(0.9f);
-                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1-0.07f*finalImpact));
+                    Time.timeScale = Mathf.Max(0.025f, Mathf.Min(Time.timeScale, 1-0.07f*finalImpact));
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
                 if (createSparks && breakCounter > armorRemainDuration - 3)
@@ -146,7 +146,7 @@ public class BreakableBehavior : MonoBehaviour {
                     {
                         resultTimeChange = 1 - 0.01f * finalImpact;
                     }
-                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, resultTimeChange));
+                    Time.timeScale = Mathf.Max(0.025f, Mathf.Min(Time.timeScale, resultTimeChange));
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
             }
