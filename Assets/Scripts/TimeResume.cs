@@ -62,11 +62,11 @@ public class TimeResume : MonoBehaviour {
             if (slowMoCooldown == 0)
             {
                 float timeReduction = (1 - Time.timeScale);
-                slowMoHoldDuration = (int)(timeReduction * timeReduction * 50);
-                if (slowMoHoldDuration < 30)
+                slowMoHoldDuration = (int)(timeReduction * timeReduction * 60);
+                if (slowMoHoldDuration < 40)
                 {
                     // slowmo not enough to be useful
-                    slowMoHoldDuration = 0;
+                    slowMoHoldDuration = Mathf.Min(slowMoHoldDuration, 5);
                 } else
                 {
                     slowMoCooldown = slowMoHoldDuration * 7; // no long slowmos for awhile
@@ -78,7 +78,7 @@ public class TimeResume : MonoBehaviour {
             if (Time.timeScale == 0.0123f)
             {
                 // hacky special case used to force slow-mo for critical events such as player core being damaged
-                slowMoHoldDuration = 55;
+                slowMoHoldDuration = 70;
                 slowMoCooldown = 0;
             }
             if (Time.timeScale < 0.025f)

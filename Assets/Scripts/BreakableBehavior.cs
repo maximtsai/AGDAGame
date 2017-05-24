@@ -102,13 +102,13 @@ public class BreakableBehavior : MonoBehaviour {
         }
         if (collision.collider.gameObject.CompareTag("Weapon"))
         {
-            sumImpact = sumImpact * 2f + 6;
+            sumImpact = sumImpact * 2f + 7;
         }
         else if (collision.collider.gameObject.CompareTag("Player"))
         {
             sumImpact = sumImpact * 1.2f + 1;
         }
-        sumImpact *= colliderMass/(1+colliderMass); // more massive objects hurt more
+        sumImpact *= colliderMass/(1.5f+colliderMass); // more massive objects hurt more
         float finalImpact = sumImpact - minDmgThreshold - tempArmor;
         if (finalImpact > 0)
         {
@@ -121,7 +121,7 @@ public class BreakableBehavior : MonoBehaviour {
                 if (flashRed)
                 {
                     FD.flashRed(0.9f);
-                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1-0.075f*finalImpact));
+                    Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1-0.07f*finalImpact));
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
                 if (createSparks && breakCounter > armorRemainDuration - 3)
@@ -141,7 +141,7 @@ public class BreakableBehavior : MonoBehaviour {
                     //Debug.Log(currBreakThreshold +", "+ initBreakThreshold);
                     FD.SetRed(1 - currBreakThreshold / initBreakThreshold);
                     FD.flashRed(0.25f + finalImpact*0.055f);
-                    float resultTimeChange = 1 - 0.05f * finalImpact;
+                    float resultTimeChange = 1 - 0.045f * finalImpact;
                     if (resultTimeChange > 0.1f)
                     {
                         resultTimeChange = 1 - 0.01f * finalImpact;

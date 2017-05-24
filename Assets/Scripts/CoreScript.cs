@@ -58,14 +58,14 @@ public class CoreScript : MonoBehaviour {
             }
             if (collision.collider.gameObject.CompareTag("Weapon"))
             {
-                sumImpact += 6;
+                sumImpact += 7;
             }
             if (health == 1)
             {
                 // low health slightly less likely to instadie
                 sumImpact -= 3f;
             }
-            if (sumImpact > 8f)
+            if (sumImpact > 9f)
             {
                 health--;
                 // always trigger slowmo with the special 0.031415f time.

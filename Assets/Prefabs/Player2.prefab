@@ -1195,12 +1195,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a22bc6a5e405fc4dbce4c63755af99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up: 273
-  down: 274
-  left: 276
-  right: 275
-  equipWeapButton: 107
-  activateWeapButton: 108
+  up: 375
+  down: 374
+  left: 0
+  right: 0
+  equipWeapButton: 371
+  activateWeapButton: 370
   horizontalAxis: P2JoystickHorizontal
   playerBody: {fileID: 50146912319225692}
   engineScript: {fileID: 114068841696884108}
@@ -1220,11 +1220,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 50146912319225692}
   exhaustController: {fileID: 114671847887165588}
-  acceleration: 200
+  acceleration: 210
   maxSpeed: 16
   baseTurnPower: 150
   bonusTurnPower: 30
-  initialTurnMult: 0.4
+  initialTurnMult: 0.3
   turnAcc: 0.5
   engineType: 0
 --- !u!114 &114089965896146380

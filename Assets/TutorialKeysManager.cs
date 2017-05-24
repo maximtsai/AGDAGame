@@ -128,8 +128,8 @@ public class TutorialKeysManager : MonoBehaviour {
     {
         if (continueTutorial)
         {
-            goalAlpha -= 0.01f;
-            if (goalAlpha <= -0.1f)
+            goalAlpha -= 0.005f;
+            if (goalAlpha <= -0.01f)
             {
                 continueTutorial = false;
                 return;
@@ -137,8 +137,8 @@ public class TutorialKeysManager : MonoBehaviour {
             tempCol.a = Mathf.Min(1, goalAlpha + 0.5f);
             keyPressed.GetComponent<SpriteRenderer>().color = tempCol;
             tempVec = keyPressed.transform.localScale;
-            tempVec.x *= 1.1f;
-            tempVec.y *= 1.1f;
+            tempVec.x *= 1.2f;
+            tempVec.y *= 1.2f;
             keyPressed.transform.localScale = tempVec;
             foreach (Transform textTransform in keyPressed.transform)
             {
