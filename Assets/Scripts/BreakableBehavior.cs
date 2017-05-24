@@ -118,6 +118,7 @@ public class BreakableBehavior : MonoBehaviour {
                 breakArmor(armorRemainDuration);
                 if (flashRed)
                 {
+                    FD.SetGrey();
                     FD.flashRed(0.9f);
                     Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1-0.05f*finalImpact));
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
@@ -138,7 +139,7 @@ public class BreakableBehavior : MonoBehaviour {
                 {
                     //Debug.Log(currBreakThreshold +", "+ initBreakThreshold);
                     FD.SetRed(1 - currBreakThreshold / initBreakThreshold);
-                    FD.flashRed(1 - currBreakThreshold / initBreakThreshold + 0.5f);
+                    FD.flashRed(0.25f + finalImpact*0.05f);
                     Time.timeScale = Mathf.Max(0, Mathf.Min(Time.timeScale, 1 - 0.02f * finalImpact));
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
@@ -201,8 +202,12 @@ public class BreakableBehavior : MonoBehaviour {
                 rb.angularDrag = 1;
                 rb.mass = 0.01f;
                 rb.velocity = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
-                rb.AddTorque(Random.Range(-5, 5));
+                rb.AddTorque(Random.Range(-8, 8));
             }
+        }
+        if (gameObject.GetComponent<Collider2D>())
+        {
+            Destroy(gameObject.GetComponent<Collider2D>());
         }
         foreach(Transform child in this.transform)
         {

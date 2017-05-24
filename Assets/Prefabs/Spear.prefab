@@ -67,8 +67,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1090163280397158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
+  m_LocalPosition: {x: 0, y: 4, z: -0.88}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4198155599178878}
   m_Father: {fileID: 0}
@@ -85,9 +85,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.50040025
-  m_LinearDrag: 0.3
-  m_AngularDrag: 5
+  m_Mass: 0.4958931
+  m_LinearDrag: 0.5
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 8be6341e1ce3f4cec9902bc34f72d20a, type: 2}
   m_Interpolate: 0
@@ -119,10 +119,11 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -0.012169944, y: 1.4194759}
-      - {x: -0.094972864, y: 1.1014949}
-      - {x: -0.03379065, y: 1.0387305}
-      - {x: 0.0040302277, y: 1.0121309}
-      - {x: 0.09958209, y: 1.0974582}
+      - {x: -0.103352055, y: 1.1014949}
+      - {x: -0.0304039, y: 1.0150232}
+      - {x: 0.00064347684, y: 0.9477825}
+      - {x: 0.033859156, y: 1.0231237}
+      - {x: 0.10796129, y: 1.0974584}
       - {x: 0.024163939, y: 1.423822}
 --- !u!60 &60775180041490734
 PolygonCollider2D:
@@ -148,7 +149,7 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.005771721, y: 1.4994087}
+    - - {x: 0.005771721, y: 1.5027957}
       - {x: 0.034304272, y: 1.0319096}
       - {x: -0.027014336, y: 1.0296992}
 --- !u!60 &60778785198118264
@@ -158,7 +159,7 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1090163280397158}
   m_Enabled: 1
-  m_Density: 150
+  m_Density: 120
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -194,7 +195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b09804764f9ac46b5313f7dec37a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponOffset: 1.4
+  weaponOffset: 1.5
+  moveMultiplier: 1
+  turnMultiplier: 1
 --- !u!212 &212231553173551258
 SpriteRenderer:
   m_ObjectHideFlags: 1

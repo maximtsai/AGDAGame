@@ -56,23 +56,28 @@ public class CoreScript : MonoBehaviour {
                 }
                 sumImpact += speedMult * speedImpact;
             }
+            if (collision.collider.gameObject.CompareTag("Weapon"))
+            {
+                sumImpact += 6;
+            }
             if (health == 1)
             {
                 // low health slightly less likely to instadie
-                sumImpact -= 2.5f;
+                sumImpact -= 3f;
             }
-            if (sumImpact > 6.5f)
+            if (sumImpact > 8f)
             {
                 health--;
+                // always trigger slowmo with the special 0.031415f time.
+                Time.timeScale = 0.031415f;
+                Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 if (health == 1)
                 {
                     isInvul = true;
                     timeOfInjury = Time.time;
                     turningRed = true;
-                    Time.timeScale = 0.00872f;
-                    Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
-                    currentEngineScript.setCoreTurnMult(0.75f);
-                    currentEngineScript.setCoreMoveMult(0.75f);
+                    currentEngineScript.setCoreTurnMult(5f);
+                    currentEngineScript.setCoreMoveMult(5f);
                 }
                 else if (health <= 0)
                 {

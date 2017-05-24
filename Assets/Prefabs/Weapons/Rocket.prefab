@@ -179,11 +179,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9cd7ee361f3df4eba1c9456b98b358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listOfShrapnel: {fileID: 0}
-  detonationImpactVelocity: 3
+  explosion: {fileID: 1661456239336346, guid: 895f8c1ad6257784eb48cdf011b49dce, type: 2}
+  detonationImpactVelocity: 5
   detonationDelay: 3
   shrapnel: {fileID: 1150638050748584, guid: 181e0c6ee5667d24f9ab0685007f7dbc, type: 2}
-  numberOfShrapnel: 10
+  numberOfShrapnel: 8
 --- !u!198 &198809045940659136
 ParticleSystem:
   m_ObjectHideFlags: 1

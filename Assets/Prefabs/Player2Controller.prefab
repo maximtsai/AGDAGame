@@ -413,8 +413,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.107999995, z: -0.14999996}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
-  m_Children:
-  - {fileID: 4934939964630496}
+  m_Children: []
   m_Father: {fileID: 4871500126916660}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -536,7 +535,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.08, z: -0.24999999}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4934939964630496}
   m_Father: {fileID: 4871500126916660}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -651,10 +651,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1120209695711220}
   m_LocalRotation: {x: -0, y: -0, z: 0.003329272, w: 0.99999446}
-  m_LocalPosition: {x: -0.768571, y: -0.06714286, z: -0.85}
-  m_LocalScale: {x: 1.1140121, y: 1.1140121, z: 2.2280245}
+  m_LocalPosition: {x: -0.768571, y: -0.10714286, z: -0.75}
+  m_LocalScale: {x: 1.114012, y: 1.114012, z: 2.2280245}
   m_Children: []
-  m_Father: {fileID: 4188910633749172}
+  m_Father: {fileID: 4681619237080978}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.38200003}
 --- !u!23 &23532664057139234
@@ -707,7 +707,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 2.7741263
+  m_Mass: 2.774126
   m_LinearDrag: 2.5
   m_AngularDrag: 50
   m_GravityScale: 0
@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
   minDmgThreshold: 5
-  initBreakThreshold: 45
+  initBreakThreshold: 35
   brittleness: 0.5
   createSparks: 1
   flashRed: 1
@@ -1422,7 +1422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
   minDmgThreshold: 5
-  initBreakThreshold: 40
+  initBreakThreshold: 30
   brittleness: 0.5
   createSparks: 1
   flashRed: 1
@@ -1439,7 +1439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
   minDmgThreshold: 5
-  initBreakThreshold: 40
+  initBreakThreshold: 30
   brittleness: 0.5
   createSparks: 1
   flashRed: 1
@@ -1506,8 +1506,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 5
-  initBreakThreshold: 40
+  minDmgThreshold: 4
+  initBreakThreshold: 25
   brittleness: 0.5
   createSparks: 1
   flashRed: 1

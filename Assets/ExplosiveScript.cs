@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class ExplosiveScript : MonoBehaviour
 {
-    public GameObject listOfShrapnel;
+    public GameObject explosion;
+
+    GameObject listOfShrapnel;
+    GameObject listOfExplosions;
     public float detonationImpactVelocity = 3;
     public float detonationDelay = 3;
     public GameObject shrapnel;
@@ -15,6 +18,8 @@ public class ExplosiveScript : MonoBehaviour
     private void Awake()
     {
         listOfShrapnel = GameObject.Find("ListOfShrapnel");
+        listOfExplosions = GameObject.Find("ListOfExplosions");
+
         if (!listOfShrapnel)
         {
             Debug.Log("Warning, no ListOfShrapnel object found");
@@ -53,6 +58,42 @@ public class ExplosiveScript : MonoBehaviour
         {
             createShrapnel(this.transform.position);
         }
+        // explosion sprite
+        bool foundAvailableExplosion = false;
+        foreach (Transform child in listOfExplosions.transform)
+        {
+            GameObject explodeObj = child.gameObject;
+            if (!explodeObj.active)
+            {
+                explodeObj.SetActive(true);
+                explodeObj.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -1);
+                explodeObj.transform.localScale = this.transform.localScale * 3f;
+                foundAvailableExplosion = true;
+                break;
+            }
+        }
+        if (!foundAvailableExplosion)
+        {
+            //explosion.transform.position.Set(this.transform.position.x, this.transform.position.y, -1);
+            GameObject explodeObj = Instantiate(explosion, listOfExplosions.transform);
+            explodeObj.transform.position.Set(this.transform.position.x, this.transform.position.y, -1);
+            explodeObj.transform.localScale = this.transform.localScale * 3f;
+            explodeObj.SetActive(true);
+            /*
+            foreach (Transform child in listOfExplosions.transform)
+            {
+                GameObject explodeObj = child.gameObject;
+                if (!explodeObj.active)
+                {
+                    explodeObj.SetActive(true);
+                    explodeObj.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -1);
+                    explodeObj.transform.localScale = this.transform.localScale * 1.5f;
+                    break;
+                }
+            }
+            */
+        }
+
         Time.timeScale = Mathf.Min(Time.timeScale, 0.95f);
         Destroy(this.gameObject);
     }
@@ -74,8 +115,8 @@ public class ExplosiveScript : MonoBehaviour
                 Rigidbody2D rb = shrapnelObj.GetComponent<Rigidbody2D>();
                 // reset disappear timer
                 shrapnelObj.GetComponent<DisappearAfterTime>().resetDisappearTime(); 
-                tempVec.x = Random.Range(-65, 65);
-                tempVec.y = Random.Range(-65, 65);
+                tempVec.x = Random.Range(-55, 55);
+                tempVec.y = Random.Range(-55, 55);
                 rb.velocity = tempVec;
                 tempVec.x *= 0.01f;
                 tempVec.y *= 0.01f;

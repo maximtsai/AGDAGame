@@ -43,6 +43,14 @@ public class EngineScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (coreMoveSpdMult > 1)
+        {
+            coreMoveSpdMult = Mathf.Max(1, coreMoveSpdMult - 0.05f);
+        }
+        if (coreTurnSpdMult > 1)
+        {
+            coreTurnSpdMult = Mathf.Max(1, coreTurnSpdMult - 0.05f);
+        }
         forwardVec.Set(-Mathf.Sin(playerBody.rotation * DEG_TO_RAD), Mathf.Cos(playerBody.rotation * DEG_TO_RAD));
 
         switch (engineType)

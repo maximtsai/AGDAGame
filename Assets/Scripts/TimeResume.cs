@@ -57,6 +57,11 @@ public class TimeResume : MonoBehaviour {
         }
         if (Time.timeScale < 1)
         {
+            if (Time.timeScale == 0.0314f)
+            {
+                // hacky special case used to force slow-mo for critical events such as player core being damaged
+                slowMoReady = true;
+            }
             if (!useSlowMo)
             {
                 Time.timeScale += (1 - Time.timeScale) * 0.5f;
@@ -86,7 +91,9 @@ public class TimeResume : MonoBehaviour {
                     Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
                 }
             }
-        } else
+        }
+        // regenerate slowmo
+        if (Time.timeScale > 0.99f)
         {
             if (slowMoCharge < 70)
             {

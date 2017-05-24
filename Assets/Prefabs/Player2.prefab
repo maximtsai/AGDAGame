@@ -224,7 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4579723819024000}
   m_Layer: 0
-  m_Name: Armor 1
+  m_Name: Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,7 +403,7 @@ Transform:
   m_Children:
   - {fileID: 4362424551069078}
   m_Father: {fileID: 4579723819024000}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4203732865511522
 Transform:
@@ -427,10 +427,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1422980618767532}
   m_LocalRotation: {x: -0, y: -0, z: 0.003329272, w: 0.99999446}
-  m_LocalPosition: {x: -0.768571, y: -0.06714286, z: -0.85}
-  m_LocalScale: {x: 1.1140121, y: 1.1140121, z: 2.2280245}
+  m_LocalPosition: {x: -0.768571, y: -0.10714286, z: -0.75}
+  m_LocalScale: {x: 1.114012, y: 1.114012, z: 2.2280245}
   m_Children: []
-  m_Father: {fileID: 4330393931010214}
+  m_Father: {fileID: 4876589560654688}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.38200003}
 --- !u!4 &4216774922897782
@@ -500,10 +500,9 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.107999995, z: -0.14999996}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
-  m_Children:
-  - {fileID: 4215991008997292}
+  m_Children: []
   m_Father: {fileID: 4579723819024000}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4362424551069078
 Transform:
@@ -543,7 +542,7 @@ Transform:
   m_LocalScale: {x: -0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 4579723819024000}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4566346009590300
 Transform:
@@ -581,10 +580,10 @@ Transform:
   m_LocalPosition: {x: 0.008, y: 0.059, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4896060668975362}
   - {fileID: 4553888089267018}
   - {fileID: 4330393931010214}
   - {fileID: 4106165756771396}
-  - {fileID: 4896060668975362}
   - {fileID: 4876589560654688}
   - {fileID: 4203732865511522}
   m_Father: {fileID: 4271742829382626}
@@ -639,7 +638,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.08, z: -0.24999999}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4215991008997292}
   m_Father: {fileID: 4579723819024000}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -655,7 +655,7 @@ Transform:
   m_Children:
   - {fileID: 4284197638891472}
   m_Father: {fileID: 4579723819024000}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23002619879842500
 MeshRenderer:
@@ -707,7 +707,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 2.774126
+  m_Mass: 2.774127
   m_LinearDrag: 2.5
   m_AngularDrag: 50
   m_GravityScale: 0
@@ -1183,6 +1183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114063739918160028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1194,12 +1195,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a22bc6a5e405fc4dbce4c63755af99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up: 375
-  down: 374
-  left: 0
-  right: 0
-  equipWeapButton: 371
-  activateWeapButton: 370
+  up: 273
+  down: 274
+  left: 276
+  right: 275
+  equipWeapButton: 107
+  activateWeapButton: 108
   horizontalAxis: P2JoystickHorizontal
   playerBody: {fileID: 50146912319225692}
   engineScript: {fileID: 114068841696884108}
@@ -1273,7 +1274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
   minDmgThreshold: 5
-  initBreakThreshold: 45
+  initBreakThreshold: 30
   brittleness: 0.5
   createSparks: 1
   flashRed: 1
@@ -1290,7 +1291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
   minDmgThreshold: 5
-  initBreakThreshold: 40
+  initBreakThreshold: 30
   brittleness: 0.5
   createSparks: 1
   flashRed: 1
@@ -1305,6 +1306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114169643790813592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1318,7 +1320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
   minDmgThreshold: 5
-  initBreakThreshold: 40
+  initBreakThreshold: 30
   brittleness: 0.5
   createSparks: 1
   flashRed: 1
@@ -1345,6 +1347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114229695333468042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1389,6 +1392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114324810667605912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1415,6 +1419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114377955998710842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1443,6 +1448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114506587111445286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1454,6 +1460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114559891625930604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1482,6 +1489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114595606662013568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1510,6 +1518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114608866535046298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1556,6 +1565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114671847887165588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1596,8 +1606,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgSpark: {fileID: 0}
-  minDmgThreshold: 5
-  initBreakThreshold: 40
+  minDmgThreshold: 4
+  initBreakThreshold: 25
   brittleness: 0.5
   createSparks: 1
   flashRed: 1
@@ -1612,6 +1622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!114 &114967504772273794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1656,6 +1667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82ce0354b8c544eb0e5281d6f58287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorChangeSpeed: 0.015
 --- !u!198 &198556141606508498
 ParticleSystem:
   m_ObjectHideFlags: 1

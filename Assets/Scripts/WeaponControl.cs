@@ -211,17 +211,18 @@ public class WeaponControl : MonoBehaviour {
                     if (rotationDiff > 0)
                     {
                         // counterclockwise fling
-                        velX = Mathf.Cos((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
-                        velY = Mathf.Sin((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 0.75f;
+                        velX = Mathf.Cos((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 1.25f;
+                        velY = Mathf.Sin((prevRotation + 90) * DEG_TO_RAD) * rotationDiff * 1.25f;
                     }
                     else
                     {
                         // clockwise fling
-                        velX = Mathf.Cos((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
-                        velY = Mathf.Sin((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 0.75f;
+                        velX = Mathf.Cos((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 1.25f;
+                        velY = Mathf.Sin((prevRotation - 90) * DEG_TO_RAD) * -rotationDiff * 1.25f;
                     }
-                    throwVelocity.x += velX;
-                    throwVelocity.y += velY;
+                    float aimDirMultiplier = 5 + playerRB.velocity.magnitude * 0.2f;
+                    throwVelocity.x += velX - Mathf.Sin(currRotation * Mathf.Deg2Rad) * aimDirMultiplier;
+                    throwVelocity.y += velY + Mathf.Cos(currRotation * Mathf.Deg2Rad) * aimDirMultiplier;
 
                     childTrans.gameObject.GetComponent<Rigidbody2D>().velocity = throwVelocity;
                     childTrans.gameObject.GetComponent<Rigidbody2D>().AddTorque(rotationDiff * 4);
