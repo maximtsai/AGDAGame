@@ -18,9 +18,10 @@ public class TimeResume : MonoBehaviour {
 	void Start () {
         initialDeltaTime = Time.fixedDeltaTime;
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    // Update is called once per frame
+    private void Update()
+    {
         if (Input.GetKeyUp(KeyCode.P))
         {
             isPaused = !isPaused;
@@ -28,7 +29,9 @@ public class TimeResume : MonoBehaviour {
             {
                 Time.timeScale = 0;
                 pauseText.SetActive(true);
-            } else
+                Debug.Log("pausenow");
+            }
+            else
             {
                 if (readyToReset)
                 {
@@ -47,13 +50,22 @@ public class TimeResume : MonoBehaviour {
                 // Pressing R triggers reset
                 if (readyToReset)
                 {
+                    Time.timeScale = 1;
+                    Time.fixedDeltaTime = initialDeltaTime;
                     SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-                } else
+                }
+                else
                 {
                     pauseText.GetComponent<Text>().text = "PRESS R AGAIN TO RESET";
                     readyToReset = true;
                 }
             }
+        }
+    }
+
+	void FixedUpdate () {
+        if (isPaused)
+        {
             return;
         }
         if (prevTimeScale > Time.timeScale)

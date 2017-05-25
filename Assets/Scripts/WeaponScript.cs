@@ -43,6 +43,5 @@ public class WeaponScript : MonoBehaviour {
     }
     virtual public void unequipWeaponExtra()
     {
-        Debug.Log("wat");
     }
 }
