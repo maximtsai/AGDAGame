@@ -10,7 +10,7 @@ public class LauncherWeapon : WeaponScript
     public GameObject ammo;
     public int reloadDuration = 100;
     float currReload = 0;
-    int clipSize = 16;
+    int clipSize = 32;
     int remainingAmmo = 0;
     public float fireDelay = 10;
     float currFireDelay = 0;
@@ -332,8 +332,11 @@ public class LauncherWeapon : WeaponScript
                     rightLauncher.transform.localPosition = rightLauncherOrigPos;
                     farLeftLauncher.transform.localPosition = farLeftLauncherOrigPos;
                     farRightLauncher.transform.localPosition = farRightLauncherOrigPos;
-                    engScript.setWeaponTurnMult(this.moveMultiplier);
-                    engScript.setWeaponMoveMult(this.moveMultiplier);
+                    if (engScript)
+                    {
+                        engScript.setWeaponTurnMult(this.turnMultiplier);
+                        engScript.setWeaponMoveMult(this.moveMultiplier);
+                    }
 
                     coolingDown = false;
                     currReload = reloadDuration;
@@ -352,15 +355,15 @@ public class LauncherWeapon : WeaponScript
             {
                 if (clipSize == 0)
                 {
-                    clipSize = 8;
+                    clipSize = 16;
                     currReload = reloadDuration;
 
                     leftLauncherTip.transform.localPosition = leftLauncherTipOrigPos;
                     rightLauncherTip.transform.localPosition = rightLauncherTipOrigPos;
                 }
-                else if (clipSize == 8)
+                else if (clipSize == 16)
                 {
-                    clipSize = 16;
+                    clipSize = 32;
                     farLeftLauncherTip.transform.localPosition = farLeftLauncherTipOrigPos;
                     farRightLauncherTip.transform.localPosition = farRightLauncherTipOrigPos;
                 }
@@ -369,8 +372,11 @@ public class LauncherWeapon : WeaponScript
             {
                 // player just pressed fire button
                 warmingUp = true;
-                engScript.setWeaponTurnMult(this.turnMultiplier * 0.1f);
-                engScript.setWeaponMoveMult(this.moveMultiplier * 0.15f);
+                if (engScript)
+                {
+                    engScript.setWeaponTurnMult(this.turnMultiplier * 0.13f);
+                    engScript.setWeaponMoveMult(this.moveMultiplier * 0.15f);
+                }
             }
         }
     }
@@ -386,11 +392,15 @@ public class LauncherWeapon : WeaponScript
         // what happens when the fire button is lifted
         isActivated = false;
     }
+    public override void equipWeaponExtra(Rigidbody2D playerRigidBody)
+    {
+        currentRB = playerRigidBody;
+    }
     public override void unequipWeaponExtra()
     {
         deactivateWeapon();
         currentRB = GetComponent<Rigidbody2D>();
-        Debug.Log(currentRB);
+        engScript = null;
     }
     void fireWeapon()
     {

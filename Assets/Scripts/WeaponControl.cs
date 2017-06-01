@@ -140,6 +140,8 @@ public class WeaponControl : MonoBehaviour {
                         pickUpIndicator.SetActive(false);
                     }
                     // add movement multipliers/penalties and link the engine with the weapon
+                    currentWeaponScript.equipWeaponExtra(playerRB);
+
                     currentWeaponScript.setEngineScript(currentEngineScript);
                     currentEngineScript.setWeaponTurnMult(currentWeaponScript.turnMultiplier);
                     currentEngineScript.setWeaponMoveMult(currentWeaponScript.moveMultiplier);

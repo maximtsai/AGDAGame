@@ -623,7 +623,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 3.2615566
+  m_Mass: 2.7370565
   m_LinearDrag: 0.5
   m_AngularDrag: 1
   m_GravityScale: 0
@@ -656,23 +656,16 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.34790412, y: -0.43725777}
-      - {x: 0.26790434, y: 0.64274263}
-      - {x: 0.32032323, y: 0.84000015}
-      - {x: 0.2754849, y: 0.83516216}
-      - {x: -0.22822759, y: 0.82274246}
-      - {x: -0.3103231, y: 0.8027425}
-      - {x: -0.28306568, y: 0.70758057}
-      - {x: -0.32516143, y: 0.22032309}
-      - {x: -0.33790433, y: -0.38144875}
-      - {x: -0.31306577, y: -0.7051618}
-      - {x: -0.20790398, y: -0.85274243}
-      - {x: -0.1503231, y: -0.8803232}
-      - {x: -0.07, y: -1}
-      - {x: 0.07, y: -1}
-      - {x: 0.24758053, y: -0.84790397}
-      - {x: 0.31032345, y: -0.77758074}
-      - {x: 0.32306603, y: -0.6279042}
+    - - {x: 0.26790434, y: 0.64274263}
+      - {x: 0.10032529, y: 0.81704235}
+      - {x: -0.089307934, y: 0.82274246}
+      - {x: -0.22870576, y: 0.66530037}
+      - {x: -0.3077044, y: -0.39352894}
+      - {x: -0.3009858, y: -0.71120167}
+      - {x: -0.12938416, y: -0.90710163}
+      - {x: 0.13039988, y: -0.8973198}
+      - {x: 0.2791049, y: -0.76745224}
+      - {x: 0.3049461, y: -0.43462467}
 --- !u!114 &114099958226517704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -684,9 +677,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480c5171690c63643ad3bd960714c254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponOffset: 1.05
-  moveMultiplier: 0.667
-  turnMultiplier: 0.55
+  weaponOffset: 1
+  moveMultiplier: 0.6
+  turnMultiplier: 0.5
   chargeSparkEmitter: {fileID: 1721534941122708}
   ammo: {fileID: 1737281754872042, guid: 90354687c7762464ab868f0346622a99, type: 2}
   reloadDuration: 95
@@ -749,7 +742,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1560876121
+  randomSeed: -1306188569
   InitialModule:
     serializedVersion: 3
     enabled: 1

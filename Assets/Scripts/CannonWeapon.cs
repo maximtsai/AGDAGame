@@ -73,8 +73,11 @@ public class CannonWeapon : WeaponScript
             if (isActivated && currFireDelay <= 0 && currReload <= 0)
             {
                 firing = true;
-                engScript.setWeaponTurnMult(this.turnMultiplier * 0.25f);
-                engScript.setWeaponMoveMult(this.moveMultiplier * 0.25f);
+                if (engScript)
+                {
+                    engScript.setWeaponTurnMult(this.turnMultiplier * 0.2f);
+                    engScript.setWeaponMoveMult(this.moveMultiplier * 0.2f);
+                }
             }
         }
 	}
@@ -90,17 +93,23 @@ public class CannonWeapon : WeaponScript
         // what happens when the fire button is lifted
         isActivated = false;
     }
+    public override void equipWeaponExtra(Rigidbody2D playerRigidBody)
+    {
+        currentRB = playerRigidBody;
+    }
     public override void unequipWeaponExtra()
     {
         deactivateWeapon();
         currentRB = GetComponent<Rigidbody2D>();
-        Debug.Log(currentRB);
-
+        engScript = null;
     }
     void fireWeapon()
     {
-        engScript.setWeaponTurnMult(this.turnMultiplier);
-        engScript.setWeaponMoveMult(this.moveMultiplier);
+        if (engScript)
+        {
+            engScript.setWeaponTurnMult(this.turnMultiplier);
+            engScript.setWeaponMoveMult(this.moveMultiplier);
+        }
         float facingDirX = -Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad);
         float facingDirY = Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad);
         aimDir = new Vector2(facingDirX, facingDirY);

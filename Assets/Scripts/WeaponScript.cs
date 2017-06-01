@@ -41,6 +41,10 @@ public class WeaponScript : MonoBehaviour {
     {
         engScript = ES;
     }
+    virtual public void equipWeaponExtra(Rigidbody2D playerRigidBody)
+    {
+
+    }
     virtual public void unequipWeaponExtra()
     {
     }
