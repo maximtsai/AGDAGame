@@ -148,13 +148,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1811052161479142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6abdfd774f988a4d9f598e99bc1b84e, type: 3}
+  m_Script: {fileID: 11500000, guid: 94db11e1f3e667b408e00228f0cd1790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fuelDuration: 3
   exhaustController: {fileID: 114443449397145724}
-  acceleration: 80
-  maxSpeed: 25
+  acceleration: 50
+  maxSpeed: 20
   presetSway: 0
   randomSwayMagnitude: 0.5
 --- !u!114 &114443449397145724
@@ -176,14 +176,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1811052161479142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9cd7ee361f3df4eba1c9456b98b358, type: 3}
+  m_Script: {fileID: 11500000, guid: d14abf980246c274cb7873397f06e451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 1661456239336346, guid: 895f8c1ad6257784eb48cdf011b49dce, type: 2}
-  detonationImpactVelocity: 5
+  detonationImpactVelocity: 3
   detonationDelay: 3
   shrapnel: {fileID: 1150638050748584, guid: 181e0c6ee5667d24f9ab0685007f7dbc, type: 2}
-  numberOfShrapnel: 9
+  numberOfShrapnel: 10
 --- !u!198 &198809045940659136
 ParticleSystem:
   m_ObjectHideFlags: 1

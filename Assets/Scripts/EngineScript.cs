@@ -15,6 +15,7 @@ public class EngineScript : MonoBehaviour
     public float bonusTurnPower = 20; // how much additional turning power at 0 weight
     public float initialTurnMult = 0.4f; // 0-1 starting turning capability as percent of bonusTurnPower
     public float turnAcc = 0.5f; // 0-1, how fast max turning capability reached
+    public float movementTightness = 10;
     public int engineType = 0; // 0 is default engine, 1-99999 reserved for any special engine behavior 
     float warmupTurnMult = 0.1f; // 0 - 1, simulates acceleration on turning
     const float ForwardmovementTurnMult = 0.7f;
@@ -26,7 +27,7 @@ public class EngineScript : MonoBehaviour
 
     // player state variables
     bool goingForward;
-    bool goingBackwards;
+    bool goingBackward;
     bool turningLeft;
     bool turningRight;
     int prevTurnDirection; // 0 for no turn, 1 for turning left, -1 for turning right
@@ -69,9 +70,12 @@ public class EngineScript : MonoBehaviour
                         forward = baseSpd + additionalSpd * Mathf.Max((maxSpeed + 10 - playerBody.velocity.sqrMagnitude) / 10, 0.1f);
                     }
                     // increases control of player
-                    playerBody.AddForce(forward - 4 * playerBody.velocity);
+                    // velocity that is not in direction of forward:
+                    Vector2 scaledForward = forward * (playerBody.velocity.magnitude/ forward.magnitude);
+                    Vector2 asdf = playerBody.velocity - scaledForward;
+                    playerBody.AddForce(forward - movementTightness * asdf);
                 }
-                if (goingBackwards)
+                if (goingBackward)
                 {
                     movementTurnMult = BackwardmovementTurnMult;
                     Vector2 backward = -acceleration * forwardVec * coreMoveSpdMult * weaponMoveSpdMult;
@@ -142,21 +146,31 @@ public class EngineScript : MonoBehaviour
         }
         // slow down player speed by a constant amount for tighter feeling
         float speed = playerBody.velocity.magnitude;
-        if (speed > 0.00001f)
+
+        if (speed > 0.05f)
         {
-            playerBody.AddForce(playerBody.velocity / (-0.175f * speed));
+            if (goingForward || goingBackward)
+            {
+                // constant deceleration while moving
+                playerBody.AddForce(playerBody.velocity / (-0.04f * speed));
+            } else
+            {
+                // more gradual deceleration when stopping
+                playerBody.AddForce(playerBody.velocity / (-0.165f * speed));
+                playerBody.AddForce(playerBody.velocity * -3f);
+            }
         }
     }
     public void setForward(bool goForward)
     {
         goingForward = goForward;
-        //goingBackwards = false;
+        //goingBackward = false;
         // make exhaust react properly
         exhaustController.setForward(goForward);
     }
     public void setBackward(bool goBackward)
     {
-        goingBackwards = goBackward;
+        goingBackward = goBackward;
     }
     public void setTurnLeft(bool isTurningLeft)
     {

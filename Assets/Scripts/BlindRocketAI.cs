@@ -5,8 +5,8 @@ using UnityEngine;
 public class BlindRocketAI : MonoBehaviour {
     public float fuelDuration = 3;
     public ExhaustControl exhaustController; // should reference the particle system simulating engine exhaust
-    public float acceleration = 10;
-    public float maxSpeed = 15;
+    public float acceleration = 30;
+    public float maxSpeed = 20;
     public float presetSway = 0; // positive to sway left, negative to sway right
     public float randomSwayMagnitude = 0.5f;
     float randomSway = 0; // random swaying of rocket
