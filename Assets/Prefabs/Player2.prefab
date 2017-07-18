@@ -738,7 +738,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 2.9519422
+  m_Mass: 2.9519432
   m_LinearDrag: 1
   m_AngularDrag: 50
   m_GravityScale: 0
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   playerBody: {fileID: 50819591938945654}
   exhaustController: {fileID: 114089800191892410}
   acceleration: 200
-  maxSpeed: 15
+  maxSpeed: 14
   baseTurnPower: 135
   bonusTurnPower: 40
   initialTurnMult: 0.3

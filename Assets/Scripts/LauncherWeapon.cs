@@ -36,7 +36,6 @@ public class LauncherWeapon : WeaponScript
     Vector3 ammoPos = new Vector3(0, 0, 0);
 
     Vector3 tempVector = new Vector3(0, 0, 0);
-    bool isActivated = false;
     // public float fireVel = 20;
     public float warmUpDuration = 50;// ticks before weapon fires
     float warmupCounter = 0;
@@ -52,7 +51,6 @@ public class LauncherWeapon : WeaponScript
     Collider2D weaponColliderFarLeft;
     Collider2D weaponColliderFarRight;
     // Use this for initialization
-    Rigidbody2D currentRB;
 
     void Start()
     {
@@ -194,9 +192,9 @@ public class LauncherWeapon : WeaponScript
                 float yOffset;
                 GameObject newAmmo = Instantiate(ammo);
                 tempNoCollision ammoNoClipScript = newAmmo.GetComponent<tempNoCollision>();
-                newAmmo.GetComponent<Rigidbody2D>().velocity = currentRB.velocity + aimDir * 5; // initial rocket velocity
-                currentRB.AddForce(aimDir * -0.1f, ForceMode2D.Impulse); // recoil
-                currentRB.MovePosition(currentRB.position + aimDir * -0.1f); // recoil
+                newAmmo.GetComponent<Rigidbody2D>().velocity = wielderRB.velocity + aimDir * 5; // initial rocket velocity
+                wielderRB.AddForce(aimDir * -0.1f, ForceMode2D.Impulse); // recoil
+                wielderRB.MovePosition(wielderRB.position + aimDir * -0.1f); // recoil
 
                 switch (currentCannonFiring)
                 {
@@ -226,7 +224,7 @@ public class LauncherWeapon : WeaponScript
                             ammoNoClipScript.SetNoCollision(weaponColliderLeft);
                         }
                         currentCannonFiring = 2;
-                        currentRB.AddTorque(400); // recoil
+                        wielderRB.AddTorque(400); // recoil
                         break;
                     case 2:
                         // withdraw left rocket tip
@@ -250,7 +248,7 @@ public class LauncherWeapon : WeaponScript
                             ammoNoClipScript.SetNoCollision(weaponColliderRight);
                         }
                         currentCannonFiring = 3;
-                        currentRB.AddTorque(-400); // recoil
+                        wielderRB.AddTorque(-400); // recoil
                         break;
                     case 3:
                         tempVector = farLeftLauncherTipOrigPos;
@@ -273,7 +271,7 @@ public class LauncherWeapon : WeaponScript
                             ammoNoClipScript.SetNoCollision(weaponColliderLeft);
                         }
                         currentCannonFiring = 4;
-                        currentRB.AddTorque(600); // recoil
+                        wielderRB.AddTorque(600); // recoil
                         break;
                     case 4:
                         tempVector = farRightLauncherTipOrigPos;
@@ -296,7 +294,7 @@ public class LauncherWeapon : WeaponScript
                             ammoNoClipScript.SetNoCollision(weaponColliderRight);
                         }
                         currentCannonFiring = 1;
-                        currentRB.AddTorque(-600); // recoil
+                        wielderRB.AddTorque(-600); // recoil
                         break;
                 }
             }
@@ -384,7 +382,7 @@ public class LauncherWeapon : WeaponScript
     public override void activateWeapon(Rigidbody2D playerRigidBody)
     {
         // What happens when the fire button is pressed
-        currentRB = playerRigidBody;
+        wielderRB = playerRigidBody;
         isActivated = true;
     }
     public override void deactivateWeapon()
@@ -394,12 +392,12 @@ public class LauncherWeapon : WeaponScript
     }
     public override void equipWeaponExtra(Rigidbody2D playerRigidBody)
     {
-        currentRB = playerRigidBody;
+        wielderRB = playerRigidBody;
     }
     public override void unequipWeaponExtra()
     {
         deactivateWeapon();
-        currentRB = GetComponent<Rigidbody2D>();
+        wielderRB = GetComponent<Rigidbody2D>();
         engScript = null;
     }
     void fireWeapon()

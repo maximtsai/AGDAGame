@@ -70,10 +70,9 @@ public class EngineScript : MonoBehaviour
                         forward = baseSpd + additionalSpd * Mathf.Max((maxSpeed + 10 - playerBody.velocity.sqrMagnitude) / 10, 0.1f);
                     }
                     // increases control of player
-                    // velocity that is not in direction of forward:
                     Vector2 scaledForward = forward * (playerBody.velocity.magnitude/ forward.magnitude);
-                    Vector2 asdf = playerBody.velocity - scaledForward;
-                    playerBody.AddForce(forward - movementTightness * asdf);
+                    Vector2 directionOfFloating = playerBody.velocity - scaledForward;
+                    playerBody.AddForce(forward - movementTightness * directionOfFloating);
                 }
                 if (goingBackward)
                 {

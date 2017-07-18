@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour {
     // Use this for initialization
-    Rigidbody2D rbComponent;
     GameObject listOfWeapons;
     internal EngineScript engScript; // Internal means object can be used by subclasses, not just read
+    internal Rigidbody2D wielderRB;
+    internal bool isActivated = false;
+    internal Rigidbody2D rbComponent;
     public float weaponOffset = 1;
     public float moveMultiplier = 1;
     public float turnMultiplier = 1;
     Vector3 weaponPos;
+
     void Start () {
         listOfWeapons = GameObject.Find("ListOfWeapons");
         rbComponent = this.GetComponent<Rigidbody2D>();
@@ -43,9 +46,10 @@ public class WeaponScript : MonoBehaviour {
     }
     virtual public void equipWeaponExtra(Rigidbody2D playerRigidBody)
     {
-
+        wielderRB = playerRigidBody;
     }
     virtual public void unequipWeaponExtra()
     {
+        wielderRB = null;
     }
 }

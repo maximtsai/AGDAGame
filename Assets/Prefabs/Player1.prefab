@@ -1472,7 +1472,7 @@ MonoBehaviour:
   playerBody: {fileID: 50113672358175890}
   exhaustController: {fileID: 114459818253645626}
   acceleration: 200
-  maxSpeed: 15
+  maxSpeed: 14
   baseTurnPower: 135
   bonusTurnPower: 40
   initialTurnMult: 0.3

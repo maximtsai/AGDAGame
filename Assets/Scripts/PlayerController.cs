@@ -164,4 +164,13 @@ public class PlayerController : MonoBehaviour {
     {
         return forwardPressed;
     }
+
+    public float getRotation()
+    {
+        if (this.gameObject.transform.eulerAngles.z > 360 || this.gameObject.transform.eulerAngles.z < 0)
+        {
+            Debug.Log("EXCEED ROTATION PLAYERCONTROLLER: "+this.gameObject.transform.eulerAngles.z);
+        }
+        return this.gameObject.transform.eulerAngles.z;
+    }
 }

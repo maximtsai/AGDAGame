@@ -14,7 +14,6 @@ public class CannonWeapon : WeaponScript
     public int fireDelay = 30;
     float currFireDelay = 0;
     Vector3 ammoPos = new Vector3(0, 0, 0);
-    bool isActivated = false;
     public float fireVel = 20;
     public float warmupDuration = 25;// ticks before weapon fires
     float warmupCounter = 0;
@@ -23,7 +22,6 @@ public class CannonWeapon : WeaponScript
     Vector2 aimDir;
     Collider2D weaponCollider;
     // Use this for initialization
-    Rigidbody2D currentRB;
     float chargeSparkTimeAccum = 0;
     void Start () {
         remainingAmmo = clipSize;
@@ -85,7 +83,6 @@ public class CannonWeapon : WeaponScript
     public override void activateWeapon(Rigidbody2D playerRigidBody)
     {
         // What happens when the fire button is pressed
-        currentRB = playerRigidBody;
         isActivated = true;
     }
     public override void deactivateWeapon()
@@ -95,12 +92,12 @@ public class CannonWeapon : WeaponScript
     }
     public override void equipWeaponExtra(Rigidbody2D playerRigidBody)
     {
-        currentRB = playerRigidBody;
+        wielderRB = playerRigidBody;
     }
     public override void unequipWeaponExtra()
     {
         deactivateWeapon();
-        currentRB = GetComponent<Rigidbody2D>();
+        wielderRB = GetComponent<Rigidbody2D>();
         engScript = null;
     }
     void fireWeapon()
@@ -124,10 +121,10 @@ public class CannonWeapon : WeaponScript
         {
             ammoNoClipScript.SetNoCollision(weaponCollider);
         }
-        if (currentRB)
+        if (wielderRB)
         {
-            newAmmo.GetComponent<Rigidbody2D>().velocity = currentRB.velocity + aimDir * fireVel;
-            currentRB.AddForce(aimDir * -fireVel, ForceMode2D.Impulse);//.velocity = currentRB.velocity + (new Vector2(facingDirX, facingDirY) * -fireVel * 0.1f);
+            newAmmo.GetComponent<Rigidbody2D>().velocity = wielderRB.velocity + aimDir * fireVel;
+            wielderRB.AddForce(aimDir * -fireVel, ForceMode2D.Impulse);//.velocity = wielderRB.velocity + (new Vector2(facingDirX, facingDirY) * -fireVel * 0.1f);
         }
     }
 

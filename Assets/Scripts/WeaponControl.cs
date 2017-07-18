@@ -170,6 +170,7 @@ public class WeaponControl : MonoBehaviour {
             needToRealignWeapon = false;
             WeaponScript ws = weaponTransform.gameObject.GetComponent<WeaponScript>();
             //SpriteRenderer sprite = weaponTransform.gameObject.GetComponent<SpriteRenderer>();
+            //ws.weaponOffset * weaponTransform.gameObject.transform.localScale.y + this.transform.localScale.y * 0.5f
             weaponTransform.localPosition = new Vector3(0, ws.weaponOffset * weaponTransform.gameObject.transform.localScale.y + this.transform.localScale.y * 0.5f, 0);
             weaponTransform.localEulerAngles = new Vector3(0, 0, 0);
         }

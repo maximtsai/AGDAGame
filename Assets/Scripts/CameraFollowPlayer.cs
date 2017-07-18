@@ -69,8 +69,8 @@ public class CameraFollowPlayer : MonoBehaviour {
                     cameraMovReduction = 0.4f;
                 }
                 // add a bit of random sway to the camera to keep things from staying too still
-                randCamVelX += (Random.value - 0.5f) * (player1Vel.magnitude + 0.01f) * 0.08f;
-                randCamVelY += (Random.value - 0.5f) * (player1Vel.magnitude + 0.01f) * 0.05f;
+                randCamVelX += (Random.value - 0.5f) * (player1Vel.magnitude + 0.002f) * 0.08f;
+                randCamVelY += (Random.value - 0.5f) * (player1Vel.magnitude + 0.002f) * 0.05f;
                 randCamOffsetX += randCamVelX;// (Random.value - 0.5f) * player1Vel.magnitude;
                 randCamOffsetY += randCamVelY;// (Random.value - 0.5f) * player1Vel.magnitude;
                 randCamVelX *= 0.978f;
