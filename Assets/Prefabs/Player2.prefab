@@ -495,7 +495,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1723916240629132}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: -1}
+  m_LocalPosition: {x: 2.79, y: -8.89, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4397217546103642}
@@ -738,7 +738,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 2.9519432
+  m_Mass: 2.9519427
   m_LinearDrag: 1
   m_AngularDrag: 50
   m_GravityScale: 0
@@ -1428,8 +1428,8 @@ MonoBehaviour:
   playerBody: {fileID: 50819591938945654}
   exhaustController: {fileID: 114089800191892410}
   acceleration: 200
-  maxSpeed: 14
-  baseTurnPower: 135
+  maxSpeed: 12.5
+  baseTurnPower: 130
   bonusTurnPower: 40
   initialTurnMult: 0.3
   turnAcc: 0.5
@@ -1811,7 +1811,7 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       minMaxState: 0
-      scalar: 0.25
+      scalar: 0.22
       maxCurve:
         serializedVersion: 2
         m_Curve:

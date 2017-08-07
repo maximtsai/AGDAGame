@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public class TimeResume : MonoBehaviour {
     public GameObject pauseText;
+    public Camera mainCam;
+    Color camBGColor;
+    Color camBGOrigColor;
     float initialDeltaTime = 0;
-    int slowMoCooldown = 250;
+    int slowMoCooldown = 200;
     int slowMoHoldDuration = 0;
     bool isPaused = false;
     bool readyToReset = false;
@@ -17,6 +20,8 @@ public class TimeResume : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         initialDeltaTime = Time.fixedDeltaTime;
+        camBGColor = mainCam.backgroundColor;
+        camBGOrigColor = mainCam.backgroundColor;
     }
 
     // Update is called once per frame
@@ -29,7 +34,6 @@ public class TimeResume : MonoBehaviour {
             {
                 Time.timeScale = 0;
                 pauseText.SetActive(true);
-                Debug.Log("pausenow");
             }
             else
             {
@@ -37,7 +41,7 @@ public class TimeResume : MonoBehaviour {
                 {
                     // undo reset procedures
                     readyToReset = false;
-                    pauseText.GetComponent<Text>().text = "PAUSE";
+                    pauseText.GetComponent<Text>().text = "PAUSED\nP TO RESUME\nR TO RESTART";
                 }
                 Time.timeScale = 0.9f;
                 pauseText.SetActive(false);
@@ -56,7 +60,7 @@ public class TimeResume : MonoBehaviour {
                 }
                 else
                 {
-                    pauseText.GetComponent<Text>().text = "PRESS R AGAIN TO RESET";
+                    pauseText.GetComponent<Text>().text = "CONFIRM RESTART? (R)";
                     readyToReset = true;
                 }
             }
@@ -75,13 +79,9 @@ public class TimeResume : MonoBehaviour {
             {
                 float timeReduction = (1 - Time.timeScale);
                 slowMoHoldDuration = (int)(timeReduction * timeReduction * 60);
-                if (slowMoHoldDuration < 40)
+                if (slowMoHoldDuration > 40)
                 {
-                    // slowmo not enough to be useful
-                    slowMoHoldDuration = Mathf.Min(slowMoHoldDuration, 5);
-                } else
-                {
-                    slowMoCooldown = slowMoHoldDuration * 7; // no long slowmos for awhile
+                    slowMoCooldown = slowMoHoldDuration * 6; // no long slowmos for awhile
                 }
             }
         }
@@ -112,6 +112,7 @@ public class TimeResume : MonoBehaviour {
                 }
             }
             Time.fixedDeltaTime = initialDeltaTime * Time.timeScale;
+            mainCam.backgroundColor = camBGOrigColor * (Mathf.Sqrt(Time.timeScale)*0.4f + 0.6f);
         }
         // regenerate slowmo
         if (Time.timeScale > 0.99f)

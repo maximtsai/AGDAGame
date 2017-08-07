@@ -5,6 +5,7 @@ using UnityEngine;
 public class JointBreakScript : MonoBehaviour {
     public float initializedBreakForce = 60;
     public float breakRate = 0.1f;
+    float tempArmor = 0;
     SpringJoint2D jointObj;
     bool isActivated = false;
 	// Use this for initialization
@@ -17,10 +18,13 @@ public class JointBreakScript : MonoBehaviour {
 		if (jointObj && isActivated)
         {
             float reactionForce = jointObj.reactionForce.magnitude;
-            if (reactionForce > 85)
+            float minBreakForce = 85 + tempArmor;
+            tempArmor = Mathf.Max(0, tempArmor - 1f);
+            if (reactionForce > minBreakForce)
             {
                 // minimal force required to break;
-                jointObj.breakForce -= (reactionForce - 85) * breakRate;
+                tempArmor = Mathf.Max(tempArmor, (reactionForce - minBreakForce) * breakRate * 15);
+                jointObj.breakForce -= (reactionForce - minBreakForce) * breakRate;
             }
         } else if (!jointObj)
         {
@@ -31,7 +35,7 @@ public class JointBreakScript : MonoBehaviour {
                 RB.velocity = RB.velocity * 50 / RB.velocity.magnitude;
             }
             GetComponent<SparkSystem>().createSpark(new Vector2(this.transform.position.x, this.transform.position.y), 15);
-
+            this.transform.parent.gameObject.AddComponent<DisappearAfterTime>();
             Destroy(this);
         }
 	}

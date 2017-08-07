@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKey(equipWeapButton))
         {
+            // about to pick up weapon
             if (!equipPressed)
             {
                 equipPressed = true;
@@ -139,6 +140,7 @@ public class PlayerController : MonoBehaviour {
             }
         } else if (equipPressed)
         {
+            // no longer pressing equip weapon button 
             equipPressed = false;
             weaponControlScript.releaseEquipKey();
         }

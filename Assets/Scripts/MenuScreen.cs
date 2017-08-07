@@ -8,12 +8,15 @@ public class MenuScreen : MonoBehaviour {
     public GameObject player2;
     public GameObject menuStart;
     public GameObject menuSound;
+    public GameObject menuSoundNon;
     public GameObject menuMusic;
+    public GameObject menuMusicNon;
     public GameObject menuCredits;
     public GameObject menuHelp;
     public GameObject menu2P;
 
     public GameObject cameraObj;
+    CameraFollowPlayer cameraScript;
 
     public GameObject breakChainBot;
     public GameObject breakChainLeft;
@@ -33,6 +36,14 @@ public class MenuScreen : MonoBehaviour {
     GameObject menuOptions;
     List<GameObject> listOfShrinking = new List<GameObject>(); // non prim types are pointers, null
     bool disappearing = false;
+    bool hasSound = true;
+    bool hasMusic = true;
+    bool lookingAtCredits = false;
+
+    Sprite menuSoundSprite;
+    Sprite menuSoundNonSprite;
+    Sprite menuMusicSprite;
+    Sprite menuMusicNonSprite;
     // Use this for initialization
     void Start () {
         startSize = menuStart.transform.localScale.x;
@@ -45,6 +56,13 @@ public class MenuScreen : MonoBehaviour {
         listOfShrinking.Add(menuCredits);
         listOfShrinking.Add(menuHelp);
         listOfShrinking.Add(menu2P);
+        menuSoundSprite = menuSound.GetComponent<SpriteRenderer>().sprite;
+        menuSoundNonSprite = menuSoundNon.GetComponent<SpriteRenderer>().sprite;
+        menuMusicSprite = menuMusic.GetComponent<SpriteRenderer>().sprite;
+        menuMusicNonSprite = menuMusicNon.GetComponent<SpriteRenderer>().sprite;
+
+        cameraScript = cameraObj.GetComponent<CameraFollowPlayer>();
+
         P1Control = player1.GetComponent<PlayerController>();
     }
 
@@ -69,12 +87,16 @@ public class MenuScreen : MonoBehaviour {
                     breakChainLeft.GetComponent<JointBreakScript>().enableJointBreak();
                     breakChainRight.GetComponent<JointBreakScript>().enableJointBreak();
 
-                    cameraObj.GetComponent<CameraFollowPlayer>().defaultCameraSize = 8;
+                    cameraScript.defaultCameraSize = 7f;
+
                     Destroy(this.gameObject);
                 }
             }
 
             return;
+        } else if (lookingAtCredits)
+        {
+            cameraScript.forceChangeCameraPos(0, -15, 6);
         }
 
         if (player1.transform.eulerAngles.z < 0)
@@ -110,6 +132,16 @@ public class MenuScreen : MonoBehaviour {
                 tempMenuObj = menuSound;
                 if (justPressedForward)
                 {
+                    // flip between sound and hasSound states
+                    hasSound = !hasSound;
+                    if (hasSound)
+                    {
+                        menuSound.GetComponent<SpriteRenderer>().sprite = menuSoundSprite;
+                    }
+                    else
+                    {
+                        menuSound.GetComponent<SpriteRenderer>().sprite = menuSoundNonSprite;
+                    }
 
                 }
                 break;
@@ -117,14 +149,27 @@ public class MenuScreen : MonoBehaviour {
                 tempMenuObj = menuMusic;
                 if (justPressedForward)
                 {
-
+                    // flip between sound and hasSound states
+                    hasMusic = !hasMusic;
+                    if (hasMusic)
+                    {
+                        menuMusic.GetComponent<SpriteRenderer>().sprite = menuMusicSprite;
+                    }
+                    else
+                    {
+                        menuMusic.GetComponent<SpriteRenderer>().sprite = menuMusicNonSprite;
+                    }
                 }
                 break;
             case 3:
                 tempMenuObj = menuCredits;
                 if (justPressedForward)
                 {
-
+                    lookingAtCredits = !lookingAtCredits;
+                    if (!lookingAtCredits)
+                    {
+                        cameraScript.defaultCameraSize = 3.6f;
+                    }
                 }
                 break;
             case 4:
@@ -145,18 +190,25 @@ public class MenuScreen : MonoBehaviour {
                 break;
         };
 
+        if (tempMenuObj != menuCredits)
+        {
+            // disable looking at credits if you look away
+            lookingAtCredits = false;
+            cameraScript.defaultCameraSize = 3.6f;
+        }
+
         if (justPressedForward)
         {
             // pressed buttons are emphasized
-            tempColor.r = 0.5f;
-            tempColor.g = 0.7f;
+            tempColor.r = 0.4f;
+            tempColor.g = 0.65f;
             tempColor.b = 0.9f;
             tempColor.a = 1f;
             tempMenuObj.GetComponent<SpriteRenderer>().color = tempColor;
             tempMenuObj.transform.GetChild(0).GetChild(0).GetComponent<Text>().color = tempColor;
 
             // make slight pop in size upon selection
-            tempVec.x = maxSize;
+            tempVec.x = maxSize+0.05f;
             tempVec.y = tempVec.x;
             tempMenuObj.transform.localScale = tempVec;
             prevIsForwardPressed = true;
@@ -182,8 +234,8 @@ public class MenuScreen : MonoBehaviour {
             {
                 tempColor = SRTemp.color;
                 tempColor.b += 0.0001f + tempColor.b * 0.004f;
-                tempColor.g = 1 - (1 - tempColor.b) * 3;
-                tempColor.r = 1 - (1 - tempColor.b) * 5;
+                tempColor.g = 1 - (1 - tempColor.b) * 3.5f;
+                tempColor.r = 1 - (1 - tempColor.b) * 6;
                 SRTemp.color = tempColor;
                 tempMenuObj.transform.GetChild(0).GetChild(0).GetComponent<Text>().color = tempColor;
             }

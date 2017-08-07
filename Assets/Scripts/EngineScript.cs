@@ -44,6 +44,7 @@ public class EngineScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // a few handle cases in case movement multiplier exceeds 1 (indicating some kind of temporary speed boost)
         if (coreMoveSpdMult > 1)
         {
             coreMoveSpdMult = Mathf.Max(1, coreMoveSpdMult - 0.05f);

@@ -16,7 +16,7 @@ public class ExhaustControl : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if (forwardPressed)
         {
             forwardPressedDuration += Time.deltaTime;
@@ -24,8 +24,9 @@ public class ExhaustControl : MonoBehaviour {
         }
         if (exhaustParticleSystem.startSize != origExhaustSize && forwardPressedDuration > 0.1f)
         {
-            exhaustParticleSystem.startSize = origExhaustSize;
-            exhaustParticleSystem.startSpeed = origExhaustSpeed;
+            float randAdd = Random.Range(-0.12f, 0.12f);
+            exhaustParticleSystem.startSize = origExhaustSize + randAdd;
+            exhaustParticleSystem.startSpeed = origExhaustSpeed + randAdd*6;
         }
     }
 
